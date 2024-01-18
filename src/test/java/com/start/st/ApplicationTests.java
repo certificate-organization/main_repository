@@ -11,30 +11,33 @@ class ApplicationTests {
 
     @Autowired
     ArticleService articleService;
-    MbtiService mbtiService;
+
 
     @Test
     void contextLoads() {
         articleService.create("제목입니다", "내용입니다");
     }
 
+    @Autowired
+    MbtiService mbtiService;
+
     @Test
-    void registerMbti() {
-        mbtiService.create("ISTJ");
-        mbtiService.create("ISTP");
-        mbtiService.create("ISFJ");
-        mbtiService.create("ISFP");
-        mbtiService.create("INTJ");
-        mbtiService.create("INTP");
-        mbtiService.create("INFJ");
-        mbtiService.create("INFP");
-        mbtiService.create("ESTJ");
-        mbtiService.create("ESTP");
-        mbtiService.create("ESFJ");
-        mbtiService.create("ESFP");
-        mbtiService.create("ENTJ");
-        mbtiService.create("ENTP");
-        mbtiService.create("ENFJ");
-        mbtiService.create("ENFP");
+    void registerMbti() { //mbti등록 ID
+        mbtiService.create("ISTJ"); //1
+        mbtiService.create("ISTP"); //2
+        mbtiService.create("ISFJ"); //3
+        mbtiService.create("ISFP"); //4
+        mbtiService.create("INTJ"); //5
+        mbtiService.create("INTP"); //6
+        mbtiService.create("INFJ"); //7
+        mbtiService.create("INFP"); //8
+        mbtiService.create("ESTJ"); //9
+        mbtiService.create("ESTP"); //10
+        mbtiService.create("ESFJ"); //11
+        mbtiService.create("ESFP"); //12
+        mbtiService.create("ENTJ"); //13
+        mbtiService.create("ENTP"); //14
+        mbtiService.create("ENFJ"); //15
+        mbtiService.create("ENFP"); //16
     }
 }
