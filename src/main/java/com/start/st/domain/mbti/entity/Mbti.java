@@ -20,8 +20,7 @@ import java.util.List;
 public class Mbti extends BaseEntity {
     @Column(length = 100, unique = true)
     private String name;
-    @OneToOne
-    @JoinColumn(name = "info_id")
+    @OneToOne(mappedBy = "mbti") //정보는 mbti에 의존적
     private MbtiInfo mbtiInfo;
     @OneToMany(mappedBy = "mbti", cascade = CascadeType.REMOVE)
     private List<Movie> movieList;

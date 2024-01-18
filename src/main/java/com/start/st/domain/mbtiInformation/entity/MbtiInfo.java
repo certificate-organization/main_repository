@@ -4,6 +4,7 @@ import com.start.st.domain.mbti.entity.Mbti;
 import com.start.st.global.jpa.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,6 +19,7 @@ import lombok.experimental.SuperBuilder;
 public class MbtiInfo extends BaseEntity {
     @Column(unique = true, columnDefinition = "TEXT")
     private String content;
-    @OneToOne(mappedBy = "mbtiInfo")
+    @OneToOne
+    @JoinColumn(name = "mbti_id") //정보는 mbti에 의존적
     private Mbti mbti;
 }
