@@ -1,4 +1,4 @@
-package com.start.st.domain.music;
+package com.start.st.domain.movie;
 
 import com.start.st.domain.mbti.entity.Mbti;
 import com.start.st.global.jpa.BaseEntity;
@@ -15,7 +15,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class music extends BaseEntity {
+public class Movie extends BaseEntity {
     @Column(length = 200)
     private String name;
     @ManyToOne
