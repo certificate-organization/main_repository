@@ -1,4 +1,4 @@
-package com.start.st.domain.music;
+package com.start.st.domain.music.entity;
 
 import com.start.st.domain.mbti.entity.Mbti;
 import com.start.st.global.jpa.BaseEntity;

@@ -16,7 +16,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MbtiInfo extends BaseEntity {
+public class MbtiInformation extends BaseEntity {
     @Column(unique = true, columnDefinition = "TEXT")
     private String content;
     @OneToOne

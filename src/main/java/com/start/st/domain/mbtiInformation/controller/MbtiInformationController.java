@@ -6,6 +6,6 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 @RequiredArgsConstructor
-public class MbtiInfoController {
+public class MbtiInformationController {
     private final MbtiInfoService mbtiInfoService;
 }
