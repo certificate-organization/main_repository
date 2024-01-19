@@ -33,7 +33,7 @@ public class MemberController {
             return "signup_form";
         }
         this.memberService.create(memberSignupForm.getMembername(), memberSignupForm.getPassword1(),
-                memberSignupForm.getNickname(), memberSignupForm.getEmail(), memberSignupForm.getMbtiId());
+                memberSignupForm.getNickname(), memberSignupForm.getEmail(), memberSignupForm.getMbti());
         return "redirect:/member/login";
     }
     @GetMapping("/member/login")
