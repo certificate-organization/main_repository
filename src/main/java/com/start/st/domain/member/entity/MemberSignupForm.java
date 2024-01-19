@@ -1,5 +1,6 @@
 package com.start.st.domain.member.entity;
 
+import com.start.st.domain.mbti.entity.Mbti;
 import jakarta.persistence.GeneratedValue;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -30,6 +31,6 @@ public class MemberSignupForm {
     private String email;
 
     @NotEmpty(message = "MBTI 유형을 선택해주세요.")
-    private int mbtiId;
+    private Mbti mbti;
 
 }
