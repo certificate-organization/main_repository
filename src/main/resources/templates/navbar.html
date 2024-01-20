@@ -1,0 +1,10 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-3">
+    <nav th:fragment="navbarFragment">
+        <a href="/">로고</a>
+        <a th:href="@{/member/login}">로그인</a>
+        <a th:href="@{/member/logout}">로그아웃</a>
+        <a th:href="@{/member/signup}">회원가입</a>
+    </nav>
+</div>
+</html>
