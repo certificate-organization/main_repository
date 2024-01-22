@@ -1,5 +1,6 @@
 package com.start.st.domain.mbti.entity;
 
+import com.start.st.domain.article.entity.Article;
 import com.start.st.domain.mbtiInformation.entity.MbtiInformation;
 import com.start.st.domain.member.entity.Member;
 import com.start.st.domain.movie.entity.Movie;
@@ -29,4 +30,6 @@ public class Mbti extends BaseEntity {
     private List<Music> musicList;
     @OneToMany(mappedBy = "mbti")
     private List<Member> memberList;
+    @OneToMany(mappedBy = "mbti")
+    private List<Article> articleList;
 }

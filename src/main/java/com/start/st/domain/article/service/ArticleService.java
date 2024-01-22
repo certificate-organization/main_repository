@@ -5,6 +5,8 @@ import com.start.st.domain.article.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ArticleService {
@@ -15,8 +17,10 @@ public class ArticleService {
                 .subject(subject)
                 .content(content)
                 .build();
-
         this.articleRepository.save(article);
+    }
 
+    public List<Article> findAll() {
+        return this.articleRepository.findAll();
     }
 }
