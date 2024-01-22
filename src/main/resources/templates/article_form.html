@@ -1,0 +1,14 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-3">
+    <form th:action="@{|/mbti/${mbti.id}/article/create|}" method="post">
+        <!--        <div th:replace="~{form_errors :: formErrorsFragment}"></div>-->
+        제목
+        <input type="text" name="subject">
+        <br>
+        내용
+        <textarea type="password" name="content"></textarea>
+        <br>
+        <button type="submit">등록</button>
+    </form>
+</div>
+</html>

@@ -2,14 +2,14 @@
 <div layout:fragment="content" class="container my-3">
 
     <!--        mbti리스트 출력-->
-    <div class="text-center text-wrap" style="width: 100%">
+    <div class="text-center text-wrap">
         <tr >
-            <td th:each="mbti, loop : ${mbtiList}" th:if="${loop.count >= 0 and loop.count <= 8}">
-                <a th:href="@{|/mbti/${loop.count}|}" th:text="${mbti.name}"></a>
+            <td th:each="mbti : ${mbtiList}" th:if="${mbti.id > 0 and mbti.id < 9}">
+                <a th:href="@{|/mbti/${mbti.id}|}" th:text="${mbti.name}"></a>
             </td>
             <br>
-            <td th:each="mbti, loop : ${mbtiList}"  th:if="${loop.count >= 9 and loop.count <= 16}">
-                <a th:href="@{|/mbti/${loop.count}|}" th:text="${mbti.name}"></a>
+            <td th:each="mbti : ${mbtiList}" th:if="${mbti.id >= 9 and mbti.id <= 16}">
+                <a th:href="@{|/mbti/${mbti.id}|}" th:text="${mbti.name}"></a>
             </td>
         </tr>
     </div>

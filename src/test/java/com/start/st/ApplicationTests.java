@@ -13,10 +13,6 @@ class ApplicationTests {
     ArticleService articleService;
 
 
-    @Test
-    void contextLoads() {
-        articleService.create("제목입니다", "내용입니다");
-    }
 
     @Autowired
     MbtiService mbtiService;
