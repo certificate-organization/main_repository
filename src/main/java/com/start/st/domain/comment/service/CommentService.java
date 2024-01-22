@@ -15,11 +15,10 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
 
-    public void create(Article article,String subject,String content){
+    public void create(Article article,String content){
         Comment comment = Comment.builder()
-                .subject(subject)
-                .content(content)
                 .article(article)
+                .content(content)
                 .createDate(LocalDateTime.now())
                 .build();
 
