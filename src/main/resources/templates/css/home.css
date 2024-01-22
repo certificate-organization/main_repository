@@ -1,0 +1,12 @@
+/* home.css */
+.container {
+    display: flex;
+}
+
+.left-box {
+    flex: 1;
+}
+
+.right-box {
+    width: 300px;
+}

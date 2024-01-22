@@ -1,15 +1,18 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" class="container my-3">
     <nav th:fragment="navbarFragment">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #e3f2fd;">
+        <nav class="navbar navbar-expand-lg shadow-sm p-3 mb-5 bg-body-tertiary rounded">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/">MBTI로고</a>
+                <a class="navbar-brand" href="/">
+                    <img src="https://i.ibb.co/5rFLzvQ/image.jpg" alt="Logo" width="50" height="50" class="d-inline-block align-text-center">
+                    MBTI
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 x">
+                        <li class="nav-item" >
                             <a class="nav-link active" aria-current="page" th:href="@{/member/login}">로그인</a>
                         </li>
                         <li class="nav-item">
@@ -29,14 +32,11 @@
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/member/signup}">회원가입</a>
                         </li>
+
                     </ul>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
                 </div>
             </div>
         </nav>
-        </nav>
+    </nav>
 </div>
 </html>
