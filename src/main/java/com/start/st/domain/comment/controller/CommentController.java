@@ -29,7 +29,7 @@ public class CommentController {
     private final ArticleService articleService;
 
     @PostMapping("/create/{id}")
-    public String commentCreate(Model model,@PathVariable(value = "id")long id,
+    public String commentCreate(Model model,@PathVariable(value = "id")Long id,
                                 @Valid CommentForm commentForm, BindingResult bindingResult){
         Article article = this.articleService.getArticle(id);
 
@@ -43,7 +43,7 @@ public class CommentController {
     }
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")
-    public String commentModify(@PathVariable("id")long id, CommentForm commentForm, Principal principal){
+    public String commentModify(@PathVariable("id")Long id, CommentForm commentForm, Principal principal){
 
         Comment comment = this.commentService.getcomment(id);
         if (!comment.getAuthor().getMembername().equals(principal.getName())){
@@ -59,12 +59,6 @@ public class CommentController {
         this.commentService.modify(comment,commentForm.getContent());
         return "redirect:/article/detail/"+id;
     }
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/delete")
-    public String commentDelete(){
 
-
-
-    }
 
 }
