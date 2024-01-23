@@ -28,7 +28,6 @@ public class ArticleController {
     public String create(@PathVariable("id") Long id, Model model, @RequestParam("subject") String subject, @RequestParam("content") String content) {
         Mbti mbti = this.mbtiService.getMbti(id);
         articleService.create(subject, content, mbti);
-
         return String.format("redirect:/mbti/%s",id);
     }
 }
