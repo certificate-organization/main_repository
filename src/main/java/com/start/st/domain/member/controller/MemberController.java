@@ -31,7 +31,7 @@ public class MemberController {
     }
 
     @PostMapping("/member/signup")
-    public String memberSignup(@Valid MemberSignupForm memberSignupForm, BindingResult bindingResult, @RequestParam(value = "mbti") String id, Model model) {
+    public String memberSignup(@Valid MemberSignupForm memberSignupForm, BindingResult bindingResult, Model model) {
         List<Mbti> mbtiList = this.mbtiService.findAllMbti();
         if (bindingResult.hasErrors()) {
             model.addAttribute("mbtiList", mbtiList);
@@ -43,7 +43,7 @@ public class MemberController {
                     "비밀번호와 비밀번호 재확인이 일치하지 않습니다.");
             return "signup_form";
         }
-        Mbti mbti = this.mbtiService.getMbti(Long.valueOf(id));
+        Mbti mbti = this.mbtiService.getMbti(memberSignupForm.getMbtiId());
         this.memberService.create(memberSignupForm.getMembername(), memberSignupForm.getPassword1(),
                 memberSignupForm.getNickname(), memberSignupForm.getEmail(), mbti);
         return "redirect:/member/login";
