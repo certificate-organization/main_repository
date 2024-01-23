@@ -5,6 +5,9 @@ import com.start.st.domain.mbti.repository.MbtiRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class MbtiService {
@@ -15,5 +18,19 @@ public class MbtiService {
                 .name(name)
                 .build();
         this.mbtiRepository.save(mbti);
+    }
+
+
+    public List<Mbti> findAllMbti() {
+        return this.mbtiRepository.findAll();
+    }
+
+
+    public Mbti getMbti(Long id) {
+        Optional<Mbti> mbti = this.mbtiRepository.findById(id);
+        if (mbti.isEmpty()) {
+            return null;
+        }
+        return mbti.get();
     }
 }
