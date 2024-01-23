@@ -1,0 +1,32 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-3">
+    <div class="col-6">
+        <a th:href="@{|/mbti/${mbti.id}/article/create|}" class="btn btn-primary btn-sm">등록</a>
+    </div>
+    <h1 class="display-3" th:text="|${mbti.name} 게시판|"></h1>
+    <hr class="my-2">
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">번호</th>
+            <th scope="col">제목</th>
+<!--            <th scope="col">작성자</th>-->
+            <th scope="col">작성일</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="article, loop : ${mbti.articleList}" >
+            <th th:text="${loop.count}"></th>
+            <td th:text="${article.subject}"></td>
+<!--            <td th:text="${article.author}"></td>-->
+<!--            <th:block th:with="timeDifference=${#temporals.until(#temporals.createNow(), article.createDate).toSeconds()}">-->
+<!--                <td th:if="${timeDifference < 60}" th:text="${timeDifference + '초 전'}"></td>-->
+<!--            </th:block>-->
+            <td th:text="${#temporals.format(article.createDate, 'yyyy-MM-dd HH:MM')}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</html>

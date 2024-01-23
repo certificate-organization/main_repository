@@ -1,5 +1,6 @@
 package com.start.st.domain.mbti.entity;
 
+import com.start.st.domain.article.entity.Article;
 import com.start.st.domain.mbtiInformation.entity.MbtiInformation;
 import com.start.st.domain.member.entity.Member;
 import com.start.st.domain.movie.entity.Movie;
@@ -9,6 +10,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
@@ -18,6 +20,7 @@ import java.util.List;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Mbti extends BaseEntity {
     @Column(length = 100, unique = true)
     private String name;
@@ -29,4 +32,6 @@ public class Mbti extends BaseEntity {
     private List<Music> musicList;
     @OneToMany(mappedBy = "mbti")
     private List<Member> memberList;
+    @OneToMany(mappedBy = "mbti")
+    private List<Article> articleList;
 }
