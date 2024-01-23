@@ -24,18 +24,21 @@ public class MemberController {
     private final MbtiService mbtiService;
 
     @GetMapping("/member/signup")
-    public String memberSignup(Model model) {
+    public String memberSignup(Model model, MemberSignupForm memberSignupForm) {
         List<Mbti> mbtiList = this.mbtiService.findAllMbti();
         model.addAttribute("mbtiList", mbtiList);
         return "signup_form";
     }
 
     @PostMapping("/member/signup")
-    public String memberSignup(@Valid MemberSignupForm memberSignupForm, BindingResult bindingResult, @RequestParam(value = "mbti") String id) {
+    public String memberSignup(@Valid MemberSignupForm memberSignupForm, BindingResult bindingResult, @RequestParam(value = "mbti") String id, Model model) {
+        List<Mbti> mbtiList = this.mbtiService.findAllMbti();
         if (bindingResult.hasErrors()) {
+            model.addAttribute("mbtiList", mbtiList);
             return "signup_form";
         }
         if (!memberSignupForm.getPassword1().equals(memberSignupForm.getPassword2())) {
+            model.addAttribute("mbtiList", mbtiList);
             bindingResult.rejectValue("password2", "passwordInCorrect",
                     "비밀번호와 비밀번호 재확인이 일치하지 않습니다.");
             return "signup_form";
