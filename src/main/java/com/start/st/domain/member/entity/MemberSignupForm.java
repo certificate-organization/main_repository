@@ -4,6 +4,7 @@ import com.start.st.domain.mbti.entity.Mbti;
 import jakarta.persistence.GeneratedValue;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,7 +31,6 @@ public class MemberSignupForm {
     @Email(message = "올바른 이메일 형식이 아닙니다.")
     private String email;
 
-    @NotEmpty(message = "MBTI 유형을 선택해주세요.")
-    private Mbti mbti;
-
+    @Null(message = "MBTI를 선택해주세요.")
+    private Long mbtiId;
 }
