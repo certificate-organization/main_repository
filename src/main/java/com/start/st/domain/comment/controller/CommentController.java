@@ -59,5 +59,12 @@ public class CommentController {
         this.commentService.modify(comment,commentForm.getContent());
         return "redirect:/article/detail/"+id;
     }
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/delete")
+    public String commentDelete(){
+
+
+
+    }
 
 }
