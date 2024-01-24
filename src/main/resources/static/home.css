@@ -1,0 +1,158 @@
+/*-----------mbit 리스트 메뉴 css start --------------*/
+.menu li {
+  list-style: none;
+  display: inline-block;
+}
+.menu a {
+  font-size: 17pt;
+  font-weight: 400;
+  padding: 15px 25px;
+  position: relative;
+  display: block;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+*, *:after, *:before {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+a:hover, a:focus {
+  outline: none;
+}
+
+.link a {
+  transition: 0.35s;
+}
+
+.link a:hover {
+  color: #fff;
+  transition: 0.35s;
+}
+
+.link a:before, .link a:after {
+  content: "";
+  width: 100%;
+  border-bottom: 4px solid #0d83cc;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  opacity: 1;
+  transform: scale(1, 1);
+  transform-origin: right center 0;
+}
+
+.link a:after {
+  opacity: 0;
+  transform: scale(0, 1);
+  transform-origin: left center 0;
+}
+
+.link a:hover:before {
+  opacity: 0;
+  transform: scale(0, 1);
+  transition: opacity 0.2s ease-in-out 0.2s, transform 0.2s ease-in-out 0s;
+}
+
+.link a:hover:after {
+  opacity: 1;
+  transform: scale(1, 1);
+  transition: transform 0.2s ease-in-out 0.25s;
+}
+/*-----------mbit 리스트 메뉴 css end --------------*/
+body {
+   margin: 0;
+   padding: 0;
+   font-family: 'Jura', sans-serif;  /*Jura 폰트 피그마와 동일하게 적용하였음 */
+   font-size: 2rem;
+   font-weight: 700;
+   justify-content: center;
+   align-items: center;
+   height:100%
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 100px;
+    bottom-padding: 100px;
+}
+header {
+    padding: 30px 0;
+}
+
+main {
+    padding: 20px 0 50px;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+.logo img {
+    width: 400px;
+    height:auto;
+    margin-right: 20px;
+}
+
+.search-form {
+    flex-grow: 1;
+    max-width: 400px;
+    display: flex;
+}
+
+/*test*/
+div.left-line {
+    border: 3px solid red;
+    box-sizing: border-box;
+}
+div.right-line {
+    border: 3px solid orange;
+    box-sizing: border-box;
+}
+
+div.chat {
+    border: 2px; solid green;
+    width: 50%;
+}
+div.top {
+    border: 3px solid orange;
+    height: 500px;
+    float:left
+    box-sizing: border-box;
+    text-align: center;
+}
+
+div.bottom {
+    border: 3px solid orange;
+    float:right
+    box-sizing: border-box;
+    text-align: center;
+
+}
+.test {
+    border: 3px solid black;
+}
+
+.bottom > .movie {
+    border: 3px solid red;
+    width:50%;
+    height:500px;
+    float : left;
+    text-align: cent;
+    box-sizing: border-box;
+}
+.bottom > .music {
+   border: 3px solid blue;
+   width:50%;
+   height:500px;
+   float: right;
+   text-align : center;
+   box-sizing: border-box;
+}
+
+
+
