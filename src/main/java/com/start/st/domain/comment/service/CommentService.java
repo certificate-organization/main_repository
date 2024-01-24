@@ -4,6 +4,7 @@ package com.start.st.domain.comment.service;
 import com.start.st.domain.article.entity.Article;
 import com.start.st.domain.comment.Repository.CommentRepository;
 import com.start.st.domain.comment.entity.Comment;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -37,5 +38,9 @@ public class CommentService {
                 .build();
         this.commentRepository.save(modifyComment);
     }
+    public  void  delete(Comment comment){
+        this.commentRepository.delete(comment);
+    }
+
 
 }

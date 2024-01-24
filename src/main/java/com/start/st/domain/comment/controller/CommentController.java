@@ -9,6 +9,7 @@ import com.start.st.domain.comment.service.CommentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -43,7 +44,7 @@ public class CommentController {
     }
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")
-    public String commentModify(@PathVariable("id")Long id, CommentForm commentForm, Principal principal){
+    public String commentModify(@PathVariable("id")Long id, Principal principal){
 
         Comment comment = this.commentService.getcomment(id);
         if (!comment.getAuthor().getMembername().equals(principal.getName())){
@@ -53,12 +54,25 @@ public class CommentController {
     }
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/modify/{id}")
-    public String commentModify(@PathVariable(value = "id")long id,
-                                @Valid CommentForm commentForm, BindingResult bindingResult){
+    public String commentModify(@PathVariable(value = "id")Long id,
+                                @Valid CommentForm commentForm){
         Comment comment = this.commentService.getcomment(id);
         this.commentService.modify(comment,commentForm.getContent());
         return "redirect:/article/detail/"+id;
     }
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/delete/{id}")
+    public String commentDelete(@PathVariable("id")Long id,Principal principal){
+        Comment comment = this.commentService.getcomment(id);
+        if (!comment.getAuthor().getMembername().equals(principal.getName())) {
+            return "article_detail";
+        }
+        this.commentService.delete(comment);
+
+        return "article_detail";
+
+    }
+
 
 
 }
