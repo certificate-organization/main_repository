@@ -25,11 +25,11 @@ import java.util.Set;
 public class Mbti extends BaseEntity {
     @Column(length = 100, unique = true)
     private String name;
-    @OneToOne(mappedBy = "mbtiInformation_id")
+    @OneToOne
     private MbtiInformation mbtiInformation;
-    @ManyToMany(mappedBy = "movie_id")
+    @ManyToMany
     private Set<Movie> movieList;
-    @ManyToMany(mappedBy = "music_id")
+    @ManyToMany
     private Set<Music> musicList;
 
 }
