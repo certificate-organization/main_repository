@@ -18,6 +18,14 @@
                         <h5 class="card-title" th:text="${article.subject}"></h5>
                         <p class="card-text" th:text="${article.content}"></p>
                         <a href="#" class="btn btn-primary">추천</a>
+                        <a th:href="@{|/article/${article.id}/modify|}"
+                           class="btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
+                           th:if="${article.author != null and #authentication.getPrincipal().getUsername() == article.author.membername}"
+                           th:text="수정"></a>
+                        <a th:href="@{|/article/${article.id}/delete|}"
+                           class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
+                           th:if="${article.author != null and #authentication.getPrincipal().getUsername() == article.author.membername}"
+                           th:text="삭제"></a>
                     </div>
                 </div>
             </td>

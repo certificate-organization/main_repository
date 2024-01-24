@@ -15,15 +15,6 @@ import java.util.Optional;
 public class ArticleService {
     private final ArticleRepository articleRepository;
 
-    public void create(String subject, String content, Mbti mbti, Member author){
-        Article article = Article.builder()
-                .subject(subject)
-                .content(content)
-                .mbti(mbti)
-                .author(author)
-                .build();
-        this.articleRepository.save(article);
-    }
     public List<Article> findAll() {
         return this.articleRepository.findAll();
     }
@@ -35,4 +26,27 @@ public class ArticleService {
         }
         return article.get();
     }
+
+    public void create(String subject, String content, Mbti mbti, Member author){
+        Article article = Article.builder()
+                .subject(subject)
+                .content(content)
+                .mbti(mbti)
+                .author(author)
+                .build();
+        this.articleRepository.save(article);
+    }
+
+    public void modify(Article article, String subject, String content) {
+        Article modifyArticle = article.toBuilder()
+                .subject(subject)
+                .content(content)
+                .build();
+        this.articleRepository.save(modifyArticle);
+    }
+
+    public void delete(Article article) {
+        this.articleRepository.delete(article);
+    }
+
 }

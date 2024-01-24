@@ -3,7 +3,7 @@
     <div class="col-6">
         <a sec:authorize="isAuthenticated()"
            th:if="${member.mbti.id == mbti.id}"
-           th:href="@{|/mbti/${mbti.id}/article/create|}" class="btn btn-primary btn-sm">등록</a>
+           th:href="@{|/mbti/${mbti.id}/article/create|}" class="btn btn-primary">등록</a>
     </div>
     <h1 class="display-3" th:text="|${mbti.name} 게시판|"></h1>
     <hr class="my-2">
