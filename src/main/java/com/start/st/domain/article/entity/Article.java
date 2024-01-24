@@ -22,5 +22,5 @@ public class Article extends BaseEntity {
     @ManyToOne
     private Mbti mbti;
     @ManyToOne
-    private Member member;
+    private Member author;
 }

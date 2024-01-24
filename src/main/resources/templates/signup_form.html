@@ -20,7 +20,7 @@
             <br>
             MBTI
             <select name="mbtiId" id="mbtiId" >
-                <option value="17">== 선택 ==</option>
+                <option value="0">== 선택 ==</option>
                 <option th:each="mbti : ${mbtiList}" th:value="${mbti.id}" th:text="${mbti.name}"></option>
             </select>
 
