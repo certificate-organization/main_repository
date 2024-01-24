@@ -1,0 +1,28 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-3">
+    <table style="table-layout:fixed; word-wrap:break-word;clear:both;" >
+        <tbody>
+        <tr>
+            <td>
+                <div class="card" style="width: 1200px;">
+                    <div class="card-header">
+                        <div class="fw-normal">
+                            <span th:text="${article.author.membername}"></span>
+                        </div>
+                        <div class="fw-normal">
+                            <span th:text="${#temporals.format(article.createDate, 'yyyy-MM-dd HH:mm')}"></span>
+                        </div>
+                        <div class="fw-normal">조회:  추천:</div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${article.subject}"></h5>
+                        <p class="card-text" th:text="${article.content}"></p>
+                        <a href="#" class="btn btn-primary">추천</a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</html>
