@@ -1,4 +1,67 @@
-/*-----------mbit 리스트 메뉴 css start --------------*/
+/*---------------------- 다크모드 (임시) start ----------------------------*/
+  .dark_mode {
+
+  }
+
+  .dark_mode input[type="checkbox"] {
+    visibility: hidden;
+    display: none;
+  }
+
+  .dark_mode *,
+  .dark_mode ::after,
+  .dark_mode ::before {
+    box-sizing: border-box;
+  }
+
+  .dark_mode .switch {
+    --width-of-switch: 3.5em;
+    --height-of-switch: 2em;
+    --size-of-icon: 1.4em;
+    --slider-offset: 0.3em;
+    position: relative;
+    width: var(--width-of-switch);
+    height: var(--height-of-switch);
+    display: inline-block;
+  }
+
+  .dark_mode .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #f4f4f5;
+    transition: .4s;
+    border-radius: 30px;
+  }
+
+  .dark_mode .slider:before {
+    position: absolute;
+    content: "";
+    height: var(--size-of-icon,1.4em);
+    width: var(--size-of-icon,1.4em);
+    border-radius: 20px;
+    left: var(--slider-offset,0.3em);
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(40deg,#ff0080,#ff8c00 70%);
+    ;
+   transition: .4s;
+  }
+
+  .dark_mode input:checked + .slider {
+    background-color: #303136;
+  }
+
+  .dark_mode input:checked + .slider:before {
+    left: calc(100% - (var(--size-of-icon,1.4em) + var(--slider-offset,0.3em)));
+    background: #303136;
+    box-shadow: inset -3px -2px 5px -2px #8983f7, inset -10px -4px 0 0 #a3dafb;
+  }
+/*---------------------- 다크모드 (임시) end ----------------------------*/
+/*---------------------- mbit 리스트 메뉴 css start ----------------------*/
 .menu li {
   list-style: none;
   display: inline-block;
@@ -6,6 +69,7 @@
 .menu a {
   font-size: 17pt;
   font-weight: 400;
+  width: 95px;
   padding: 15px 25px;
   position: relative;
   display: block;
@@ -60,7 +124,9 @@ a:hover, a:focus {
   transform: scale(1, 1);
   transition: transform 0.2s ease-in-out 0.25s;
 }
-/*-----------mbit 리스트 메뉴 css end --------------*/
+/*---------------------- mbit 리스트 메뉴 css end ----------------------*/
+
+
 body {
    margin: 0;
    padding: 0;
@@ -88,6 +154,18 @@ main {
     align-items: center;
 }
 
+footer {
+    border: 3px solid green;
+    display: flex;
+    flex-direction : colum;
+    }
+
+.header > .dark_mode {
+    border: 2px solid black;
+}
+
+
+/* 로고 , 검색폼  start*/
 .logo {
     display: flex;
     align-items: center;
@@ -103,49 +181,32 @@ main {
     max-width: 400px;
     display: flex;
 }
+/*---------------------- 로고 , 검색폼 end ---------------------- */
+/* left ---------------------- 섹션 ---------------------- start */
+div.left-container {
+    border: 3px solid orange;
+    width:70%;
+    text-align: center;
+}
 
-/*test*/
-div.left-line {
+.left-container > .hot_topic {
     border: 3px solid red;
-    box-sizing: border-box;
-}
-div.right-line {
-    border: 3px solid orange;
-    box-sizing: border-box;
-}
-
-div.chat {
-    border: 2px; solid green;
-    width: 50%;
-}
-div.top {
-    border: 3px solid orange;
     height: 500px;
-    float:left
-    box-sizing: border-box;
-    text-align: center;
 }
 
-div.bottom {
-    border: 3px solid orange;
-    float:right
-    box-sizing: border-box;
-    text-align: center;
-
-}
-.test {
-    border: 3px solid black;
+.left-container > .mm {
+    display:flex;
 }
 
-.bottom > .movie {
+.mm > .movie {
     border: 3px solid red;
     width:50%;
     height:500px;
     float : left;
-    text-align: cent;
+    text-align: center;
     box-sizing: border-box;
 }
-.bottom > .music {
+.mm > .music {
    border: 3px solid blue;
    width:50%;
    height:500px;
@@ -153,6 +214,38 @@ div.bottom {
    text-align : center;
    box-sizing: border-box;
 }
+/*---------------------- left 섹션 end ----------------------*/
+/*----------------------right 섹션 start ----------------------*/
+div.right-container {
+    border: 3px solid blue;
+    width:30%;
+}
 
+.right-container > .login {
+    border: 3px solid black;
+    border-radius: 17px 17px 17px 17px;
+    height: 30%;
+    padding: 0 20px;
+}
+.login > .login_button {
+    border: 1px solid #47BBEC;
+    background-color: #47BBEC;
+    border-radius: 17px 17px 17px 17px;
+    justify-content: center;
+    align-item: center;
+}
+
+.right-container > .mbti_link {
+    border: 3px solid #47BBEC;
+    background-color: #47BBEC;
+    border-radius: 17px 17px 17px 17px;
+    height: 10%;
+}
+.right-container > .chat {
+    border: 3px solid #47BBEC;
+    border-radius: 17px 17px 17px 17px;
+    height: 60%;
+}
+/* ----------------------right 섹션 end---------------------- */
 
 
