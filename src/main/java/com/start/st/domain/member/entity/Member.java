@@ -2,10 +2,7 @@ package com.start.st.domain.member.entity;
 
 import com.start.st.domain.mbti.entity.Mbti;
 import com.start.st.global.jpa.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

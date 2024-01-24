@@ -17,9 +17,6 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MbtiInformation extends BaseEntity {
-    @Column(unique = true, columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT")
     private String content;
-    @OneToOne
-    @JoinColumn(name = "mbti_id") //정보는 mbti에 의존적
-    private Mbti mbti;
 }
