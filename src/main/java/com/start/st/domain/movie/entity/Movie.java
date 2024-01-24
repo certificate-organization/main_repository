@@ -18,6 +18,4 @@ import lombok.experimental.SuperBuilder;
 public class Movie extends BaseEntity {
     @Column(length = 200)
     private String name;
-    @ManyToOne
-    private Mbti mbti;
 }

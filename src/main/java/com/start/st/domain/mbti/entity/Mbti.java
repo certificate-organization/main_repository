@@ -14,6 +14,7 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -24,14 +25,11 @@ import java.util.List;
 public class Mbti extends BaseEntity {
     @Column(length = 100, unique = true)
     private String name;
-    @OneToOne(mappedBy = "mbti") //정보는 mbti에 의존적
+    @OneToOne
     private MbtiInformation mbtiInformation;
-    @OneToMany(mappedBy = "mbti", cascade = CascadeType.REMOVE)
-    private List<Movie> movieList;
-    @OneToMany(mappedBy = "mbti", cascade = CascadeType.REMOVE)
-    private List<Music> musicList;
-    @OneToMany(mappedBy = "mbti")
-    private List<Member> memberList;
-    @OneToMany(mappedBy = "mbti")
-    private List<Article> articleList;
+    @ManyToMany
+    private Set<Movie> movieList;
+    @ManyToMany
+    private Set<Music> musicList;
+
 }
