@@ -317,22 +317,23 @@ div.left-container {
 }
 
 .mbti_link {
-    background-color: #47BBEC;
-    border-radius: 10px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
-
-.mbti_link a {
-    font-size: 20px;
-    color: #000;
+.mbti_link p {
     text-decoration: none;
-    height: 60px;
-    line-height: 60px;
+    font-size: 12px;
+    color: #969696;
+}
+.mbti_link a {
+    height: 100%;
+    line-height: 100%;
+}
+.mbti_link a img {
+    width: 80%;
+    height: 100%
 }
 
 .right-container > .chat {
