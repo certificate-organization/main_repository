@@ -154,7 +154,7 @@ main {
     padding: 20px 0 50px;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 10px 1px 0 #E2E2E2;
+    box-shadow: 0 3px 0 -10px; #E2E2E2;
 }
 
 footer {
@@ -258,9 +258,9 @@ div.right-container {
 }
 
 .login-container {
-    padding: 15px;
+    padding: 20px;
     border: 2px solid gray;
-    border-radius: 17px;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -282,7 +282,7 @@ div.right-container {
     color: #ffffff;
     text-decoration: none;
     text-align: center;
-    border-radius: 5px;
+    border-radius: 17px;
     transition: background-color 0.3s ease;
 }
 
