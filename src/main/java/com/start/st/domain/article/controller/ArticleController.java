@@ -52,6 +52,7 @@ public class ArticleController {
     @GetMapping("/article/{id}")
     public String detailArticle(@PathVariable("id") Long id, Model model) {
         Article article = this.articleService.getArticle(id);
+        this.articleService.view(article, article.getViewCount());
         model.addAttribute("article", article);
         return "article_detail";
     }
@@ -98,5 +99,14 @@ public class ArticleController {
         }
         this.articleService.delete(article);
         return String.format("redirect:/mbti/%s", member.getMbti().getId());
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/article/{id}/like")
+    public String likeArticle(@PathVariable("id")Long id, Principal principal) {
+        Member member = this.memberService.getMember(principal.getName());
+        Article article = this.articleService.getArticle(id);
+        this.articleService.like(article, member);
+        return String.format("redirect:/article/%s",id);
     }
 }

@@ -1,4 +1,4 @@
-<html layout:decorate="~{layout}">
+<html layout:decorate="~{layout}" xmlns:th="http://www.w3.org/1999/xhtml">
 <div layout:fragment="content" class="container my-3">
     <table style="table-layout:fixed; word-wrap:break-word;clear:both;" >
         <tbody>
@@ -17,7 +17,9 @@
                     <div class="card-body">
                         <h5 class="card-title" th:text="${article.subject}"></h5>
                         <p class="card-text" th:text="${article.content}"></p>
-                        <a href="#" class="btn btn-primary">추천</a>
+                        <a th:href="@{|/article/${article.id}/like|}" class="btn btn-sm btn-outline-secondary">추천
+                            <span class="badge rounded-pill bg-success" th:text="${#lists.size(article.likers)}"></span>
+                        </a>
                         <a th:href="@{|/article/${article.id}/modify|}"
                            class="btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
                            th:if="${article.author != null and #authentication.getPrincipal().getUsername() == article.author.membername}"
