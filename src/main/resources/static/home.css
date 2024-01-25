@@ -1,3 +1,34 @@
+/*----------------- 다크모드 (시스템모드 ) start*------------------*/
+@media (prefers-color-scheme: light) {
+    html, body {
+    background: #fff;
+    color: #000;
+   }
+   .link a {
+    color: #000;
+   }
+   .black-logo {
+     display:none;
+   }
+   .bg_black {
+     fill: #fff;
+   }
+}
+
+@media (prefers-color-scheme: dark) {
+    html, body {
+    background: #000;
+    color: #fff;
+   }
+   .link a {
+       color: #fff;
+      }
+   .light-logo {
+        display:none;
+      }
+ }
+
+/*----------------- 다크모드 (시스템모드 ) end*------------------*/
 /*---------------------- 다크모드 (임시) start ----------------------------*/
 .dark_mode {
     position: absolute;
@@ -88,7 +119,6 @@ a:hover, a:focus {
 }
 
 .link a {
-    color: #000;
     transition: 0.35s;
 }
 
@@ -127,7 +157,6 @@ a:hover, a:focus {
     transition: transform 0.2s ease-in-out 0.25s;
 }
 /*---------------------- mbit 리스트 메뉴 css end ----------------------*/
-
 html, body {
     height: 100%;
     margin: 0;
@@ -317,10 +346,13 @@ div.left-container {
 }
 
 .mbti_link {
-    margin-top: 50px;
-    margin-bottom: 50px;
+    border: 2px solid gray;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 5px;
 }
 .mbti_link p {
     text-decoration: none;

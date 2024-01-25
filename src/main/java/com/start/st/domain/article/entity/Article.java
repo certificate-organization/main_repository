@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.mapping.ToOne;
 
 import java.util.Set;
 
@@ -23,7 +24,7 @@ public class Article extends BaseEntity {
     private String content;
     @ManyToOne
     private Member author;
-    @OneToOne
+    @ManyToOne
     private Mbti mbti;
     @OneToMany
     private Set<Member> likers;
