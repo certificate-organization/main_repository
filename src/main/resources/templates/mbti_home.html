@@ -8,21 +8,33 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- 추가적인 CSS 파일 -->
     <link th:href="@{/home.css}" rel="stylesheet">
-
+    <!-- 폰트어썸 이미지 사용위한 kits -->
+    <script src="https://kit.fontawesome.com/26ee6f51e2.js" crossorigin="anonymous"></script>
     <title>MBTI</title>
 </head>
 <body>
 <div class="container">
     <header>
-        <div class="d-flex align-items-center">
+        <div class="dark_mode">
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="TOP">
             <div class="logo">
                 <a class="navbar-brand" href="/">
                     <img src="https://i.ibb.co/0Fq1jtF/logo.jpg" alt="logo" class="d-inline-block align-text-top">
                 </a>
             </div>
-            <form class="d-flex search-form" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            </form>
+            <div class="search-box">
+                <div class="search-box-inner">
+                    <input class="search-txt" type="text" placeholder="검색어를 입력하세요.">
+                    <button class="search-btn" type="submit">
+                        <i class="fa fa-search fa-magnifying-glass"></i>
+                    </button>
+                </div>
+            </div>
         </div>
     </header>
     <main>
@@ -45,11 +57,46 @@
         </div>
     </main>
     <footer>
-        <div>
-            <div class="top">핫 게시글</div>
-            <div class="bottom">
-                <div class="movie">추천 영화</div>
-                <div class="music">추천 음악</div>
+        <div class="left-container">
+            <div class="hot_topic">인기 게시글</div>
+            <div class="mm">
+                <div class="movie">영화 추천</div>
+                <div class="music">음악 추천</div>
+            </div>
+        </div>
+        <div class="right-container">
+            <div class="login-container">
+                <div class="login">
+                    <a class="login_button" aria-current="page" href="/member/login">로그인</a>
+                </div>
+                <div class="links">
+                    <div class="lock">
+                        <a href="#">
+                            <i class="fa-solid fa-lock"></i>
+                            아이디/비밀번호 찾기
+                        </a>
+                    </div>
+                    <div class="signup">
+                        <a th:href="@{/member/signup}">
+                            <i class="fa-solid fa-user"></i>
+                            회원 가입
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mbti_link">
+                <p>MBTI검사 바로가기</p>
+                <a href="https://www.16personalities.com/ko/%EB%AC%B4%EB%A3%8C-%EC%84%B1%EA%B2%A9-%EC%9C%A0%ED%98%95-%EA%B2%80%EC%82%AC" target="_blank"><img src="https://i.ibb.co/3By74Kf/image.png" alt="MBTI"></a>
+            </div>
+            <div class="chat">채팅방(예정)
+                <div class="chat-box">
+                    <div class="chat-box-inner">
+                        <input class="chat-txt" type="text" placeholder="채팅 내용을 입력하세요.">
+                        <button class="chat-btn" type="submit">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </footer>

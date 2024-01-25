@@ -1,66 +1,139 @@
-/*-----------mbit 리스트 메뉴 css start --------------*/
+/*---------------------- 다크모드 (임시) start ----------------------------*/
+.dark_mode {
+    position: absolute;
+    top: 30px;
+    right: 10%;
+}
+
+.dark_mode input[type="checkbox"] {
+    visibility: hidden;
+    display: none;
+}
+
+.dark_mode *,
+.dark_mode ::after,
+.dark_mode ::before {
+    box-sizing: border-box;
+}
+
+.dark_mode .switch {
+    --width-of-switch: 2em;
+    --height-of-switch: 1em;
+    --size-of-icon: 0.8em;
+    --slider-offset: 0.2em;
+    position: relative;
+    width: var(--width-of-switch);
+    height: var(--height-of-switch);
+    display: inline-block;
+}
+
+.dark_mode .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #f4f4f5;
+    transition: .4s;
+    border-radius: 30px;
+}
+
+.dark_mode .slider:before {
+    position: absolute;
+    content: "";
+    height: var(--size-of-icon,1.4em);
+    width: var(--size-of-icon,1.4em);
+    border-radius: 20px;
+    left: var(--slider-offset,0.3em);
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(40deg,#ff0080,#ff8c00 70%);
+    transition: .4s;
+}
+
+.dark_mode input:checked + .slider {
+    background-color: #303136;
+}
+
+.dark_mode input:checked + .slider:before {
+    left: calc(100% - (var(--size-of-icon,1.4em) + var(--slider-offset,0.3em)));
+    background: #303136;
+    box-shadow: inset -3px -2px 5px -2px #8983f7, inset -10px -4px 0 0 #a3dafb;
+}
+/*---------------------- 다크모드 (임시) end ----------------------------*/
+/*---------------------- mbit 리스트 메뉴 css start ----------------------*/
 .menu li {
-  list-style: none;
-  display: inline-block;
+    list-style: none;
+    display: inline-block;
 }
 .menu a {
-  font-size: 17pt;
-  font-weight: 400;
-  padding: 15px 25px;
-  position: relative;
-  display: block;
-  text-decoration: none;
-  text-transform: uppercase;
+    font-size: 17pt;
+    font-weight: 400;
+    width: 95px;
+    padding: 15px 25px;
+    position: relative;
+    display: block;
+    text-decoration: none;
+    text-transform: uppercase;
 }
 
 *, *:after, *:before {
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 a:hover, a:focus {
-  outline: none;
+    outline: none;
 }
 
 .link a {
-  transition: 0.35s;
+    color: #000;
+    transition: 0.35s;
 }
 
 .link a:hover {
-  color: #fff;
-  transition: 0.35s;
+    color:#47BBEC;
+    transition: 0.35s;
 }
 
 .link a:before, .link a:after {
-  content: "";
-  width: 100%;
-  border-bottom: 4px solid #0d83cc;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  opacity: 1;
-  transform: scale(1, 1);
-  transform-origin: right center 0;
+    content: "";
+    width: 100%;
+    border-bottom: 4px solid  #47BBEC;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    opacity: 1;
+    transform: scale(1, 1);
+    transform-origin: right center 0;
 }
 
 .link a:after {
-  opacity: 0;
-  transform: scale(0, 1);
-  transform-origin: left center 0;
+    opacity: 0;
+    transform: scale(0, 1);
+    transform-origin: left center 0;
 }
 
 .link a:hover:before {
-  opacity: 0;
-  transform: scale(0, 1);
-  transition: opacity 0.2s ease-in-out 0.2s, transform 0.2s ease-in-out 0s;
+    opacity: 0;
+    transform: scale(0, 1);
+    transition: opacity 0.2s ease-in-out 0.2s, transform 0.2s ease-in-out 0s;
 }
 
 .link a:hover:after {
-  opacity: 1;
-  transform: scale(1, 1);
-  transition: transform 0.2s ease-in-out 0.25s;
+    opacity: 1;
+    transform: scale(1, 1);
+    transition: transform 0.2s ease-in-out 0.25s;
 }
-/*-----------mbit 리스트 메뉴 css end --------------*/
+/*---------------------- mbit 리스트 메뉴 css end ----------------------*/
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 body {
    margin: 0;
    padding: 0;
@@ -77,6 +150,7 @@ body {
     margin: 0 auto;
     padding: 0 100px;
     bottom-padding: 100px;
+    height: 100vh;
 }
 header {
     padding: 30px 0;
@@ -86,73 +160,238 @@ main {
     padding: 20px 0 50px;
     justify-content: center;
     align-items: center;
+    box-shadow: 0 3px 0 -10px #E2E2E2;
 }
 
-.logo {
+footer {
+    margin-top: 20px;
+    display: flex;
+    flex-direction : colum;
+    }
+
+.header > .dark_mode {
+    border: 2px solid black;
+}
+
+
+/*-------------------- 로고 , 검색폼  start ------------------*/
+.TOP {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 10px;
+}
+
+.logo img {
+    max-width: 80%;
+    height: auto;
+}
+
+.search-box {
+    border: 2px solid #47BBEC;
+    border-radius: 45px;
+    overflow: hidden;
+    width: 100%;
+    height: 50px;
+}
+
+.search-txt {
+    flex-grow: 1;
+    padding: 10px;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 16px;
+    border-radius: 25px;
+    color: #000;
+    margin-left: 15px;
+}
+
+.search-btn {
+    background: #fff;
+    color: #47BBEC;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 0 25px 25px 0;
+}
+
+.fa-magnifying-glass {
+    font-size: 20px;
+    margin-right: 10px;
+    padding-bottom: 20px;
+}
+.search-box-inner {
     display: flex;
     align-items: center;
+    width: 100%;
+    height: 100%;
 }
-.logo img {
-    width: 400px;
-    height:auto;
-    margin-right: 20px;
-}
-
-.search-form {
-    flex-grow: 1;
-    max-width: 400px;
-    display: flex;
+/*---------------------- 로고 , 검색폼 end ---------------------- */
+/*---------------------- left 섹션 ---------------------- start */
+div.left-container {
+     width:70%;
+     text-align: center;
 }
 
-/*test*/
-div.left-line {
-    border: 3px solid red;
-    box-sizing: border-box;
-}
-div.right-line {
-    border: 3px solid orange;
-    box-sizing: border-box;
+.left-container > .hot_topic {
+     height: 500px;
 }
 
-div.chat {
-    border: 2px; solid green;
-    width: 50%;
-}
-div.top {
-    border: 3px solid orange;
-    height: 500px;
-    float:left
-    box-sizing: border-box;
-    text-align: center;
+.left-container > .mm {
+     display:flex;
 }
 
-div.bottom {
-    border: 3px solid orange;
-    float:right
-    box-sizing: border-box;
-    text-align: center;
-
+.mm > .movie {
+     width:50%;
+     height:500px;
+     float : left;
+     text-align: center;
+     box-sizing: border-box;
 }
-.test {
-    border: 3px solid black;
-}
-
-.bottom > .movie {
-    border: 3px solid red;
+.mm > .music {
     width:50%;
     height:500px;
-    float : left;
-    text-align: cent;
+    float: right;
+    text-align : center;
     box-sizing: border-box;
 }
-.bottom > .music {
-   border: 3px solid blue;
-   width:50%;
-   height:500px;
-   float: right;
-   text-align : center;
-   box-sizing: border-box;
+/*---------------------- left 섹션 end ----------------------*/
+/*----------------------right 섹션 start ----------------------*/
+.right-container {
+    width: 30%;
+    height: 35%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    flex: 1;
 }
 
+.login-container {
+    padding: 20px;
+    border: 2px solid gray;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    min-height: 30%;
+}
+
+.login {
+    margin-bottom: 20px;
+    width: 90%;
+}
+
+.login_button {
+    display: inline-block;
+    width: 100%;
+    padding: 20px 20px;
+    background-color: #47BBEC;
+    color: #ffffff;
+    text-decoration: none;
+    text-align: center;
+    font-size: 25px;
+    border-radius: 17px;
+    transition: background-color 0.3s ease;
+}
+
+.links {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.links a {
+    text-decoration: none;
+    font-size: 12px;
+    color: #969696;
+}
+
+.links a:hover {
+    color: #47BBEC;
+}
+
+.fa-lock, .fa-user {
+    font-size: 20px;
+}
+
+.mbti_link {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+}
+.mbti_link p {
+    text-decoration: none;
+    font-size: 12px;
+    color: #969696;
+}
+.mbti_link a {
+    height: 100%;
+    line-height: 100%;
+}
+.mbti_link a img {
+    width: 80%;
+    height: 100%
+}
+
+.right-container > .chat {
+    border: 2px solid #47BBEC;
+    border-radius: 10px;
+    height: 400px;
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.chat-box {
+    border: 2px solid #47BBEC;
+    border-radius: 45px;
+    overflow: hidden;
+    width: 100%;
+    height: 50px;
+    margin-top: auto;
+    margin-bottom: 10px;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+.chat-box-inner {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.chat-txt {
+    flex-grow: 1;
+    padding: 10px;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 16px;
+    border-radius: 25px;
+    color: #000;
+    margin-left: 15px;
+}
+
+.chat-btn {
+    background: #fff;
+    color: #47BBEC;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 0 25px 25px 0;
+    margin-right: 10px;
+}
+
+.fa-paper-plane {
+    font-size: 20px;
+    padding-bottom: 10px;
+}
+/* ----------------------right 섹션 end---------------------- */
 
 
