@@ -277,7 +277,7 @@ div.right-container {
 .login_button {
     display: inline-block;
     width:100%;
-    padding: 10px 20px;
+    padding: 20px 20px;
     background-color: #47BBEC;
     color: #ffffff;
     text-decoration: none;
@@ -300,6 +300,14 @@ div.right-container {
 
 .links a:hover {
     color: #47BBEC;
+}
+
+.fa-lock {
+  font-size: 20px;
+}
+
+.fa-user {
+  font-size: 20px;
 }
 /* ----------------------right 섹션 end---------------------- */
 
