@@ -54,6 +54,7 @@ public class ArticleService {
                 .content(content)
                 .mbti(mbti)
                 .author(author)
+                .viewCount(0L)
                 .build();
         this.articleRepository.save(article);
     }
@@ -63,6 +64,7 @@ public class ArticleService {
                 .subject(subject)
                 .content(content)
                 .build();
+
         this.articleRepository.save(modifyArticle);
     }
 

@@ -27,6 +27,5 @@ public class Article extends BaseEntity {
     private Mbti mbti;
     @OneToMany
     private Set<Member> likers;
-    @Column(columnDefinition = "long default 0")
     private Long viewCount;
 }
