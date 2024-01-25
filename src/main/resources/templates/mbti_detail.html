@@ -1,7 +1,9 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" class="container my-3">
     <div class="col-6">
-        <a th:href="@{|/mbti/${mbti.id}/article/create|}" class="btn btn-primary btn-sm">등록</a>
+        <a sec:authorize="isAuthenticated()"
+           th:if="${member.mbti.id == mbti.id}"
+           th:href="@{|/mbti/${mbti.id}/article/create|}" class="btn btn-primary">등록</a>
     </div>
     <h1 class="display-3" th:text="|${mbti.name} 게시판|"></h1>
     <hr class="my-2">
@@ -11,22 +13,46 @@
         <tr>
             <th scope="col">번호</th>
             <th scope="col">제목</th>
-<!--            <th scope="col">작성자</th>-->
+            <th scope="col">작성자</th>
             <th scope="col">작성일</th>
+            <th scope="col">조회수</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="article, loop : ${mbti.articleList}" >
+        <tr th:each="article, loop : ${articlePage}">
             <th th:text="${loop.count}"></th>
-            <td th:text="${article.subject}"></td>
-<!--            <td th:text="${article.author}"></td>-->
-<!--            <th:block th:with="timeDifference=${#temporals.until(#temporals.createNow(), article.createDate).toSeconds()}">-->
-<!--                <td th:if="${timeDifference < 60}" th:text="${timeDifference + '초 전'}"></td>-->
-<!--            </th:block>-->
+            <td>
+                <a th:href="@{|/article/${article.id}|}" th:text="${article.subject}"></a>
+            </td>
+            <td th:text="${article.author.membername}"></td>
+            <!--            <th:block th:with="timeDifference=${#temporals.until(#temporals.createNow(), article.createDate).toSeconds()}">-->
+            <!--                <td th:if="${timeDifference < 60}" th:text="${timeDifference + '초 전'}"></td>-->
+            <!--            </th:block>-->
             <td th:text="${#temporals.format(article.createDate, 'yyyy-MM-dd HH:MM')}"></td>
+            <td th:text="${article.viewCount}"></td>
         </tr>
         </tbody>
     </table>
+
+    <div th:if="${!articlePage.isEmpty()}">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${!articlePage.hasPrevious} ? 'disabled'">
+                <a class="page-link" th:href="@{|?page=${articlePage.number-1}}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item" th:classappend="${page == articlePage.number} ? 'active'"
+                th:if="${page >= articlePage.number-2 and page <= articlePage.number+2}"
+                th:each="page: ${#numbers.sequence(0, articlePage.totalPages-1)}">
+                <a class="page-link" href="@{|?page=${page}}" th:text="${page}"></a>
+            </li>
+            <li class="page-item" th:classappend="${!articlePage.hasNext} ? 'disabled'">
+                <a class="page-link" th:href="@{|?page=${articlePage.number+1}}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </div>
 
 </div>
 </html>
