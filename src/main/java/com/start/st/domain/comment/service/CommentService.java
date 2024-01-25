@@ -4,6 +4,7 @@ package com.start.st.domain.comment.service;
 import com.start.st.domain.article.entity.Article;
 import com.start.st.domain.comment.Repository.CommentRepository;
 import com.start.st.domain.comment.entity.Comment;
+import com.start.st.domain.member.entity.Member;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,10 +18,11 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
 
-    public void create(Article article,String content){
+    public void create(Article article, String content, Member author){
         Comment comment = Comment.builder()
                 .article(article)
                 .content(content)
+                .author(author)
                 .build();
 
         this.commentRepository.save(comment);
