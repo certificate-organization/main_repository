@@ -1,4 +1,4 @@
-package com.start.st.domain.coment.entity;
+package com.start.st.domain.comment.entity;
 
 import com.start.st.domain.member.entity.Member;
 import com.start.st.global.jpa.BaseEntity;

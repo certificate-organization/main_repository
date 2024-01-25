@@ -18,7 +18,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="article, loop : ${mbti.articleList}">
+        <tr th:each="article, loop : ${articleList}">
             <th th:text="${loop.count}"></th>
             <td>
                 <a th:href="@{|/article/${article.id}|}" th:text="${article.subject}"></a>

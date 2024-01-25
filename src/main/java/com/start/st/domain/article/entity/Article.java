@@ -3,10 +3,7 @@ package com.start.st.domain.article.entity;
 import com.start.st.domain.mbti.entity.Mbti;
 import com.start.st.domain.member.entity.Member;
 import com.start.st.global.jpa.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,11 +14,12 @@ import java.util.Set;
 
 @Entity
 @Getter
-@SuperBuilder
+@SuperBuilder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
 public class Article extends BaseEntity {
     private String subject;
+    @Column(columnDefinition = "TEXT")
     private String content;
     @ManyToOne
     private Member author;

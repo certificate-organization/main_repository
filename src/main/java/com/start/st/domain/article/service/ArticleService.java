@@ -27,6 +27,10 @@ public class ArticleService {
         return article.get();
     }
 
+    public List<Article> getArticleByMbti(Long mbtiId) {
+        return this.articleRepository.findByMbtiId(mbtiId);
+    }
+
     public void create(String subject, String content, Mbti mbti, Member author){
         Article article = Article.builder()
                 .subject(subject)

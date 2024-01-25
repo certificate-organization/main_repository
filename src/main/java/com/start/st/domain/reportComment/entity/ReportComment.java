@@ -1,7 +1,6 @@
 package com.start.st.domain.reportComment.entity;
 
-import com.start.st.domain.article.entity.Article;
-import com.start.st.domain.coment.entity.Comment;
+import com.start.st.domain.comment.entity.Comment;
 import com.start.st.domain.member.entity.Member;
 import com.start.st.global.jpa.BaseEntity;
 import jakarta.persistence.Entity;
