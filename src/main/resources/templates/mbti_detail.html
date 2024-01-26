@@ -1,22 +1,14 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" class="container my-3">
     <div class="col-6">
-        <a sec:authorize="isAuthenticated()"
-           th:if="${member != null and member.mbti.id == mbti.id}"
-           th:href="@{|/mbti/${mbti.id}/article/create|}" class="create-btn">등록</a>
+
         <div class="TOP">
             <div class="logo">
                 <a class="article-logo" th:href="@{|/mbti/${mbti.id}|}" th:text="|${mbti.name} 게시판|"></a>
             </div>
-            <form th:action="@{|/mbti/${mbti.id}|}" method="get" class="search-box">
-                <div class="search-box-inner">
-                    <input  class="search-txt" type="text"
-                           name="keyword" th:value="${keyword}" placeholder="검색어를 입력하세요.">
-                    <button class="search-btn" type="submit">
-                        <i class="fa fa-search fa-magnifying-glass"></i>
-                    </button>
-                </div>
-            </form>
+            <a sec:authorize="isAuthenticated()"
+               th:if="${member != null and member.mbti.id == mbti.id}"
+               th:href="@{|/mbti/${mbti.id}/article/create|}" class="create-btn">글쓰기</a>
         </div>
     </div>
     <div class="article-table">
@@ -72,11 +64,22 @@
             </li>
         </ul>
     </div>
+    <div class="article-table">
+        <form th:action="@{|/mbti/${mbti.id}|}" method="get" class="search-box">
+            <div class="search-box-inner">
+                <input class="search-txt" type="text"
+                       name="keyword" th:value="${keyword}" placeholder="검색어를 입력하세요.">
+                <button class="search-btn" type="submit">
+                    <i class="fa fa-search fa-magnifying-glass"></i>
+                </button>
+            </div>
+        </form>
+    </div>
 
-    <form th:action="@{|/mbti/${mbti.id}|}" method="get">
-        <input type="hidden" name="keyword" th:value="${keyword}">
-        <input type="hidden" name="page" th:value="${articlePage.number}">
-    </form>
+        <form th:action="@{|/mbti/${mbti.id}|}" method="get">
+            <input type="hidden" name="keyword" th:value="${keyword}">
+            <input type="hidden" name="page" th:value="${articlePage.number}">
+        </form>
 
 </div>
 </html>
