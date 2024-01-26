@@ -35,13 +35,23 @@ public class CommentService {
         return comment.get();
     }
     public void modify(Comment comment,String content){
-        Comment modifyComment = Comment.builder()
+        Comment modifyComment = comment.toBuilder()
                 .content(content)
                 .build();
         this.commentRepository.save(modifyComment);
     }
     public  void  delete(Comment comment){
         this.commentRepository.delete(comment);
+    }
+
+    public Comment createReply(Comment parentComment, String content, Member author) {
+        Comment reply = Comment.builder()
+                .parentComment(parentComment)
+                .content(content)
+                .author(author)
+                .build();
+
+        return this.commentRepository.save(reply);
     }
 
 

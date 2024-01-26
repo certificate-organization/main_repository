@@ -43,12 +43,23 @@ public class CommentController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("article", article);
             return "article_detail";
-
         }
+
         Member member = this.memberService.getMember(principal.getName());
-        this.commentService.create(article, commentForm.getContent(), member);
+
+        // Check if the commentForm contains a parentCommentId (for replies)
+        if (commentForm.getParentCommentId() == null) {
+            // If there is no parentCommentId, it's a regular comment
+            this.commentService.create(article, commentForm.getContent(), member);
+        } else {
+            // If there is a parentCommentId, it's a reply
+            Comment parentComment = this.commentService.getcomment(commentForm.getParentCommentId());
+            this.commentService.createReply(parentComment, commentForm.getContent(), member);
+        }
+
         return String.format("redirect:/article/%s", id);
     }
+
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")

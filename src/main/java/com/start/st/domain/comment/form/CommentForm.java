@@ -12,4 +12,5 @@ public class CommentForm {
     @NotEmpty(message = "내용은 필수입력 사항입니다.")
     private String content;
 
+    private Long parentCommentId;
 }
