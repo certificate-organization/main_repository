@@ -47,12 +47,12 @@ public class CommentController {
 
         Member member = this.memberService.getMember(principal.getName());
 
-        // Check if the commentForm contains a parentCommentId (for replies)
+
         if (commentForm.getParentCommentId() == null) {
-            // If there is no parentCommentId, it's a regular comment
+
             this.commentService.create(article, commentForm.getContent(), member);
         } else {
-            // If there is a parentCommentId, it's a reply
+
             Comment parentComment = this.commentService.getcomment(commentForm.getParentCommentId());
             this.commentService.createReply(parentComment, commentForm.getContent(), member);
         }
@@ -101,7 +101,7 @@ public class CommentController {
         }
         this.commentService.delete(comment);
 
-        return "article_detail";
+        return String.format("redirect:/article/%s", comment.getArticle().getId());
 
     }
 
