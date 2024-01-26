@@ -37,11 +37,11 @@ public class ArticleService {
         return this.articleRepository.findAll(pageable);
     }
 
-    public Page<Article> getArticlePageByMbti(Long mbtiId, int page) {
+    public Page<Article> getArticlePageByMbti(String keyword, Long mbtiId, int page) {
         List<Sort.Order> list = new ArrayList<>();
         list.add(Sort.Order.desc("createDate"));
         Pageable pageable = PageRequest.of(page, 10, Sort.by(list));  //한 번에 볼 사이즈 수정
-        return this.articleRepository.findByMbtiId(mbtiId, pageable);
+        return this.articleRepository.findAllByKeywordAndMbtiId(keyword, mbtiId, pageable);
     }
 
     public List<Article> getArticleByMbti(Long mbtiId) {

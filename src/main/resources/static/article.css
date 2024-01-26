@@ -3,15 +3,16 @@
     display: flex;
     width: 1320px;
     justify-content: space-between;
-    align-items: flex-end;
-    padding-bottom: 10px;
+    align-items: center;
+    border-bottom: 3px solid #47BBEC;
+    margin-bottom: 10px;
+    height: 100px;
 }
 
-
-
 .article-logo {
-    font-size: 50px;
+    font-size: 40px;
     color: black;
+    font-weight: bold;
     text-decoration: none;
 }
 
@@ -61,4 +62,82 @@ margin-top: 17px;
     align-items: center;
     width: 100%;
     height: 100%;
+}
+
+.create-btn {
+text-align: right;
+}
+/*---------------------- 게시판상단 end ---------------------- */
+/*---------------------- 게시판제목 start ---------------------- */
+
+.article-detail {
+    width: 1320px;
+}
+
+.article-subject {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.article-information {
+    width: 100%;
+    justify-content: space-between;
+    display: flex;
+}
+
+.article-author-date {
+    font-weight: normal;
+    font-size: 16px;
+    color: grey;
+    text-align: left;
+}
+
+.article-author {
+    color: grey;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.article-author:hover {
+  color: grey;
+  text-decoration: none;
+}
+
+.article-between-line {
+    border-left: 1px solid rgba(128, 128, 128, 0.3);
+    padding-left: 6px;
+}
+
+.article-like {
+    text-align: right;
+    font-weight: normal;
+    font-size: 16px;
+    color: grey;
+}
+/*---------------------- 게시판제목 end ---------------------- */
+/*---------------------- 게시판목록 start ---------------------- */
+.article-table {
+    text-align: center;
+}
+
+.article-list {
+    border: none;
+    width: 100%;
+}
+
+.article-list-head {
+    text-align: center;
+    border-bottom: 1px solid grey;
+    align-items: center;
+    height: 50px;
+}
+.article-list-subject {
+    width: 50%;
+}
+
+.article-list-body {
+    text-align: center;
+    border-bottom: 0.5px solid rgba(128, 128, 128, 0.2);
+    align-items: center;
+    height: 40px;
 }

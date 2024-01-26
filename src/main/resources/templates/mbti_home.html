@@ -70,7 +70,8 @@
         <div class="right-container">
             <div class="login-container">
                 <div class="login">
-                    <a class="login_button" aria-current="page" href="/member/login">로그인</a>
+                    <a class="login_button" sec:authorize="isAnonymous()" aria-current="page" href="/member/login">로그인</a>
+                    <a class="login_button" sec:authorize="isAuthenticated()" aria-current="page" href="/member/logout">로그아웃</a>
                 </div>
                 <div class="links">
                     <div class="lock">
