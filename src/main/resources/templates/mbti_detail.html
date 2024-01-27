@@ -1,5 +1,6 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" class="container my-3">
+    <link th:href="@{/css/darkmode.css}" rel="stylesheet">
     <div class="col-6">
         <a sec:authorize="isAuthenticated()"
            th:if="${member != null and member.mbti.id == mbti.id}"

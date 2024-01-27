@@ -1,5 +1,6 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content" class="container my-3">
+    <link th:href="@{/css/darkmode.css}" rel="stylesheet">
     <h4>회원가입</h4>
     <form th:action="@{/member/signup}" th:object="${memberSignupForm}" method="post">
         <div th:replace="~{form_errors :: formErrorsFragment}"></div>
