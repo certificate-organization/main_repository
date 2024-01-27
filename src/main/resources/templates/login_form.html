@@ -1,6 +1,16 @@
-<html layout:decorate="~{layout}">
-<div layout:fragment="content" class="container my-3">
+<!DOCTYPE html>
+<html lang="ko" layout:decorate="~{layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/css/darkmode.css}" rel="stylesheet">
+    <!-- 다른 필요한 메타 정보 및 스타일시트, 스크립트 등을 추가할 수 있습니다. -->
+    <title>로그인</title>
+</head>
+
+<body>
+<div layout:fragment="content" class="container my-3">
     <form th:action="@{/member/login}" method="post">
         <div th:if="${param.error}">
             <div class="alert alert-danger">
@@ -17,6 +27,6 @@
         </div>
         <button type="submit" class="btn btn-primary">로그인</button>
     </form>
-
 </div>
+</body>
 </html>
