@@ -1,0 +1,91 @@
+/*----------------- 다크모드 (시스템모드 ) start*------------------*/
+@media (prefers-color-scheme: light) {
+    html, body {
+    background: #fff;
+    color: #000;
+   }
+   .link a {
+    color: #000;
+   }
+   .bg_black {
+     fill: #fff;
+   }
+   .bg_white {
+     fill: #000000;
+   }
+}
+
+@media (prefers-color-scheme: dark) {
+    html, body {
+    background: #000;
+    color: #fff;
+   }
+   .link a {
+       color: #fff;
+      }
+ }
+/*----------------- 다크모드 (시스템모드 ) end*------------------*/
+/*---------------------- 다크모드 (임시) start ----------------------------*/
+.dark_mode {
+    position: absolute;
+    top: 30px;
+    right: 10%;
+}
+
+.dark_mode input[type="checkbox"] {
+    visibility: hidden;
+    display: none;
+}
+
+.dark_mode *,
+.dark_mode ::after,
+.dark_mode ::before {
+    box-sizing: border-box;
+}
+
+.dark_mode .switch {
+    --width-of-switch: 2em;
+    --height-of-switch: 1em;
+    --size-of-icon: 0.8em;
+    --slider-offset: 0.2em;
+    position: relative;
+    width: var(--width-of-switch);
+    height: var(--height-of-switch);
+    display: inline-block;
+}
+
+.dark_mode .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #f4f4f5;
+    transition: .4s;
+    border-radius: 30px;
+}
+
+.dark_mode .slider:before {
+    position: absolute;
+    content: "";
+    height: var(--size-of-icon,1.4em);
+    width: var(--size-of-icon,1.4em);
+    border-radius: 20px;
+    left: var(--slider-offset,0.3em);
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(40deg,#ff0080,#ff8c00 70%);
+    transition: .4s;
+}
+
+.dark_mode input:checked + .slider {
+    background-color: #303136;
+}
+
+.dark_mode input:checked + .slider:before {
+    left: calc(100% - (var(--size-of-icon,1.4em) + var(--slider-offset,0.3em)));
+    background: #303136;
+    box-shadow: inset -3px -2px 5px -2px #8983f7, inset -10px -4px 0 0 #a3dafb;
+}
+/*---------------------- 다크모드 (임시) end ----------------------------*/
