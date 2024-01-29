@@ -1,5 +1,6 @@
 <html layout:decorate="~{layout}" xmlns:th="http://www.w3.org/1999/xhtml">
 <div layout:fragment="content" class="container my-3">
+    <script src="https://cdn.ckeditor.com/ckeditor5/32.0.0/classic/ckeditor.js"></script>
     <div class="col-6">
         <div class="TOP">
             <div class="logo">
@@ -21,14 +22,24 @@
                        name="subject" id="subject" th:field="*{subject}">
             </div>
             <div class="article-form-content">
-                <label for="content">내용</label>
-                <textarea name="content" id="content" style="height: 400px width:100%"
-                          th:field="*{content}"></textarea>
+                <textarea name="content" id="textarea_ck_test" th:field="*{content}"></textarea>
             </div>
             <div class="form-create-btn">
                 <a th:href="@{|/mbti/${mbti.id}|}" class="back-btn">취소</a>
                 <button type="submit" class="create-btn">등록</button>
             </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    ClassicEditor
+                        .create(document.querySelector('#textarea_ck_test'))
+                        .catch(error => {
+                            console.error(error);
+                        });
+                });
+            </script>
+
+
         </form>
     </div>
 </div>

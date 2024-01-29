@@ -26,7 +26,7 @@ public class Article extends BaseEntity {
     private Member author;
     @ManyToOne
     private Mbti mbti;
-    @OneToMany
+    @ManyToMany
     private Set<Member> likers;
     private Long viewCount;
 }

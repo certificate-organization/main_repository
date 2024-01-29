@@ -29,8 +29,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-
-                        <p class="card-text" th:text="${article.content}"></p>
+                        <p class="card-text"  th:utext="${@commonUtil.markdown(article.content)}"></p>
                         <a th:href="@{|/article/${article.id}/like|}" class="btn btn-sm btn-outline-secondary">추천
                             <span class="badge rounded-pill bg-success" th:text="${#lists.size(article.likers)}"></span>
                         </a>
