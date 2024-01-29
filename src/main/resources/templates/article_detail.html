@@ -5,14 +5,6 @@
             <div class="logo">
                 <a class="article-logo" th:href="@{|/mbti/${article.mbti.id}|}" th:text="|${article.mbti.name} 게시판|"></a>
             </div>
-            <div class="search-box">
-                <div class="search-box-inner">
-                    <input class="search-txt" type="text" placeholder="검색어를 입력하세요.">
-                    <button class="search-btn" type="submit">
-                        <i class="fa fa-search fa-magnifying-glass"></i>
-                    </button>
-                </div>
-            </div>
         </div>
     </div>
     <table style="table-layout:fixed; word-wrap:break-word;clear:both;" >
@@ -56,5 +48,7 @@
         </tr>
         </tbody>
     </table>
+
+
 </div>
 </html>

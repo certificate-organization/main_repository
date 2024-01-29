@@ -6,7 +6,8 @@
             <div class="logo">
                 <a class="article-logo" th:href="@{|/mbti/${mbti.id}|}" th:text="|${mbti.name} 게시판|"></a>
             </div>
-            <a
+            <a th:if="${member != null and member.mbti.id == mbti.id}"
+               sec:authorize="isAuthenticated()"
                th:href="@{|/mbti/${mbti.id}/article/create|}" class="create-btn">글쓰기</a>
         </div>
     </div>
@@ -32,7 +33,10 @@
                     <span th:if="${#lists.size(article.likers) != 0}"
                           class="article-comment" th:text="|[${#lists.size(article.likers)}]|"></span>
                 </td>
-                <td th:text="|${article.author.membername}[${article.author.mbti.name}]|"></td>
+                <td>
+                    <a class="article-list-author" href="#"
+                       th:text="|${article.author.membername}[${article.author.mbti.name}]|"></a>
+                </td>
                 <!--            <th:block th:with="timeDifference=${#temporals.until(#temporals.createNow(), article.createDate).toSeconds()}">-->
                 <!--                <td th:if="${timeDifference < 60}" th:text="${timeDifference + '초 전'}"></td>-->
                 <!--            </th:block>-->
@@ -66,6 +70,7 @@
             </li>
         </ul>
     </div>
+
     <div class="article-table">
         <form th:action="@{|/mbti/${mbti.id}|}" method="get" class="search-box">
             <div class="search-box-inner">
@@ -78,10 +83,10 @@
         </form>
     </div>
 
-        <form th:action="@{|/mbti/${mbti.id}|}" method="get">
-            <input type="hidden" name="keyword" th:value="${keyword}">
-            <input type="hidden" name="page" th:value="${articlePage.number}">
-        </form>
+    <form th:action="@{|/mbti/${mbti.id}|}" method="get">
+        <input type="hidden" name="keyword" th:value="${keyword}">
+        <input type="hidden" name="page" th:value="${articlePage.number}">
+    </form>
 
 </div>
 </html>
