@@ -2,7 +2,9 @@ package com.start.st.domain.member.controller;
 
 import com.start.st.domain.mbti.entity.Mbti;
 import com.start.st.domain.mbti.service.MbtiService;
+import com.start.st.domain.member.entity.Member;
 import com.start.st.domain.member.entity.MemberSignupForm;
+import com.start.st.domain.member.security.MemberSecurityService;
 import com.start.st.domain.member.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.Getter;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -22,6 +25,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final MbtiService mbtiService;
+    private final MemberSecurityService memberSecurityService;
 
     @GetMapping("/member/signup")
     public String memberSignup(Model model, MemberSignupForm memberSignupForm) {
