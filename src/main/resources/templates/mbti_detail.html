@@ -15,7 +15,7 @@
             <thead class="article-list-head">
             <tr>
                 <th>번호</th>
-                <th style="article-list-subject">제목</th>
+                <th class="article-list-subject-head">제목</th>
                 <th>작성자</th>
                 <th>작성일</th>
                 <th>조회수</th>
@@ -25,9 +25,12 @@
             <tbody>
             <tr class="article-list-body" th:each="article, loop : ${articlePage}">
                 <th th:text="${loop.count}"></th>
-                <td>
-                    <a style="article-list-subject" th:href="@{|/article/${article.id}|}"
-                       th:text="${article.subject}"></a>
+                <td class="article-list-subject-body">
+                    <a class="article-list-subject" th:href="@{|/article/${article.id}|}"
+                       th:text="${article.subject}">
+                    </a>
+                    <span th:if="${#lists.size(article.likers) != 0}"
+                          class="article-comment" th:text="|[${#lists.size(article.likers)}]|"></span>
                 </td>
                 <td th:text="|${article.author.membername}[${article.author.mbti.name}]|"></td>
                 <!--            <th:block th:with="timeDifference=${#temporals.until(#temporals.createNow(), article.createDate).toSeconds()}">-->
@@ -49,14 +52,13 @@
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
-            <li
-                th:if="${page <= articlePage.number+10}"
+            <li th:if="${page <= articlePage.number+10}"
                 th:each="page: ${#numbers.sequence(0, articlePage.totalPages-1)}">
                 <a class="article-page" th:classappend="${page == articlePage.number} ? 'active-page'"
                    th:href="@{|?keyword=${keyword}&page=${page}|}"
                    th:text="${page+1}"></a>
             </li>
-            <li th:classappend="${!articlePage.hasNext} ? 'disabled'">
+            <li th:if="${articlePage.hasNext}">
                 <a class="article-page" th:href="@{|?keyword=${keyword}&page=${articlePage.number+1}|}"
                    aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>

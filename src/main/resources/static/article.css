@@ -144,11 +144,39 @@ margin-top: 17px;
 .article-list-head {
     text-align: center;
     border-bottom: 1px solid grey;
-    align-items: center;
     height: 50px;
+    align-items: flex-end;
 }
+
+
+.article-list-subject-body {
+    margin-left: 10px;
+    padding-left: 10px;
+    color: black;
+    text-decoration: none;
+    width: 40%;
+    text-align: left;
+}
+
 .article-list-subject {
-    width: 50%;
+    color: black;
+    text-decoration: none;
+    text-align: left;
+}
+
+.article-list-subject:hover {
+    color: black;
+    text-decoration: underline;
+}
+
+.article-comment {
+    color: grey;
+}
+
+.article-list-subject-head {
+    color: black;
+    text-decoration: none;
+    width: 40%;
 }
 
 .article-list-body {
@@ -157,6 +185,7 @@ margin-top: 17px;
     align-items: center;
     height: 35px;
 }
+
 
 .article-paging {
     justify-content: center;
@@ -180,7 +209,7 @@ margin-top: 17px;
 }
 
 .active-page {
-    color: red;
+    color: #47BBEC;
     font-weight: bold;
     text-decoration: none;
     pointer-events: none;
