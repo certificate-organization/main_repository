@@ -47,18 +47,22 @@ public class CommentController {
 
         Member member = this.memberService.getMember(principal.getName());
 
-
         if (commentForm.getParentCommentId() == null) {
-
+            // Regular comment
             this.commentService.create(article, commentForm.getContent(), member);
         } else {
-
+            // Reply to a comment
             Comment parentComment = this.commentService.getcomment(commentForm.getParentCommentId());
+
+            // Calculate reStep and reLevel for the new reply
+            int reStep = parentComment.getReStep() + 1;
+            int reLevel = parentComment.getReLevel() + 1;
+
             this.commentService.createReply(parentComment, commentForm.getContent(), member);
         }
-
         return String.format("redirect:/article/%s", id);
     }
+
 
 
     @PreAuthorize("isAuthenticated()")

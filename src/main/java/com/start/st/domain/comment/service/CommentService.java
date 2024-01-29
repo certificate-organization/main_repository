@@ -18,15 +18,7 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
 
-    public void create(Article article, String content, Member author){
-        Comment comment = Comment.builder()
-                .article(article)
-                .content(content)
-                .author(author)
-                .build();
 
-        this.commentRepository.save(comment);
-    }
     public Comment getcomment(Long id){
         Optional<Comment> comment = this.commentRepository.findById(id);
         if (comment.isEmpty()){
@@ -44,15 +36,48 @@ public class CommentService {
         this.commentRepository.delete(comment);
     }
 
-    public Comment createReply(Comment parentComment, String content, Member author) {
-        Comment reply = Comment.builder()
-                .parentComment(parentComment)
+    public Comment create(Article article, String content, Member author) {
+        Comment comment = Comment.builder()
+                .article(article)
                 .content(content)
                 .author(author)
                 .build();
 
-        return this.commentRepository.save(reply);
+        // Set the article field to null for replies
+        comment.setArticle(null);
+
+        return this.commentRepository.save(comment);
     }
 
+    public Comment createReply(Comment parentComment, String content, Member author) {
+        int parentStep = parentComment.getReStep();
+        int parentLevel = parentComment.getReLevel();
+
+        System.out.println("Parent Step: " + parentStep);
+        System.out.println("Parent Level: " + parentLevel);
+
+        Comment reply = Comment.builder()
+                .parentComment(parentComment)
+                .content(content)
+                .author(author)
+                .reStep(parentStep + 1)  // 부모 댓글의 RE_STEP 값에 +1을 한 값을 사용
+                .reLevel(parentLevel + 1)  // 부모 댓글의 RE_LEVEL 값에 +1을 한 값을 사용
+                .build();
+
+        System.out.println("Reply Step: " + reply.getReStep());
+        System.out.println("Reply Level: " + reply.getReLevel());
+
+        // Set the article field to null for replies
+        reply.setArticle(null);
+
+        // Save the reply
+        reply = this.commentRepository.save(reply);
+
+        // Update the parent comment's replies set
+        parentComment.getReplies().add(reply);
+        this.commentRepository.save(parentComment);
+
+        return reply;
+    }
 
 }
