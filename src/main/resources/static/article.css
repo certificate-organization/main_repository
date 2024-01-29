@@ -3,9 +3,10 @@
     display: flex;
     width: 1320px;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
     border-bottom: 3px solid #47BBEC;
     margin-bottom: 10px;
+    padding-bottom: 3px;
     height: 100px;
 }
 
@@ -22,7 +23,7 @@
 }
 
 .search-box {
-margin-bottom: 8px;
+    margin-bottom: 8px;
     border: 2px solid #47BBEC;
     border-radius: 45px;
     overflow: hidden;
@@ -65,16 +66,19 @@ margin-top: 17px;
 }
 
 .create-btn {
-    display: inline-block;
-    width: 40px;
-    padding: 20px 20px;
-    background-color: #47BBEC;
-    color: #ffffff;
+    font-size: 15px;
+    color: #47BBEC;
+    padding: 3px 3px 3px 3px;
+    margin-bottom: 5px;
     text-decoration: none;
-    text-align: center;
-    font-size: 20px;
-    border-radius: 17px;
-    transition: background-color 0.3s ease;
+    font-weight: bold;
+    border: 2px solid #47BBEC;
+    border-radius: 10px;
+}
+
+.create-btn:hover {
+  color: #47BBEC;
+  text-decoration: none;
 }
 /*---------------------- 게시판상단 end ---------------------- */
 /*---------------------- 게시판제목 start ---------------------- */
@@ -151,5 +155,37 @@ margin-top: 17px;
     text-align: center;
     border-bottom: 0.5px solid rgba(128, 128, 128, 0.2);
     align-items: center;
-    height: 40px;
+    height: 35px;
+}
+
+.article-paging {
+    justify-content: center;
+    margin-top: 10px;
+    list-style: none;
+    padding: 0;
+    display: flex;
+}
+
+.article-page {
+    color: black;
+    margin-right: 10px;
+    font-weight: normal;
+    display: inline;
+    text-decoration: none;
+}
+
+.article-page:hover {
+    color: black;
+    text-decoration: underline;
+}
+
+.active-page {
+    color: red;
+    font-weight: bold;
+    text-decoration: none;
+    pointer-events: none;
+}
+
+.disabled-page {
+    color: red;
 }

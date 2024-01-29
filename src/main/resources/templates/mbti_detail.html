@@ -6,8 +6,7 @@
             <div class="logo">
                 <a class="article-logo" th:href="@{|/mbti/${mbti.id}|}" th:text="|${mbti.name} 게시판|"></a>
             </div>
-            <a sec:authorize="isAuthenticated()"
-               th:if="${member != null and member.mbti.id == mbti.id}"
+            <a
                th:href="@{|/mbti/${mbti.id}/article/create|}" class="create-btn">글쓰기</a>
         </div>
     </div>
@@ -43,21 +42,22 @@
     </div>
 
     <div th:if="${!articlePage.isEmpty()}">
-        <ul class="pagination justify-content-center">
-            <li class="page-item" th:classappend="${!articlePage.hasPrevious} ? 'disabled'">
-                <a class="page-link" th:href="@{|?keyword=${keyword}&page=${articlePage.number-1}|}"
+        <ul class="article-paging">
+            <li th:if="${articlePage.hasPrevious()}">
+                <a class="article-page" th:href="@{|?keyword=${keyword}&page=${articlePage.number-1}|}"
                    aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
-            <li class="page-item" th:classappend="${page == articlePage.number} ? 'active'"
-                th:if="${page >= articlePage.number-2 and page <= articlePage.number+2}"
+            <li
+                th:if="${page <= articlePage.number+10}"
                 th:each="page: ${#numbers.sequence(0, articlePage.totalPages-1)}">
-                <a class="page-link" th:href="@{|?keyword=${keyword}&page=${page}|}"
-                   th:text="${page}"></a>
+                <a class="article-page" th:classappend="${page == articlePage.number} ? 'active-page'"
+                   th:href="@{|?keyword=${keyword}&page=${page}|}"
+                   th:text="${page+1}"></a>
             </li>
-            <li class="page-item" th:classappend="${!articlePage.hasNext} ? 'disabled'">
-                <a class="page-link" th:href="@{|?keyword=${keyword}&page=${articlePage.number+1}|}"
+            <li th:classappend="${!articlePage.hasNext} ? 'disabled'">
+                <a class="article-page" th:href="@{|?keyword=${keyword}&page=${articlePage.number+1}|}"
                    aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
