@@ -71,7 +71,7 @@
         </ul>
     </div>
 
-    <div class="article-table">
+    <div class="article-table" th:if="${!articlePage.isEmpty()}">
         <form th:action="@{|/mbti/${mbti.id}|}" method="get" class="search-box">
             <div class="search-box-inner">
                 <input class="search-txt" type="text"

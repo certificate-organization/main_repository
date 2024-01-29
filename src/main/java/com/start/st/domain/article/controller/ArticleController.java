@@ -60,8 +60,9 @@ public class ArticleController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/article/{id}/modify")
-    public String modifyArticle(@PathVariable("id") Long id, ArticleForm articleForm, Principal principal) {
+    public String modifyArticle(@PathVariable("id") Long id, ArticleForm articleForm, Principal principal, Model model) {
         Article article = this.articleService.getArticle(id);
+        model.addAttribute("mbti", article.getMbti());
         if (!article.getAuthor().getMembername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
