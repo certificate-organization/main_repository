@@ -10,4 +10,8 @@ import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
+    List<Comment> findByParentCommentOrderByRefAscReStepAscReLevelAsc(Comment parentComment);
+
+    @Query("SELECT COALESCE(MAX(c.ref), 0) FROM Comment c")
+    Long findMaxRef();
 }

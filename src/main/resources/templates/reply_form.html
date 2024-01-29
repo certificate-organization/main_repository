@@ -1,0 +1,9 @@
+<html layout:decorate="~{layout}" xmlns:th="http://www.w3.org/1999/xhtml">
+<div layout:fragment="content" class="container my-3">
+<form th:object="${replyForm}" method="post" action="/create/reply/{commentId}">
+    <label for="replyContent">Reply Content:</label>
+    <input type="text" id="replyContent" name="replyContent" th:field="*{replyContent}" />
+    <button type="submit">Post Reply</button>
+</form>
+</div>
+</html>

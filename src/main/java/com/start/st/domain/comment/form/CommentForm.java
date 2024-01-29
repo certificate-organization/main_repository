@@ -1,7 +1,9 @@
 package com.start.st.domain.comment.form;
 
 
+import com.start.st.domain.comment.entity.Comment;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,4 +15,16 @@ public class CommentForm {
     private String content;
 
     private Long parentCommentId;
+
+    public Long getParentCommentId() {
+        return parentCommentId;
+    }
+
+    public void setParentComment(Comment parentComment) {
+
+    }
+
+    public Comment getParentComment() {
+        return null;
+    }
 }

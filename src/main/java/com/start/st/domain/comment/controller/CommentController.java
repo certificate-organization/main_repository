@@ -4,18 +4,18 @@ package com.start.st.domain.comment.controller;
 import com.start.st.domain.article.entity.Article;
 import com.start.st.domain.article.service.ArticleService;
 import com.start.st.domain.comment.entity.Comment;
+import com.start.st.domain.comment.form.ReplyForm;
 import com.start.st.domain.comment.form.CommentForm;
 import com.start.st.domain.comment.service.CommentService;
 import com.start.st.domain.member.entity.Member;
 import com.start.st.domain.member.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import jakarta.validation.Valid;
 import org.springframework.validation.BindingResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,16 +23,16 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 
-import org.springframework.security.access.prepost.PreAuthorize;
-
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/comment")
 public class CommentController {
-
-    private final CommentService commentService;
-    private final ArticleService articleService;
-    private final MemberService memberService;
+    @Autowired
+    private CommentService commentService;
+    @Autowired
+    private MemberService memberService;
+    @Autowired
+    private ArticleService articleService;
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create/{id}")
@@ -43,26 +43,36 @@ public class CommentController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("article", article);
             return "article_detail";
-        }
 
+        }
         Member member = this.memberService.getMember(principal.getName());
-
-        if (commentForm.getParentCommentId() == null) {
-            // Regular comment
-            this.commentService.create(article, commentForm.getContent(), member);
-        } else {
-            // Reply to a comment
-            Comment parentComment = this.commentService.getcomment(commentForm.getParentCommentId());
-
-            // Calculate reStep and reLevel for the new reply
-            int reStep = parentComment.getReStep() + 1;
-            int reLevel = parentComment.getReLevel() + 1;
-
-            this.commentService.createReply(parentComment, commentForm.getContent(), member);
-        }
+        this.commentService.create(article, commentForm.getContent(), member);
         return String.format("redirect:/article/%s", id);
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/create/reply/{commentId}")
+    public String createCommentReply(@PathVariable("commentId") Long commentId,
+                                     @Valid ReplyForm replyForm, BindingResult bindingResult, Principal principal) {
+        Comment parentComment = this.commentService.getcomment(commentId);
+        Member member = this.memberService.getMember(principal.getName());
+
+        if (parentComment != null && member != null) {
+            if (bindingResult.hasErrors()) {
+                return "article_detail";
+            }
+
+            CommentForm commentForm = new CommentForm();
+            commentForm.setContent(replyForm.getReplyContent());
+            commentForm.setParentComment(parentComment);
+
+            Comment reply = this.commentService.createReply(commentForm, member);
+
+            return String.format("redirect:/article/%s", reply.getArticle().getId());
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Parent comment or user not found");
+        }
+    }
 
 
     @PreAuthorize("isAuthenticated()")
@@ -108,6 +118,4 @@ public class CommentController {
         return String.format("redirect:/article/%s", comment.getArticle().getId());
 
     }
-
-
 }
