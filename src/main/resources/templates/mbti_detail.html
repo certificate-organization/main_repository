@@ -25,7 +25,7 @@
             </thead>
             <tbody>
             <tr class="article-list-body" th:each="article, loop : ${articlePage}">
-                <th style="width=10%" th:text="${loop.count}"></th>
+                <th th:text="${articlePage.getTotalElements - (articlePage.number * articlePage.size) - loop.index}"></th>
                 <td class="article-list-subject-body">
                     <a class="article-list-subject" th:href="@{|/article/${article.id}|}"
                        th:text="${article.subject}">
@@ -33,16 +33,17 @@
                     <span th:if="${#lists.size(article.likers) != 0}"
                           class="article-comment" th:text="|[${#lists.size(article.likers)}]|"></span>
                 </td>
-                <td style="width=10%">
+                <td>
                     <a class="article-list-author" href="#"
                        th:text="|${article.author.membername}[${article.author.mbti.name}]|"></a>
                 </td>
-                <!--            <th:block th:with="timeDifference=${#temporals.until(#temporals.createNow(), article.createDate).toSeconds()}">-->
-                <!--                <td th:if="${timeDifference < 60}" th:text="${timeDifference + '초 전'}"></td>-->
-                <!--            </th:block>-->
-                <td style="width=10%" th:text="${#temporals.format(article.createDate, 'yyyy-MM-dd HH:MM')}"></td>
-                <td style="width=10%" th:text="${article.viewCount}"></td>
-                <td style="width=10%" th:text="${#lists.size(article.likers)}|"></td>
+                <td style="width: 8%" th:id="|result${loop.index + 1}|"></td>
+                <td style="width: 6%" th:text="${article.viewCount}"></td>
+                <td style="width: 6%" th:text="${#lists.size(article.likers)}|"></td>
+                <script th:src="@{/calculateDate.js}"></script>
+                <script th:inline="javascript">
+                    calculateDate (/*[[${article.createDate}]]*/ '', 'result' + /*[[${loop.index + 1}]]*/);
+                </script>
             </tr>
             </tbody>
         </table>
@@ -87,6 +88,7 @@
         <input type="hidden" name="keyword" th:value="${keyword}">
         <input type="hidden" name="page" th:value="${articlePage.number}">
     </form>
+
 
 </div>
 </html>
