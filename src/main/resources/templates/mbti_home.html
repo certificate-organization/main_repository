@@ -11,7 +11,7 @@
     <link type="text/css" th:href="@{/css/darkmode.css}" rel="stylesheet">
     <!-- 추가적인 JS 파일 -->
 <!--    <script type="text/javascript" src="/js/home.js"></script>-->
-<!--    <script type="text/javascript" src="/js/darkmode.js"></script>-->
+    <script type="text/javascript" src="/js/darkmode.js"></script>
     <!-- JQ 파일 -->
 <!--    <script src="/js/jquery.js"></script>-->
     <!-- 폰트어썸 이미지 사용위한 kits -->
@@ -24,8 +24,8 @@
         <div class="wrap">
             <div class="dark_mode">
                 <div class="inner">
-                    <input type="radio" name="toggle" id="toggle-radio-light" checked><label for="toggle-radio-light" class="tolight"><i class="fas fa-sun tolight"></i></label>
-                    <input type="radio" name="toggle" id="toggle-radio-dark"><label for="toggle-radio-dark" class="todark"><i class="fas fa-moon todark"></i></label>
+                    <input type="radio" name="toggle" id="toggle_light" checked><label for="toggle_light" class="light_icon"><i class="fas fa-sun light_icon"></i></label>
+                    <input type="radio" name="toggle" id="toggle_dark"><label for="toggle_dark" class="dark_icon"><i class="fas fa-moon dark_icon"></i></label>
                     <div class="dark_mode-bg"></div>
                 </div>
             </div>
@@ -74,8 +74,7 @@
                 </ul>
             </div>
         </div>
-    </main>
-    <footer>
+
         <div class="left-container">
             <div class="hot_topic">인기 게시글
             </div>
@@ -197,6 +196,9 @@
                 </div>
             </div>
         </div>
+    </main>
+    <footer>
+
     </footer>
 </div>
 </body>

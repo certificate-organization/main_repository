@@ -25,6 +25,7 @@ a:hover, a:focus {
 }
 
 .link a {
+    color: #000;
     transition: 0.35s;
 }
 
@@ -63,10 +64,11 @@ a:hover, a:focus {
     transition: transform 0.2s ease-in-out 0.25s;
 }
 /*---------------------- mbit 리스트 메뉴 css end ----------------------*/
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+html, body{
+   width: 100%;
+   height: 100%;
+   margin: 0;
+   padding: 0;
 }
 
 body {
@@ -75,30 +77,34 @@ body {
    justify-content: center;
    align-items: center;
    height:100%
+   margin: 0;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 100px;
-    height: 100vh;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 header {
     padding: 30px 0;
 }
 
 main {
+    flex-grow: 1;
     padding: 20px 0 50px;
-    justify-content: center;
-    align-items: center;
     box-shadow: 0 3px 0 -10px #E2E2E2;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 footer {
     height: auto;
     margin-top: 20px;
-    display: flex;
-    flex-direction : colum;
+
     }
 
 /*-------------------- 로고 , 검색폼  start ------------------*/
@@ -152,15 +158,23 @@ footer {
     width: 100%;
     height: 100%;
 }
+
+.back.color-10 {
+    width: 100%;
+}
 /*---------------------- 로고 , 검색폼 end ---------------------- */
 /*---------------------- left 섹션 ---------------------- start */
-div.left-container {
-     width:70%;
-     text-align: center;
+div.right-container {
+    width: 30%;
+    margin-top: 100px;
 }
-
+div.left-container {
+    flex-grow: 1;
+    margin-top: 100px;
+}
 .left-container > .hot_topic {
      height: 500px;
+     align-items:center;
 }
 
 .left-container > .mm {
@@ -183,15 +197,8 @@ div.left-container {
 }
 /*---------------------- left 섹션 end ----------------------*/
 /*----------------------right 섹션 start ----------------------*/
-.right-container {
-    width: 30%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    height: auto;
-    flex: 1;
 
-}
+
 /* ------------------- 로그인 start-------------------*/
 .login-container {
     padding: 20px;
@@ -274,17 +281,12 @@ div.left-container {
 }
 
 
-.fa-lock, .fa-pen-to-square {
-    font-size: 20px;
-}
-
-.fa-lock, .fa-keyboard {
-    font-size: 20px;
-}
-
+.fa-lock, .fa-pen-to-square,
+.fa-lock, .fa-keyboard,
 .fa-lock, .fa-user {
     font-size: 20px;
 }
+
 /* ------------------- 로그아웃 end-------------------*/
 
 .mbti_link {
@@ -354,6 +356,7 @@ div.left-container {
 }
 
 .chat-btn {
+    background: #fff;
     color: #47BBEC;
     border: none;
     outline: none;

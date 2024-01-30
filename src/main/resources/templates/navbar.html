@@ -1,6 +1,8 @@
 <html layout:decorate="~{layout}" xmlns:th="http://www.w3.org/1999/xhtml">
 <!-- 추가적인 CSS 파일 -->
 <link th:href="@{/darkmode.css}" rel="stylesheet">
+<!-- 추가적인 JS 파일 -->
+<script type="text/javascript" src="/js/darkmode.js"></script>
 <div layout:fragment="content" class="container my-3">
     <nav th:fragment="navbarFragment">
         <nav class="navbar navbar-expand-lg shadow-sm p-3 mb-5 bg-body-tertiary rounded">
@@ -12,11 +14,11 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="wrap">
-                    <div class="darkmode">
+                    <div class="dark_mode">
                         <div class="inner">
-                            <input type="radio" name="toggle" id="toggle-radio-light" checked><label for="toggle-radio-light" class="tolight"><i class="fas fa-sun tolight"></i></label>
-                            <input type="radio" name="toggle" id="toggle-radio-dark"><label for="toggle-radio-dark" class="todark"><i class="fas fa-moon todark"></i></label>
-                            <div class="darkmode-bg"></div>
+                            <input type="radio" name="toggle" id="toggle_light" checked><label for="toggle_light" class="light_icon"><i class="fas fa-sun light_icon"></i></label>
+                            <input type="radio" name="toggle" id="toggle_dark"><label for="toggle_dark" class="dark_icon"><i class="fas fa-moon dark_icon"></i></label>
+                            <div class="dark_mode-bg"></div>
                         </div>
                     </div>
                 </div>
