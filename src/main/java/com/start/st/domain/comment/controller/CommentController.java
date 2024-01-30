@@ -4,7 +4,7 @@ package com.start.st.domain.comment.controller;
 import com.start.st.domain.article.entity.Article;
 import com.start.st.domain.article.service.ArticleService;
 import com.start.st.domain.comment.entity.Comment;
-import com.start.st.domain.comment.form.ReplyForm;
+
 import com.start.st.domain.comment.form.CommentForm;
 import com.start.st.domain.comment.service.CommentService;
 import com.start.st.domain.member.entity.Member;
@@ -27,12 +27,9 @@ import java.security.Principal;
 @RequiredArgsConstructor
 @RequestMapping("/comment")
 public class CommentController {
-    @Autowired
-    private CommentService commentService;
-    @Autowired
-    private MemberService memberService;
-    @Autowired
-    private ArticleService articleService;
+    private final CommentService commentService;
+    private final MemberService memberService;
+    private final ArticleService articleService;
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create/{id}")
@@ -43,36 +40,20 @@ public class CommentController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("article", article);
             return "article_detail";
-
         }
+
         Member member = this.memberService.getMember(principal.getName());
-        this.commentService.create(article, commentForm.getContent(), member);
+
+        Comment parent = null;
+        if (commentForm.getParentCommentId() != null) {
+            parent = this.commentService.getcomment(commentForm.getParentCommentId());
+        }
+
+
+        this.commentService.create(article, commentForm.getContent(), member, parent);
         return String.format("redirect:/article/%s", id);
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @PostMapping("/create/reply/{commentId}")
-    public String createCommentReply(@PathVariable("commentId") Long commentId,
-                                     @Valid ReplyForm replyForm, BindingResult bindingResult, Principal principal) {
-        Comment parentComment = this.commentService.getcomment(commentId);
-        Member member = this.memberService.getMember(principal.getName());
-
-        if (parentComment != null && member != null) {
-            if (bindingResult.hasErrors()) {
-                return "article_detail";
-            }
-
-            CommentForm commentForm = new CommentForm();
-            commentForm.setContent(replyForm.getReplyContent());
-            commentForm.setParentComment(parentComment);
-
-            Comment reply = this.commentService.createReply(commentForm, member);
-
-            return String.format("redirect:/article/%s", reply.getArticle().getId());
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Parent comment or user not found");
-        }
-    }
 
 
     @PreAuthorize("isAuthenticated()")
