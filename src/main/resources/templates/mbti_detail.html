@@ -1,4 +1,15 @@
-<html layout:decorate="~{layout}">
+<!DOCTYPE html>
+<html lang="ko" layout:decorate="~{layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 추가적인 CSS 파일 -->
+    <link th:href="@{/css/darkmode.css}" rel="stylesheet">
+    <title>MBTI 게시판</title>
+</head>
+
+<body>
 <div layout:fragment="content" class="container my-3">
     <div class="col-6">
         <a sec:authorize="isAuthenticated()"
@@ -55,4 +66,5 @@
     </div>
 
 </div>
+</body>
 </html>
