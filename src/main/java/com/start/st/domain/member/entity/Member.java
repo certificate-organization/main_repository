@@ -1,5 +1,6 @@
 package com.start.st.domain.member.entity;
 
+import com.start.st.domain.article.entity.Article;
 import com.start.st.domain.mbti.entity.Mbti;
 import com.start.st.global.jpa.BaseEntity;
 import jakarta.persistence.*;
@@ -8,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.util.Set;
 
 
 @Entity

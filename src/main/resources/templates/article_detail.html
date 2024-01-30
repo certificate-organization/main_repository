@@ -1,23 +1,46 @@
-<html layout:decorate="~{layout}" xmlns:th="http://www.w3.org/1999/xhtml">
-<div layout:fragment="content" class="container my-3">
+<!DOCTYPE html>
+<html lang="ko" layout:decorate="~{layout}">
 
-    <table style="table-layout:fixed; word-wrap:break-word;clear:both;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 추가적인 CSS 파일 -->
+    <link th:href="@{/css/darkmode.css}" rel="stylesheet">
+    <title>MBTI 게시판</title>
+</head>
+
+<body>
+<div layout:fragment="content" class="container my-3">
+    <div class="col-6">
+        <div class="TOP">
+            <div class="logo">
+                <a class="article-logo" th:href="@{|/mbti/${article.mbti.id}|}" th:text="|${article.mbti.name} 게시판|"></a>
+            </div>
+        </div>
+    </div>
+    <table style="table-layout:fixed; word-wrap:break-word;clear:both;" >
         <tbody>
         <tr>
             <td>
-                <div class="card" style="width: 1200px;">
+                <div class="article-detail">
                     <div class="card-header">
-                        <div class="fw-normal">
-                            <span th:text="${article.author.membername}"></span>
+                        <div class="article-subject">
+                            <span th:text="${article.subject}"></span>
                         </div>
-                        <div class="fw-normal">
-                            <span th:text="${#temporals.format(article.createDate, 'yyyy-MM-dd HH:mm')}"></span>
+                        <div class="article-information">
+                            <div class="article-author-date">
+                                <a class="article-author" href="#" th:text="|${article.author.membername}[${article.author.mbti.name}]|"></a>
+                                <span class="article-between-line" th:text="${#temporals.format(article.createDate, 'yyyy-MM-dd HH:mm')}"></span>
+                            </div>
+                            <div class="article-like">
+                                <span th:text="|조회 : ${article.viewCount}|"></span>
+                                <span class="article-between-line" th:text="|추천 : ${#lists.size(article.likers)}|"></span>
+                                <span class="article-between-line" th:text="|댓글 : |"></span>
+                            </div>
                         </div>
-                        <div class="fw-normal">조회: 추천:</div>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title" th:text="${article.subject}"></h5>
-                        <p class="card-text" th:text="${article.content}"></p>
+                        <p class="card-text"  th:utext="${@commonUtil.markdown(article.content)}"></p>
                         <a th:href="@{|/article/${article.id}/like|}" class="btn btn-sm btn-outline-secondary">추천
                             <span class="badge rounded-pill bg-success" th:text="${#lists.size(article.likers)}"></span>
                         </a>
@@ -90,4 +113,5 @@
         </ul>
     </div>
 </div>
-
+</body>
+</html>
