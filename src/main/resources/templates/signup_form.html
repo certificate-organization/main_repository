@@ -1,4 +1,14 @@
-<html layout:decorate="~{layout}">
+<!DOCTYPE html>
+<html lang="ko" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 추가적인 CSS 파일 -->
+    <link th:href="@{/css/darkmode.css}" rel="stylesheet">
+    <title>회원가입</title>
+</head>
+
+<body>
 <div layout:fragment="content" class="container my-3">
     <h4>회원가입</h4>
     <form th:action="@{/member/signup}" th:object="${memberSignupForm}" method="post">
@@ -33,4 +43,5 @@
         <button type="submit" class="btn btn-primary">회원가입</button>
     </form>
 </div>
+</body>
 </html>

@@ -1,6 +1,16 @@
-<html layout:decorate="~{layout}">
-<div layout:fragment="content" class="container my-3">
+<!DOCTYPE html>
+<html lang="ko" layout:decorate="~{layout}">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 추가적인 CSS 파일 -->
+    <link th:href="@{/css/darkmode.css}" rel="stylesheet">
+    <title>로그인</title>
+</head>
+
+<body>
+<div layout:fragment="content" class="container my-3">
     <form th:action="@{/member/login}" method="post">
         <div th:if="${param.error}">
             <div class="alert alert-danger">
@@ -21,4 +31,5 @@
         <a href="/oauth2/authorization/kakao">카카오 로그인</a>
     </div>
 </div>
+</body>
 </html>
