@@ -57,11 +57,10 @@ public class MemberService {
 @Transactional
 public Member whenSocialLogin(String providerTypeCode, String membername, String nickname) {
     Optional<Member> opMember = findByMembername(membername);
-    Optional<Mbti> mbti = this.mbtiRepository.findById(1L);
     if (opMember.isPresent()) return opMember.get();
 
     // 소셜 로그인를 통한 가입시 비번은 없다.
-    create(membername, "", nickname, "",mbti.get());
+    create(membername, "", nickname, null,null);
     return this.memberRepository.findByMembername(membername).get(); // 최초 로그인 시 딱 한번 실행
 }
 
