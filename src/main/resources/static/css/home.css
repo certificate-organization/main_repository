@@ -70,10 +70,7 @@ html, body {
 }
 
 body {
-   margin: 0;
-   padding: 0;
    font-family: 'Jura', sans-serif;  /*Jura 폰트 피그마와 동일하게 적용하였음 */
-   font-size: 2rem;
    font-weight: 700;
    justify-content: center;
    align-items: center;
@@ -84,7 +81,6 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 100px;
-    bottom-padding: 100px;
     height: 100vh;
 }
 header {
@@ -99,15 +95,11 @@ main {
 }
 
 footer {
+    height: auto;
     margin-top: 20px;
     display: flex;
     flex-direction : colum;
     }
-
-.header > .dark_mode {
-    border: 2px solid black;
-}
-
 
 /*-------------------- 로고 , 검색폼  start ------------------*/
 .TOP {
@@ -117,12 +109,12 @@ footer {
     padding-top: 30px;
     padding-bottom: 10px;
 }
-.TOP logo {
+.TOP .logo {
     width: 70%;
 }
 .search-box {
     border: 2px solid #47BBEC;
-    border-radius: 45px;
+    border-radius: 25px;
     margin-left: 30px;
     overflow: hidden;
     width: 100%;
@@ -153,7 +145,6 @@ footer {
 .fa-magnifying-glass {
     font-size: 20px;
     margin-right: 10px;
-    padding-bottom: 20px;
 }
 .search-box-inner {
     display: flex;
@@ -178,14 +169,14 @@ div.left-container {
 
 .mm > .movie {
      width:50%;
-     height:500px;
+     height:auto;
      float : left;
      text-align: center;
      box-sizing: border-box;
 }
 .mm > .music {
     width:50%;
-    height:500px;
+    height:auto;
     float: right;
     text-align : center;
     box-sizing: border-box;
@@ -194,13 +185,14 @@ div.left-container {
 /*----------------------right 섹션 start ----------------------*/
 .right-container {
     width: 30%;
-    height: 35%;
+    height: auto;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: auto;
     flex: 1;
-}
 
+}
+/* ------------------- 로그인 start-------------------*/
 .login-container {
     padding: 20px;
     border: 2px solid gray;
@@ -209,7 +201,8 @@ div.left-container {
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    min-height: 30%;
+    position: sticky;
+    top: 0;
 }
 
 .login {
@@ -238,7 +231,7 @@ div.left-container {
 
 .links a {
     text-decoration: none;
-    font-size: 12px;
+    font-size: 10px;
     color: #969696;
 }
 
@@ -249,20 +242,65 @@ div.left-container {
 .fa-lock, .fa-user {
     font-size: 20px;
 }
+/* ------------------- 로그인 end-------------------*/
+/* ------------------- 로그아웃 start-------------------*/
+.logout-container {
+    padding: 20px;
+    border: 2px solid gray;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    position: sticky;
+    top: 0;
+}
+.logout {
+    margin-bottom: 20px;
+    width: 90%;
+}
+
+.logout_button {
+    display: inline-block;
+    width: 100%;
+    padding: 20px 20px;
+    background-color: #47BBEC;
+    color: #ffffff;
+    text-decoration: none;
+    text-align: center;
+    font-size: 25px;
+    border-radius: 17px;
+    transition: background-color 0.3s ease;
+}
+
+
+.fa-lock, .fa-pen-to-square {
+    font-size: 20px;
+}
+
+.fa-lock, .fa-keyboard {
+    font-size: 20px;
+}
+
+.fa-lock, .fa-user {
+    font-size: 20px;
+}
+/* ------------------- 로그아웃 end-------------------*/
 
 .mbti_link {
     border: 2px solid gray;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    padding: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
 }
 .mbti_link p {
     text-decoration: none;
     font-size: 12px;
     color: #969696;
+    padding-top:5px;
+    padding-left:5px;
 }
 .mbti_link a {
     height: 100%;
@@ -282,6 +320,9 @@ div.left-container {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    margin-top: 15px;
+    position: sticky;
+    top: 200px;
 }
 
 .chat-box {
@@ -291,9 +332,6 @@ div.left-container {
     width: 100%;
     height: 50px;
     margin-top: auto;
-    margin-bottom: 10px;
-    margin-right: 5px;
-    margin-left: 5px;
 }
 
 .chat-box-inner {
@@ -312,11 +350,10 @@ div.left-container {
     font-size: 16px;
     border-radius: 25px;
     color: #000;
-    margin-left: 15px;
+    margin-left: 20px;
 }
 
 .chat-btn {
-    background: #fff;
     color: #47BBEC;
     border: none;
     outline: none;
@@ -327,6 +364,7 @@ div.left-container {
 
 .fa-paper-plane {
     font-size: 20px;
+    padding-top: 15px;
     padding-bottom: 10px;
 }
 /* ----------------------right 섹션 end---------------------- */

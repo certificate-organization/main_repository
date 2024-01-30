@@ -1,4 +1,4 @@
-/*----------------- 다크모드 (시스템모드 ) start*------------------*/
+/* 시스템 모드 */
 @media (prefers-color-scheme: light) {
     html, body {
     background: #fff;
@@ -7,86 +7,96 @@
    .link a {
     color: #000;
    }
-   .bg_black {
-     fill: #fff;
+   .search-btn{
+       background: #ffffff;
    }
-   .bg_white {
-     fill: #000000;
+   .chat-btn {
+       background: #ffffff;
    }
 }
-
 @media (prefers-color-scheme: dark) {
     html, body {
     background: #000;
     color: #fff;
-   }
-   .link a {
-       color: #fff;
-      }
- }
-/*----------------- 다크모드 (시스템모드 ) end*------------------*/
-/*---------------------- 다크모드 (임시) start ----------------------------*/
-.dark_mode {
-    position: absolute;
-    top: 30px;
-    right: 10%;
-
+}
+.link a {
+    color: #fff;
+}
+.bg_black {
+    fill: #000000;
+}
+.bg_white {
+    fill: #ffffff;
+}
+.search-btn{
+    background: #000000;
+}
+.chat-btn {
+    background: #000000;
 }
 
-.dark_mode input[type="checkbox"] {
-    visibility: hidden;
+
+ /* 토글 ver */
+
+body[data-dark_mode=on] .wrap .dark_mode > .inner {
+    background-color: #5F5F5F;
+}
+
+.wrap {
+   position: absolute;
+   right: 10%;
+}
+.wrap .dark_mode > .inner {
+    position: relative;
+    display: inline-flex;
+    padding: 5px;
+    border-radius: 2.5em;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.wrap .dark_mode label {
+    cursor: pointer;
+}
+
+.wrap .dark_mode label:first-of-type {
+    padding: 5px 5px 5px 10px;
+    border-radius: 50% 0 0 50%;
+}
+
+.wrap .dark_mode label:last-of-type {
+    padding: 5px 10px 5px 5px;
+    border-radius: 0 50% 50% 0;
+}
+
+.wrap .dark_mode i {
+    font-size: 1.5em;
+    color: #aaa;
+    position: relative;
+    z-index: 1;
+}
+
+.wrap .dark_mode input[type=radio] {
     display: none;
 }
 
-.dark_mode *,
-.dark_mode ::after,
-.dark_mode ::before {
-    box-sizing: border-box;
+.wrap .dark_mode input[type=radio]:checked + label > i {
+    color: #fff;
+    transition: all 0.35s ease-in-out;
 }
 
-.dark_mode .switch {
-    --width-of-switch: 2em;
-    --height-of-switch: 1em;
-    --size-of-icon: 0.8em;
-    --slider-offset: 0.2em;
-    position: relative;
-    width: var(--width-of-switch);
-    height: var(--height-of-switch);
-    display: inline-block;
-}
-
-.dark_mode .slider {
+.wrap .dark_mode .dark_mode-bg {
+    width: 35px;
+    height: 35px;
     position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #f4f4f5;
-    transition: .4s;
-    border-radius: 30px;
+    left: 5px;
+    border-radius: 50px 15px 15px 50px;
+    z-index: 0;
+    transition: all 0.35s ease-in-out;
+    background-color: #47BBEC;
 }
 
-.dark_mode .slider:before {
-    position: absolute;
-    content: "";
-    height: var(--size-of-icon,1.4em);
-    width: var(--size-of-icon,1.4em);
-    border-radius: 20px;
-    left: var(--slider-offset,0.3em);
-    top: 50%;
-    transform: translateY(-50%);
-    background: linear-gradient(40deg,#ff0080,#ff8c00 70%);
-    transition: .4s;
+.wrap .dark_mode #toggle-radio-dark:checked ~ .dark_mode-bg {
+    border-radius: 15px 50px 50px 15px;
+    top: 5px;
+    left: 44px;
 }
-
-.dark_mode input:checked + .slider {
-    background-color: #303136;
-}
-
-.dark_mode input:checked + .slider:before {
-    left: calc(100% - (var(--size-of-icon,1.4em) + var(--slider-offset,0.3em)));
-    background: #303136;
-    box-shadow: inset -3px -2px 5px -2px #8983f7, inset -10px -4px 0 0 #a3dafb;
-}
-/*---------------------- 다크모드 (임시) end ----------------------------*/
