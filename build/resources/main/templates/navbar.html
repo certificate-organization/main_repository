@@ -1,4 +1,6 @@
-<html layout:decorate="~{layout}">
+<html layout:decorate="~{layout}" xmlns:th="http://www.w3.org/1999/xhtml">
+<!-- 추가적인 CSS 파일 -->
+<link th:href="@{/darkmode.css}" rel="stylesheet">
 <div layout:fragment="content" class="container my-3">
     <nav th:fragment="navbarFragment">
         <nav class="navbar navbar-expand-lg shadow-sm p-3 mb-5 bg-body-tertiary rounded">
@@ -9,15 +11,23 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <div class="wrap">
+                    <div class="darkmode">
+                        <div class="inner">
+                            <input type="radio" name="toggle" id="toggle-radio-light" checked><label for="toggle-radio-light" class="tolight"><i class="fas fa-sun tolight"></i></label>
+                            <input type="radio" name="toggle" id="toggle-radio-dark"><label for="toggle-radio-dark" class="todark"><i class="fas fa-moon todark"></i></label>
+                            <div class="darkmode-bg"></div>
+                        </div>
+                    </div>
+                </div>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex justify-content-end">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" th:href="@{/member/login}" sec:authorize="isAnonymous()" >로그인</a>
                             <a class="nav-link" th:href="@{/member/logout}" sec:authorize="isAuthenticated()">로그아웃</a>
                         </li>
-
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" sec:authorize="isAuthenticated()" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 정보
                             </a>
                             <ul class="dropdown-menu">
@@ -28,7 +38,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" th:href="@{/member/signup}">회원가입</a>
+                            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/member/signup}">회원가입</a>
                         </li>
                     </ul>
                 </div>

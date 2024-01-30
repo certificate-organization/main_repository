@@ -1,18 +1,34 @@
 spring:
   profiles:
-    active: dev
-    include: secret
+    active: dev  # 기본적으로는 application-dev.yml 이 로딩된다는 의미
+    include: secret # active 되는 설정파일 (application-dev.yml) 다음에 application-secret.yml 이 로딩된다는 의미
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            scope:
+            client-name: Kakao
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8010/login/oauth2/code/kakao
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
   jpa:
     properties:
       hibernate:
-        default_batch_fetch_size: 100
-        show_sql: true
-        format_sql: true
-        use_sql_comments: true
+        default_batch_fetch_size: 100 # Lazy 로딩이 될 때 한번에 DB에서 가져오는 데이터의 수
+        show_sql: true # SQL 로그를 보기 좋게 포맷팅
+        format_sql: true # SQL 로그에 하이라이트
+        use_sql_comments: true # SQL 로그에 코멘트
   logging:
     level:
+      # SQL에 사용된 실제 파라미터, SQL의 결과도 출력
       org.hibernate.SQL: DEBUG
       org.hibernate.orm.jdbc.bind: TRACE
       org.hibernate.orm.jdbc.extract: TRACE

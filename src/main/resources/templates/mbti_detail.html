@@ -51,7 +51,7 @@
                 <td style="width: 8%" th:id="|result${loop.index + 1}|"></td>
                 <td style="width: 6%" th:text="${article.viewCount}"></td>
                 <td style="width: 6%" th:text="${#lists.size(article.likers)}|"></td>
-                <script th:src="@{/calculateDate.js}"></script>
+                <script th:src="@{/js/calculateDate.js}"></script>
                 <script th:inline="javascript">
                     calculateDate (/*[[${article.createDate}]]*/ '', 'result' + /*[[${loop.index + 1}]]*/);
                 </script>
