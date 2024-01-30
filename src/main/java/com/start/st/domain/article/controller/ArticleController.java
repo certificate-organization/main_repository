@@ -3,6 +3,7 @@ package com.start.st.domain.article.controller;
 import com.start.st.domain.article.entity.Article;
 import com.start.st.domain.article.entity.ArticleForm;
 import com.start.st.domain.article.service.ArticleService;
+import com.start.st.domain.comment.form.CommentForm;
 import com.start.st.domain.mbti.entity.Mbti;
 import com.start.st.domain.mbti.service.MbtiService;
 import com.start.st.domain.member.entity.Member;
@@ -50,7 +51,7 @@ public class ArticleController {
 
 
     @GetMapping("/article/{id}")
-    public String detailArticle(@PathVariable("id") Long id, Model model) {
+    public String detailArticle(@PathVariable("id") Long id, Model model, CommentForm commentForm) {
         Article article = this.articleService.getArticle(id);
         this.articleService.view(article, article.getViewCount());
         model.addAttribute("article", article);

@@ -59,7 +59,59 @@
         </tbody>
     </table>
 
+    <!-- 최상위 댓글 추가 폼 -->
+    <form th:action="@{|/comment/create/${article.id}|}" th:object="${commentForm}" method="post">
+        <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
+            <div th:each="err : ${#fields.allErrors()}" th:text="${err}"></div>
+        </div>
+        <textarea sec:authorize="isAnonymous()" disabled th:field="*{content}" class="form-control" rows="3"></textarea>
+        <textarea sec:authorize="isAuthenticated()" th:field="*{content}" class="form-control" rows="3"></textarea>
+        <button type="submit" class="btn btn-primary">댓글 등록</button>
+    </form>
 
+    <!-- 수정된 코드 -->
+    <h2 th:text="|${#lists.size(article.commentList)}개의 댓글이 있습니다.|"></h2>
+    <div>
+        <ul>
+            <li th:if="${comment.parent == null}" th:each="comment : ${article.commentList}">
+                <div class="my-3">
+                    <p th:text="${comment.content}"></p>
+                    <a th:if="${comment.author != null and #authentication.getPrincipal().getUsername() == comment.author.membername}"
+                       th:href="@{|/comment/modify/${comment.id}|}" class="btn btn-sm btn-outline-secondary"
+                       sec:authorize="isAuthenticated()" th:text="수정">
+
+                    </a>
+                    <a th:if="${comment.author != null and  #authentication.getPrincipal().getUsername() == comment.author.membername}"
+                       th:href="@{|/comment/delete/${comment.id}|}" class="delete btn btn-sm btn-outline-secondary"
+                       sec:authorize="isAuthenticated()" th:text="삭제">
+                    </a>
+                </div>
+                <form th:action="@{|/comment/create/${article.id}|}" method="post">
+                    <textarea sec:authorize="isAnonymous()" disabled name="content" class="form-control"
+                              rows="3"></textarea>
+                    <textarea sec:authorize="isAuthenticated()" name="content" class="form-control" rows="3"></textarea>
+                    <input type="hidden" name="parentCommentId" th:value="${comment.id}">
+                    <button type="submit" class="btn btn-primary">대댓글 등록</button>
+                </form>
+                <ul>
+                    <li th:each="childrenComment : ${comment.childrenCommentList}">
+                        <div class="my-3">
+                            <p th:text="${childrenComment.content}"></p>
+                            <a th:if="${childrenComment.author != null and #authentication.getPrincipal().getUsername() == childrenComment.author.membername}"
+                               th:href="@{|/comment/modify/${childrenComment.id}|}" class="btn btn-sm btn-outline-secondary"
+                               sec:authorize="isAuthenticated()" th:text="수정">
+                            </a>
+                            <a th:if="${childrenComment.author != null and  #authentication.getPrincipal().getUsername() == childrenComment.author.membername}"
+                               th:href="@{|/comment/delete/${childrenComment.id}|}"
+                               class="delete btn btn-sm btn-outline-secondary"
+                               sec:authorize="isAuthenticated()" th:text="삭제">
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 </div>
 </body>
 </html>

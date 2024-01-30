@@ -1,5 +1,6 @@
 package com.start.st.domain.article.entity;
 
+import com.start.st.domain.comment.entity.Comment;
 import com.start.st.domain.mbti.entity.Mbti;
 import com.start.st.domain.member.entity.Member;
 import com.start.st.global.jpa.BaseEntity;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.mapping.ToOne;
 
+import java.util.List;
 import java.util.Set;
 
 
@@ -29,4 +31,6 @@ public class Article extends BaseEntity {
     @ManyToMany
     private Set<Member> likers;
     private Long viewCount;
+    @OneToMany(mappedBy = "article", cascade=CascadeType.REMOVE)
+    private List<Comment> commentList;
 }
