@@ -1,4 +1,3 @@
-
 function calculateDate(articleCreateDate, index) {
     var createDate = new Date(articleCreateDate);
     var nowDate = new Date();

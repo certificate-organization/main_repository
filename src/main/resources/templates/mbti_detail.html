@@ -10,10 +10,9 @@
 </head>
 
 <body>
-<div layout:fragment="content" class="container my-3" style="width: 1000px;">
+<div layout:fragment="content" class="article-container">
     <!-- 게시판 상단 start -->
     <div class="col-6">
-
         <div class="TOP">
             <div class="logo">
                 <a class="article-logo" th:href="@{|/mbti/${mbti.id}|}" th:text="|${mbti.name} 게시판|"></a>
@@ -25,10 +24,26 @@
     </div>
     <!-- 게시판 상단 end -->
     <!-- mbti 정보 start -->
-    <div class="mbti-elements">
-        <div class="mbti-element" th:each="element : ${mbti.elements}">
-            <span class="mbti-element-text" th:text="${element}"></span>
+    <div class="mbti-information">
+        <div class="mbti-elements">
+            <div class="mbti-element" th:each="element : ${mbti.elements}">
+                <span class="mbti-element-text" th:text="${element}"></span>
+            </div>
         </div>
+        <!-- tab메뉴 start -->
+        <div class="tab-container">
+            <div class="tab" th:onclick="informationTab('tab1')">1</div>
+            <div class="tab" th:onclick="informationTab('tab2')">2</div>
+        </div>
+        <div id="tab1" class="tab-content active-content">
+            <h2>탭 1 내용</h2>
+            <p>이곳에는 탭 1의 내용이 들어갑니다.</p>
+        </div>
+        <div id="tab2" class="tab-content">
+            <h2>탭 2 내용</h2>
+            <p>이곳에는 탭 2의 내용이 들어갑니다.</p>
+        </div>
+        <!-- tab메뉴 end -->
     </div>
     <!-- mbti 정보 end -->
     <!-- 게시글 start -->
@@ -114,8 +129,6 @@
     </form>
     <!-- 검색기능 end -->
 </div>
-<script>
-
-</script>
 </body>
+<script th:src="@{/js/informationTab.js}"></script>
 </html>

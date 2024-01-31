@@ -9,7 +9,7 @@ import java.util.List;
 
 
 //칼럼이 List<String> 타입일 때, 변환하여 DB에 저장/사용
-@Converter
+@Converter(autoApply = true)
 public class StringListConverter implements AttributeConverter<List<String>, String> {
 
     private static final String DELIMITER = ",";

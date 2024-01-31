@@ -21,20 +21,28 @@ public class MbtiService {
             switch (name.charAt(i)) {
                 case 'I':
                     elements.add("Introversion(내향)");
+                    break;
                 case 'E':
                     elements.add("Extraversion(외향)");
+                    break;
                 case 'S':
                     elements.add("Sensing(감각)");
+                    break;
                 case 'N':
                     elements.add("iNtuition(직관)");
+                    break;
                 case 'T':
                     elements.add("Thinking(사고)");
+                    break;
                 case 'F':
                     elements.add("Felling(감정)");
+                    break;
                 case 'J':
                     elements.add("Judging(판단)");
+                    break;
                 case 'P':
                     elements.add("Perceiving(인식)");
+                    break;
             }
         }
         return elements;
@@ -42,10 +50,10 @@ public class MbtiService {
 
     //만들어질 때, 요소도 같이 만들어짐
     public void create(String name) {
-        List<String> elements = new ArrayList<>();
-        elements = this.getElements(name);
+        List<String> elements = this.getElements(name);
         Mbti mbti = Mbti.builder()
                 .name(name)
+                .elements(elements)
                 .build();
         this.mbtiRepository.save(mbti);
     }

@@ -1,3 +1,13 @@
+.article-container {
+    width: 1000px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
 /*---------------------- 게시판상단 start ---------------------- */
 .TOP {
     display: flex;
@@ -131,9 +141,10 @@
 /*---------------------- 게시판목록 start ---------------------- */
 .article-table {
     text-align: center;
-    margin: 0 auto;
+    margin: auto;
     display: flex;
     justify-content: center;
+    width: 100%
 }
 
 .article-list {
@@ -332,9 +343,17 @@
 /*---------------------- 게시판폼 end ---------------------- */
 /*---------------------- mbti정보 start ---------------------- */
 
+.mbti-information {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+}
+
 .mbti-elements {
-    vertical-align: center;
-    width: 1000px;
+    align-items: center;
+    width: 100%
 }
 
 .mbti-element {
@@ -353,4 +372,46 @@
     font-size: 12px;
     margin-top: -2px;
     vertical-align: middle;
+}
+
+/*---------------------- tab메뉴 start ---------------------- */
+.tab-container {
+    margin-top: 10px;
+    margin-left: 10px;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.6);
+    display: flex;
+    border-radius: 5px 5px 0 0;
+    width: 100%
+}
+
+.tab {
+    padding: 10px 15px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    border-radius: 5px 5px 0 0;
+    margin-right: 5px;
+}
+
+.tab:hover {
+    background-column: #ddd;
+}
+
+.tab-content {
+    display: none;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 0 0 5px 5px;
+    margin-left: 10px;
+    width: 100%;
+}
+
+.active-tab {
+    background-color: #fff;
+    border-bottom: 1px solid #fff;
+}
+
+.active-content {
+    display: block;
 }
