@@ -29,5 +29,6 @@ public class MemberSignupForm {
     private String email;
 
     @Min(value = 1, message = "MBTI를 선택해주세요.")
+    @Max(value = 16, message = "MBTI를 선택해주세요.")
     private Long mbtiId;
 }

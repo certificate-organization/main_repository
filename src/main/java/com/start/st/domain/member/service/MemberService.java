@@ -67,4 +67,8 @@ public Member whenSocialLogin(String providerTypeCode, String membername, String
     private Optional<Member> findByMembername(String membername) {
         return memberRepository.findByMembername(membername);
     }
+
+    public boolean paswordConfirm(String password,Member member) {
+        if(passwordEncoder.encode(password).equals())
+    }
 }

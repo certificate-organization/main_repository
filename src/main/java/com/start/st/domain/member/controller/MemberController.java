@@ -70,4 +70,14 @@ public class MemberController {
         model.addAttribute("mbtiList",mbtiList);
         return "member_modify_form";
     }
+
+    @GetMapping("/passwordConfirm")
+    public String memberPasswordConfirm(){
+        return "passwordConfirm_form";
+    }
+    @PostMapping("/passwordConfirm")
+    public String memberPasswordConfirm(@RequestParam(value = "password")String password, Principal principal){
+        Member member = this.memberService.getMember(principal.getName());
+        boolean isPasswordCorrect = this.memberService.paswordConfirm(password,member);
+    }
 }

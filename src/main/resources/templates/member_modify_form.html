@@ -30,8 +30,20 @@
             <option th:value="${member.mbti.id}" th:text="${member.mbti.name}"></option>
             <option th:each="mbti : ${mbtiList}" th:value="${mbti.id}" th:text="${mbti.name}"></option>
         </select>
-
         <br>
+        <div class="mb-3">
+            <label for="password" class="form-label">현재 비밀번호</label>
+            <input type="password" name="password" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="password1" class="form-label">변경할 비밀번호</label>
+            <input type="password" name="password1" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="password2" class="form-label">변경할 비밀번호 확인</label>
+            <input type="password" name="password2" class="form-control">
+        </div>
+
         <button type="submit" class="btn btn-primary">정보 수정하기</button>
     </form>
 </div>
