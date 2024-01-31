@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 추가적인 CSS 파일 -->
+    <link th:href="@{/css/darkmode.css}" rel="stylesheet">
+    <title th:text="|${mbti.name} 정보 수정|"></title>
+</head>
+
+<body>
+<div layout:fragment="content" class="container my-3">
+    <h4 th:text="|${mbti.name} 정보 수정|"></h4>
+    <form th:action="@{|/mbti/${mbti.id}/information|}" th:object="${mbti}" method="post">
+        <div class="mb-3">
+            <label for="love" class="form-label">연애</label>
+            <input type="text" name="love" th:field="*{love}" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="relationship" class="form-label">관계</label>
+            <input type="text" name="relationship" th:field="*{relationship}" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="celebrity" class="form-label">유명인</label>
+            <input type="text" name="celebrity" th:field="*{celebrity}" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="직업" class="form-label">직업</label>
+            <input type="text" name="직업" th:field="*{job}" class="form-control">
+        </div>
+        <br>
+        <button type="submit" class="create-btn">저장</button>
+        <a th:href="@{|/mbti/${mbti.id}|}" class="back-btn">취소</a>
+    </form>
+</div>
+</body>
+</html>

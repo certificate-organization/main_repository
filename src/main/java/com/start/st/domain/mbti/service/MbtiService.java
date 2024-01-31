@@ -58,6 +58,15 @@ public class MbtiService {
         this.mbtiRepository.save(mbti);
     }
 
+    public void modify(Mbti mbti, String love, String relationship, String celebrity, String job) {
+        Mbti modifyMbti = mbti.toBuilder()
+                .love(love)
+                .relationship(relationship)
+                .celebrity(celebrity)
+                .job(job)
+                .build();
+        this.mbtiRepository.save(modifyMbti);
+    }
 
     public List<Mbti> findAllMbti() {
         return this.mbtiRepository.findAll();

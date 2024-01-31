@@ -19,10 +19,9 @@ import java.util.Set;
 
 @Entity
 @Getter
-@SuperBuilder
+@SuperBuilder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class Mbti extends BaseEntity {
     @Column(length = 100, unique = true)
     private String name;

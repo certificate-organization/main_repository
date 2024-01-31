@@ -374,6 +374,11 @@
     vertical-align: middle;
 }
 
+.information-btn {
+    margin-top: 10px;
+    display: flex;
+    justify-content: right;
+}
 /*---------------------- tab메뉴 start ---------------------- */
 .tab-container {
     margin-top: 10px;
@@ -385,7 +390,7 @@
 }
 
 .tab {
-    padding: 10px 15px;
+    padding: 1px 10px;
     background-color: #f1f1f1;
     cursor: pointer;
     border: 1px solid #ccc;

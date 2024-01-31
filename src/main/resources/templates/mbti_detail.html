@@ -45,18 +45,23 @@
         </div>
         <!-- tab메뉴 end -->
     </div>
+    <div class="information-btn">
+        <a th:if="${member != null and member.membername == 'admin'}"
+           sec:authorize="isAuthenticated()"
+           th:href="@{|/mbti/${mbti.id}/information|}" class="back-btn">수정</a>
+    </div>
     <!-- mbti 정보 end -->
     <!-- 게시글 start -->
     <div class="article-table">
         <table class="article-list">
             <thead class="article-list-head">
             <tr>
-                <th style="width=10%">번호</th>
+                <th>번호</th>
                 <th class="article-list-subject-head">제목</th>
-                <th style="width=10%">작성자</th>
-                <th style="width=10%">작성일</th>
-                <th style="width=10%">조회수</th>
-                <th style="width=10%">추천수</th>
+                <th>작성자</th>
+                <th>작성일</th>
+                <th>조회수</th>
+                <th>추천수</th>
             </tr>
             </thead>
             <tbody>
