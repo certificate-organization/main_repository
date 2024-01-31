@@ -3,8 +3,10 @@ package com.start.st.domain.comment.service;
 
 import com.start.st.domain.article.entity.Article;
 import com.start.st.domain.comment.Repository.CommentRepository;
+import com.start.st.domain.comment.Repository.ReportCommentRepository;
 import com.start.st.domain.comment.entity.Comment;
 import com.start.st.domain.member.entity.Member;
+import com.start.st.domain.reportComment.entity.ReportComment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
@@ -14,6 +16,7 @@ import java.util.Optional;
 public class CommentService {
 
     private final CommentRepository commentRepository;
+    private final ReportCommentRepository reportCommentRepository;
 
     public Comment getcomment(Long id) {
         Optional<Comment> comment = this.commentRepository.findById(id);
@@ -43,5 +46,23 @@ public class CommentService {
                 .build();
 
         this.commentRepository.save(comment);
+    }
+    public void likeComment(Comment comment, Member liker){
+        comment.getLikers().add(liker);
+        this.commentRepository.save(comment);
+    }
+
+    public void unlikeComment(Comment comment, Member unLiker){
+        comment.getLikers().remove(unLiker);
+        this.commentRepository.save(comment);
+    }
+    public void report(Comment comment ,String reportContent, Member reporter){
+        ReportComment reportComment = ReportComment.builder()
+                .comment(comment)
+                .content(reportContent)
+                .author(reporter)
+                .build();
+
+        this.reportCommentRepository.save(reportComment);
     }
 }

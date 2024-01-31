@@ -2,6 +2,7 @@ package com.start.st.domain.comment.entity;
 
 import com.start.st.domain.article.entity.Article;
 import com.start.st.domain.member.entity.Member;
+import com.start.st.domain.reportComment.entity.ReportComment;
 import com.start.st.global.jpa.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -31,8 +32,14 @@ public class Comment extends BaseEntity {
     @ManyToOne
     private Comment parent;
 
-
     @OneToMany(mappedBy = "parent")
     private List<Comment> childrenCommentList;
 
+    @ManyToMany
+    private Set<Member> likers = new HashSet<>(); // 좋아요를 누른 멤버들을 저장할 Set 추가
+
+    private boolean likedByCurrentUser;
+
+    @OneToMany(mappedBy = "comment")
+    private List<ReportComment> reportComments;
 }

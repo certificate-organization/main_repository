@@ -6,6 +6,8 @@ import com.start.st.domain.article.service.ArticleService;
 import com.start.st.domain.comment.entity.Comment;
 
 import com.start.st.domain.comment.form.CommentForm;
+
+import com.start.st.domain.comment.form.ReportCommentForm;
 import com.start.st.domain.comment.service.CommentService;
 import com.start.st.domain.member.entity.Member;
 import com.start.st.domain.member.service.MemberService;
@@ -54,8 +56,6 @@ public class CommentController {
         return String.format("redirect:/article/%s", id);
     }
 
-
-
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{id}")
     public String commentModify(@PathVariable("id") Long id, Principal principal, Model model) {
@@ -72,7 +72,6 @@ public class CommentController {
     @PostMapping("/modify/{id}")
     public String commentModify(@PathVariable(value = "id") Long id,
                                 @Valid CommentForm commentForm, BindingResult bindingResult, Principal principal) {
-
 
         Comment comment = this.commentService.getcomment(id);
         if (!comment.getAuthor().getMembername().equals(principal.getName())) {
@@ -98,5 +97,33 @@ public class CommentController {
 
         return String.format("redirect:/article/%s", comment.getArticle().getId());
 
+    }
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/like/{id}")
+    public String likeComment(@PathVariable("id") Long id, Principal principal) {
+        Comment comment = this.commentService.getcomment(id);
+        Member liker = this.memberService.getMember(principal.getName());
+
+        if (comment != null && liker != null) {
+            this.commentService.likeComment(comment, liker);
+        }
+
+        return String.format("redirect:/article/%s", comment.getArticle().getId());
+
+    }
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/report/{id}")
+    public String reportComment(@PathVariable("id") Long id, Principal principal,
+                                @Valid ReportCommentForm reportCommentForm, BindingResult bindingResult
+                                ){
+        Comment comment = this.commentService.getcomment(id);
+
+        if (comment==null){
+            return "redirect:/error";
+        }
+
+        Member member = this.memberService.getMember(principal.getName());
+        this.commentService.report(comment,reportCommentForm.getReportContent(),member);
+        return String.format("redirect:/article/%s", comment.getArticle().getId());
     }
 }

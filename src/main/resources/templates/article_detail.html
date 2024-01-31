@@ -79,12 +79,23 @@
                     <a th:if="${comment.author != null and #authentication.getPrincipal().getUsername() == comment.author.membername}"
                        th:href="@{|/comment/modify/${comment.id}|}" class="btn btn-sm btn-outline-secondary"
                        sec:authorize="isAuthenticated()" th:text="수정">
-
                     </a>
                     <a th:if="${comment.author != null and  #authentication.getPrincipal().getUsername() == comment.author.membername}"
                        th:href="@{|/comment/delete/${comment.id}|}" class="delete btn btn-sm btn-outline-secondary"
                        sec:authorize="isAuthenticated()" th:text="삭제">
                     </a>
+                    <a th:href="@{|/comment/like/${comment.id}|}" class="btn btn-sm btn-outline-secondary" th:if="${not comment.likedByCurrentUser}">
+                        좋아요
+                        <span class="badge rounded-pill bg-success" th:text="${#lists.size(comment.likers)}"></span>
+                    </a>
+
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">신고</button>
+
+                    <span th:if="${comment.likedByCurrentUser}">
+                        <span class="badge rounded-pill bg-success" th:text="${#lists.size(comment.likers)}"></span>
+                        이미 좋아요 표시
+                    </span>
+
                 </div>
                 <form th:action="@{|/comment/create/${article.id}|}" method="post">
                     <textarea sec:authorize="isAnonymous()" disabled name="content" class="form-control"
@@ -112,6 +123,30 @@
             </li>
         </ul>
     </div>
+    <!-- 모달 부트스트랩 시작-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">신고내용</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form th:action="@{|/comment/report/${article.id}|}" method="post">
+                    <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">내용</label>
+                                <textarea class="form-control" name="reportContent" id="message-text"></textarea>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">신고 보내기</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- 모달 부트스트랩 종료 -->
 </div>
 </body>
 </html>
