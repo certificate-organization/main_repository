@@ -27,8 +27,8 @@
     border: 2px solid #47BBEC;
     border-radius: 45px;
     overflow: hidden;
-    width: 50%;
-    height: 50px;
+    width: 45%;
+    height: 35px;
 }
 
 .search-txt {
@@ -37,14 +37,14 @@
     border: none;
     outline: none;
     background: none;
-    font-size: 16px;
+    font-size: 13px;
     border-radius: 25px;
     color: #000;
     margin-left: 15px;
 }
 
 .search-btn {
-margin-top: 17px;
+    margin-top: 17px;
     background: #fff;
     color: #47BBEC;
     border: none;
@@ -330,3 +330,27 @@ margin-top: 17px;
 
 
 /*---------------------- 게시판폼 end ---------------------- */
+/*---------------------- mbti정보 start ---------------------- */
+
+.mbti-elements {
+    vertical-align: center;
+    width: 1000px;
+}
+
+.mbti-element {
+    border: 1px solid rgba(128, 128, 128, 0.6);
+    padding: 5px;
+    display: inline-block;
+    border-radius: 20px;
+    margin-top: 2px;
+    margin-left: 10px;
+    height: 25px;
+    line-height: 12px;
+}
+
+.mbti-element-text {
+    color: rgba(128, 128, 128, 0.8);
+    font-size: 12px;
+    margin-top: -2px;
+    vertical-align: middle;
+}

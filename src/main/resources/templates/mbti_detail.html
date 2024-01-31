@@ -11,6 +11,7 @@
 
 <body>
 <div layout:fragment="content" class="container my-3" style="width: 1000px;">
+    <!-- 게시판 상단 start -->
     <div class="col-6">
 
         <div class="TOP">
@@ -22,6 +23,15 @@
                th:href="@{|/mbti/${mbti.id}/article/create|}" class="create-btn">글쓰기</a>
         </div>
     </div>
+    <!-- 게시판 상단 end -->
+    <!-- mbti 정보 start -->
+    <div class="mbti-elements">
+        <div class="mbti-element" th:each="element : ${mbti.elements}">
+            <span class="mbti-element-text" th:text="${element}"></span>
+        </div>
+    </div>
+    <!-- mbti 정보 end -->
+    <!-- 게시글 start -->
     <div class="article-table">
         <table class="article-list">
             <thead class="article-list-head">
@@ -53,13 +63,14 @@
                 <td style="width: 6%" th:text="${#lists.size(article.likers)}|"></td>
                 <script th:src="@{/js/calculateDate.js}"></script>
                 <script th:inline="javascript">
-                    calculateDate (/*[[${article.createDate}]]*/ '', 'result' + /*[[${loop.index + 1}]]*/);
+                    calculateDate (/*[[${article.createDate}]]*/, 'result' + /*[[${loop.index + 1}]]*/);
                 </script>
             </tr>
             </tbody>
         </table>
     </div>
-
+    <!-- 게시글 end -->
+    <!-- 페이징 start -->
     <div th:if="${!articlePage.isEmpty()}">
         <ul class="article-paging">
             <li th:if="${articlePage.hasPrevious()}">
@@ -82,7 +93,8 @@
             </li>
         </ul>
     </div>
-
+    <!-- 페이징 end -->
+    <!-- 검색 start -->
     <div class="article-table" th:if="${!articlePage.isEmpty()}">
         <form th:action="@{|/mbti/${mbti.id}|}" method="get" class="search-box">
             <div class="search-box-inner">
@@ -94,13 +106,16 @@
             </div>
         </form>
     </div>
-
+    <!-- 검색 end -->
+    <!-- 검색기능 start -->
     <form th:action="@{|/mbti/${mbti.id}|}" method="get">
         <input type="hidden" name="keyword" th:value="${keyword}">
         <input type="hidden" name="page" th:value="${articlePage.number}">
     </form>
-
-
+    <!-- 검색기능 end -->
 </div>
+<script>
+
+</script>
 </body>
 </html>
