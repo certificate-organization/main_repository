@@ -14,27 +14,30 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping("/member")
 public class MemberController {
 
     private final MemberService memberService;
     private final MbtiService mbtiService;
     private final MemberSecurityService memberSecurityService;
 
-    @GetMapping("/member/signup")
+    @GetMapping("/signup")
     public String memberSignup(Model model, MemberSignupForm memberSignupForm) {
         List<Mbti> mbtiList = this.mbtiService.findAllMbti();
         model.addAttribute("mbtiList", mbtiList);
         return "signup_form";
     }
 
-    @PostMapping("/member/signup")
+    @PostMapping("/signup")
     public String memberSignup(@Valid MemberSignupForm memberSignupForm, BindingResult bindingResult, Model model) {
         List<Mbti> mbtiList = this.mbtiService.findAllMbti();
         if (bindingResult.hasErrors()) {
@@ -53,8 +56,18 @@ public class MemberController {
         return "redirect:/member/login";
     }
 
-    @GetMapping("/member/login")
+    @GetMapping("/login")
     public String memberLogin() {
         return "login_form";
+    }
+
+    @GetMapping("/modify")
+    public String memberModify(Model model, Principal principal,MemberSignupForm memberSignupForm){
+        Member member = this.memberService.getMember(principal.getName());
+        List<Mbti> mbtiList = this.mbtiService.findAllMbti();
+        mbtiList.remove(member.getMbti());
+        model.addAttribute("member",member);
+        model.addAttribute("mbtiList",mbtiList);
+        return "member_modify_form";
     }
 }
