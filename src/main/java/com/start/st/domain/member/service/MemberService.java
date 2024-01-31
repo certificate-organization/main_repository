@@ -69,6 +69,9 @@ public Member whenSocialLogin(String providerTypeCode, String membername, String
     }
 
     public boolean paswordConfirm(String password,Member member) {
-        if(passwordEncoder.encode(password).equals())
+        if(passwordEncoder.encode(password).equals(member.getPassword())){
+            return true;
+        }
+        return false;
     }
 }

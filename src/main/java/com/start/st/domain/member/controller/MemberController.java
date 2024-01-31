@@ -9,6 +9,7 @@ import com.start.st.domain.member.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -62,7 +63,11 @@ public class MemberController {
     }
 
     @GetMapping("/modify")
-    public String memberModify(Model model, Principal principal,MemberSignupForm memberSignupForm){
+    public String memberModify(Model model, Principal principal, MemberSignupForm memberSignupForm, Authentication authentication){
+        if (authentication == null || !authentication.isAuthenticated()) {
+            // 인증되지 않은 사용자이거나, 인증되었지만 비밀번호 검증 상태가 아닌 경우 비밀번호 검증 페이지로 리디렉션
+            return "redirect:/member/passwordConfirm";
+        }
         Member member = this.memberService.getMember(principal.getName());
         List<Mbti> mbtiList = this.mbtiService.findAllMbti();
         mbtiList.remove(member.getMbti());
@@ -78,6 +83,9 @@ public class MemberController {
     @PostMapping("/passwordConfirm")
     public String memberPasswordConfirm(@RequestParam(value = "password")String password, Principal principal){
         Member member = this.memberService.getMember(principal.getName());
-        boolean isPasswordCorrect = this.memberService.paswordConfirm(password,member);
+        if(!this.memberService.paswordConfirm(password,member)){
+            return "/passwordConfirm";
+        }
+
     }
 }
