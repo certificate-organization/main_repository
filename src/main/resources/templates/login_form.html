@@ -12,7 +12,8 @@
     <!-- Links -->
     <ul class="links">
         <li>
-            <a>로그인</a>
+            <i class="fa fa-user-plus"></i>
+            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/member/signup}" style="text-decoration-line: none" >회원가입</a>
         </li>
         <li>
             <a href="#" id="reset">초기화</a>

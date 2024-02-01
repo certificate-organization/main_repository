@@ -14,9 +14,7 @@
 
     <!-- Links -->
     <ul class="links">
-        <li>
-            <a href="#" id="signin">회원가입</a>
-        </li>
+        <li></li>
         <li>
             <a href="#" id="reset">초기화</a>
         </li>
@@ -24,6 +22,9 @@
 
     <form th:action="@{/member/signup}" th:object="${memberSignupForm}" method="post">
         <div th:replace="~{form_errors :: formErrorsFragment}"></div>
+        <div class="separator">
+            <p>가입</p>
+        </div>
         <div class="title__p">
             <p>아이디</p>
         </div>
@@ -54,7 +55,7 @@
         <div class="title__p">
             <p>MBTI</p>
             <select name="mbtiId" id="mbtiId" class="form-select" aria-label="Default select example">
-                <option value="0">== 선택 ==</option>
+                <option value="0" style="text-center">== 선택 ==</option>
                 <option th:each="mbti : ${mbtiList}" th:value="${mbti.id}" th:text="${mbti.name}"></option>
             </select>
         </div>
