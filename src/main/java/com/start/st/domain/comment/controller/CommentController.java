@@ -107,9 +107,7 @@ public class CommentController {
         if (comment != null && liker != null) {
             this.commentService.likeComment(comment, liker);
         }
-
         return String.format("redirect:/article/%s", comment.getArticle().getId());
-
     }
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/report/{id}")
