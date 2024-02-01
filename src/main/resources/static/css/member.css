@@ -1,0 +1,200 @@
+body {
+  background: white;
+}
+.container {
+  display: block;
+  max-width: 680px;
+  width: 80%;
+  margin: 120px auto;
+}
+
+h1 {
+  color: #47BBEC;
+  font-size: 48px;
+  letter-spacing: -3px;
+  text-align: center;
+  margin: 20px 0 80px 0;
+  transition: .2s linear;
+}
+
+.links {
+  list-style-type: none;
+}
+
+.links li {
+  display: inline-block;
+  margin: 0 20px 0 0;
+  transition: .2s linear;
+}
+
+.links li:nth-child(2) {
+  opacity: .6;
+  float: right;
+}
+
+.links li:nth-child(3):hover {
+  opacity: 1;
+}
+
+.links li a {
+  text-decoration: none;
+  color: #0f132a;
+  font-weight: bolder;
+  text-align: center;
+  cursor: pointer;
+}
+
+p {
+  color: #0f132a;
+  font-weight: bolder;
+}
+.title__p {
+       margin-block-start: 1em;
+       margin-block-end: 1em;
+       margin-inline-start: 0px;
+       margin-inline-end: 0px;
+       padding-inline-start: 40px;
+}
+.form-select {
+    width: 90%;
+}
+
+
+
+form {
+  width: 100%;
+  max-width: 680px;
+  margin: 40px auto 10px;
+}
+
+.input__block {
+  margin: 20px auto;
+  display: block;
+  position: relative;
+}
+
+.input__block input {
+  display: block;
+  width: 90%;
+  max-width: 680px;
+  height: 50px;
+  margin: 0 auto;
+  border-radius: 8px;
+  border: none;
+  background: rgba(15, 19, 42, 0.1);
+  color: rgba(15, 19, 42, 0.3);
+  padding: 0 0 0 15px;
+  font-size: 14px;
+  font-family: 'Montserrat', sans-serif;
+  &:focus,
+  &:active {
+    outline: none;
+    border: none;
+    color: rgba(15, 19, 42, 1);
+  }
+  &.repeat__password {
+    opacity: 0;
+    display: none;
+    transition: .2s linear;
+  }
+}
+
+.signin__btn {
+  background: #47BBEC;
+  color: white;
+  display: block;
+  width: 92.5%;
+  max-width: 680px;
+  height: 50px;
+  border-radius: 8px;
+  margin: 0 auto;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  box-shadow: 0 5px 30px rgba(0, 255, 255, 1);
+  transition: .2s linear;
+  &:hover {
+    box-shadow: 0 0 0 rgba(233, 30, 99, 0);
+  }
+}
+
+.separator {
+  display: block;
+  margin: 30px auto 10px;
+  text-align: center;
+  height: 40px;
+  position: relative;
+  background: transparent;
+  color: rgba(15, 19, 42, 0.4);
+  font-size: 13px;
+  width: 90%;
+  max-width: 680px;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 0;
+    background: rgba(15, 19, 42, 0.2);
+    height: 1px;
+    width: 45%;
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    top: 8px;
+    right: 0;
+    background: rgba(15, 19, 42, 0.2);
+    height: 1px;
+    width: 45%;
+  }
+}
+
+/* 구글 및 깃허브 버튼 스타일 */
+.kakao__btn,
+.naver__btn,
+.google__btn {
+  display: block;
+  width: 90%;
+  max-width: 680px;
+  margin: 20px auto;
+  height: 50px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 8px;
+  border: none;
+  line-height: 40px;
+}
+.kakao__btn {
+  background: #FEE500;
+  color: #000000;
+  transition: .2s linear;
+  .fa {
+    font-size: 20px;
+    padding: 0 5px 0 0;
+  }
+}
+.naver__btn {
+  background: #03C75A;
+  color: #000000;
+  transition: .2s linear;
+  .fa {
+    font-size: 20px;
+    padding: 0 5px 0 0;
+  }
+}
+.google__btn {
+  background: #5b90f0;
+  color: #000000;
+  transition: .2s linear;
+  .fa {
+    font-size: 20px;
+    padding: 0 5px 0 0;
+  }
+}
+a {
+    color: #000000;
+}
+
+footer {
+
+}
