@@ -113,12 +113,9 @@ public class CommentController {
     @PostMapping("/report/{id}")
     public String reportComment(@PathVariable("id") Long id, Principal principal,
                                 @Valid ReportCommentForm reportCommentForm, BindingResult bindingResult
-                                ){
+                                )  {
         Comment comment = this.commentService.getcomment(id);
 
-        if (comment==null){
-            return "redirect:/error";
-        }
 
         Member member = this.memberService.getMember(principal.getName());
         this.commentService.report(comment,reportCommentForm.getReportContent(),member);
