@@ -7,10 +7,16 @@
     <!-- 추가적인 CSS 파일 -->
     <link th:href="@{/css/darkmode.css}" rel="stylesheet">
     <title>MBTI 게시판</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- 추가적인 CSS 파일 -->
+    <link type="text/css" th:href="@{/css/member.css}" rel="stylesheet">
+    <!-- 폰트어썸 이미지 사용위한 kits -->
+    <script src="https://kit.fontawesome.com/26ee6f51e2.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div layout:fragment="content" class="container my-3">
-    <h4>개인 정보 수정</h4>
+    <h4>나의정보 / 수정</h4>
     <form th:action="@{/member/modify}" th:object="${memberSignupForm}" method="post">
         <div th:replace="~{form_errors :: formErrorsFragment}"></div>
         <div class="mb-3">

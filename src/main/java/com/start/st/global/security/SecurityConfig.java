@@ -19,9 +19,7 @@ public class SecurityConfig {
         http
 
                 .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-                        .requestMatchers(new AntPathRequestMatcher("/**")).permitAll()
-                        .requestMatchers(new AntPathRequestMatcher("/member/modify")).authenticated()
-                        .requestMatchers(new AntPathRequestMatcher("/member/passwordConfirm")).permitAll())
+                        .requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
                 .formLogin((formLogin) -> formLogin
                         .loginPage("/member/login")
                         .loginProcessingUrl("/member/login")
