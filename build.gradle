@@ -37,6 +37,10 @@ dependencies {
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 	implementation 'org.commonmark:commonmark:0.21.0'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	// 웹 소켓 ( 채팅방 구현)
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
 }
 
 tasks.named('test') {
