@@ -98,6 +98,18 @@ form {
     transition: .2s linear;
   }
 }
+.show_info_block {
+    display: block;
+      width: 90%;
+      max-width: 680px;
+      height: 50px;
+      margin: 0 auto;
+      border-radius: 8px;
+      border: 2px solid black;
+      color: rgba(15, 19, 42, 0.85);
+      padding: 6 0 0 15px;
+      font-size: 20px;
+}
 
 .signin__btn {
   background: #47BBEC;
@@ -198,3 +210,4 @@ a {
 footer {
 
 }
+
