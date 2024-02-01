@@ -1,35 +1,62 @@
-<!DOCTYPE html>
-<html lang="ko" layout:decorate="~{layout}">
+<!-- jQuery를 먼저 로드 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- 추가적인 CSS 파일 -->
+<link type="text/css" th:href="@{/css/member.css}" rel="stylesheet">
+<!-- 폰트어썸 이미지 사용위한 kits -->
+<script src="https://kit.fontawesome.com/26ee6f51e2.js" crossorigin="anonymous"></script>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 추가적인 CSS 파일 -->
-    <link th:href="@{/css/darkmode.css}" rel="stylesheet">
-    <title>로그인</title>
-</head>
+<div class="container">
+    <!-- Heading -->
+    <h1>로그인</h1>
 
-<body>
-<div layout:fragment="content" class="container my-3">
+    <!-- Links -->
+    <ul class="links">
+        <li>
+            <a>로그인</a>
+        </li>
+        <li>
+            <a href="#" id="reset">초기화</a>
+        </li>
+    </ul>
+
     <form th:action="@{/member/login}" method="post">
-        <div th:if="${param.error}">
-            <div class="alert alert-danger">
-                사용자ID 또는 비밀번호를 확인해 주세요.
-            </div>
+        <div class="first-input input__block first-input__block">
+            <input type="text" name="username" id="username" class="form-control"  placeholder="아이디">
         </div>
-        <div class="mb-3">
-            <label for="username" class="form-label">사용자ID</label>
-            <input type="text" name="username" id="username" class="form-control">
+        <div class="input__block">
+            <input type="password" name="password" id="password" class="form-control"  placeholder="비밀번호">
         </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">비밀번호</label>
-            <input type="password" name="password" id="password" class="form-control">
-        </div>
-        <button type="submit" class="btn btn-primary">로그인</button>
+        <button class="signin__btn">
+            로그인
+        </button>
     </form>
-    <div>
-        <a href="/oauth2/authorization/kakao">카카오 로그인</a>
+    <div class="separator">
+        <p>OR</p>
     </div>
+    <button class="kakao__btn">
+        <i class="fa fa-comment"></i>
+        <a href="/oauth2/authorization/kakao" style="text-decoration-line: none">카카오 로그인</a>
+    </button>
+    <button class="naver__btn">
+        <i class="fa fa-n"></i>
+        네이버 로그인
+    </button>
+    <button class="google__btn">
+        <i class="fa fa-google"></i>
+        구글 로그인
+    </button>
 </div>
-</body>
-</html>
+<script>
+    $(document).ready(function(){
+        let reset = $("#reset");
+
+        reset.on("click", function(e){
+            e.preventDefault();
+            $("#username").val("");
+            $("#password").val("");
+        });
+    });
+</script>
+<footer>
+
+</footer>

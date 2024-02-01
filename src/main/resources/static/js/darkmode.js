@@ -15,10 +15,9 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 
   if (darkModeToggle) {
-    // Check user preference from localStorage
+
     const userPrefersDarkMode = localStorage.getItem('dark_mode') === 'on';
 
-    // Apply styles based on user preference
     if (userPrefersDarkMode) {
       applyDarkModeStyles();
       darkModeToggle.checked = true;
@@ -26,13 +25,8 @@ document.addEventListener('DOMContentLoaded', function () {
       applyLightModeStyles();
     }
 
-    // Toggle styles when dark mode icon is clicked
     darkModeIcon.addEventListener("click", applyDarkModeStyles);
-    
-    // Toggle styles when light mode icon is clicked
     lightModeIcon.addEventListener("click", applyLightModeStyles);
-
-    // Toggle styles when the toggle input is changed
     darkModeToggle.addEventListener("change", function () {
       if (darkModeToggle.checked) {
         applyDarkModeStyles();

@@ -1,18 +1,10 @@
-<!DOCTYPE html>
 <html lang="ko" layout:decorate="~{layout}">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 추가적인 CSS 파일 -->
-    <link th:href="@{/css/darkmode.css}" rel="stylesheet">
     <title>MBTI 게시판</title>
 </head>
-
 <body>
 <div layout:fragment="content" class="container my-3">
     <div class="col-6">
-
         <div class="TOP">
             <div class="logo">
                 <a class="article-logo" th:href="@{|/mbti/${mbti.id}|}" th:text="|${mbti.name} 게시판|"></a>
@@ -99,8 +91,6 @@
         <input type="hidden" name="keyword" th:value="${keyword}">
         <input type="hidden" name="page" th:value="${articlePage.number}">
     </form>
-
-
 </div>
 </body>
 </html>

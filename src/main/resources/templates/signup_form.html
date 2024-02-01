@@ -1,47 +1,99 @@
-<!DOCTYPE html>
-<html lang="ko" layout:decorate="~{layout}">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 추가적인 CSS 파일 -->
-    <link th:href="@{/css/darkmode.css}" rel="stylesheet">
-    <title>회원가입</title>
-</head>
+<!-- jQuery를 먼저 로드 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- 부트스트랩 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<!-- 추가적인 CSS 파일 -->
+<link type="text/css" th:href="@{/css/member.css}" rel="stylesheet">
+<!-- 폰트어썸 이미지 사용위한 kits -->
+<script src="https://kit.fontawesome.com/26ee6f51e2.js" crossorigin="anonymous"></script>
 
-<body>
-<div layout:fragment="content" class="container my-3">
-    <h4>회원가입</h4>
+<div class="container">
+    <!-- Heading -->
+    <h1>회원가입</h1>
+
+    <!-- Links -->
+    <ul class="links">
+        <li>
+            <a href="#" id="signin">회원가입</a>
+        </li>
+        <li>
+            <a href="#" id="reset">초기화</a>
+        </li>
+    </ul>
+
     <form th:action="@{/member/signup}" th:object="${memberSignupForm}" method="post">
         <div th:replace="~{form_errors :: formErrorsFragment}"></div>
-        <div class="mb-3">
-            <label for="membername" class="form-label">사용자ID</label>
-            <input type="text" name="membername" th:field="*{membername}" class="form-control">
+        <div class="title__p">
+            <p>아이디</p>
         </div>
-        <div class="mb-3">
-            <label for="password1" class="form-label">비밀번호</label>
-            <input type="password" name="password1" th:field="*{password1}" class="form-control">
+        <div class="first-input input__block first-input__block">
+            <input type="text" name="membername" th:field="*{membername}" class="form-control" placeholder="아이디를 입력하세요">
         </div>
-        <div class="mb-3">
-            <label for="password2" class="form-label">비밀번호 확인</label>
-            <input type="password" name="password2" th:field="*{password2}" class="form-control">
+        <div class="title__p">
+            <p>비밀번호</p>
         </div>
-        <div class="mb-3">
-            <label for="nickname" class="form-label">닉네임</label>
-            <input type="text" name="nickname" th:field="*{nickname}" class="form-control">
+        <div class="input__block">
+            <input type="password" name="password1" th:field="*{password1}" class="form-control" placeholder="비밀번호를 입력하세요">
         </div>
-        <div class="mb-3">
-            <label for="email" class="form-label">이메일</label>
-            <input type="email" name="email" th:field="*{email}" class="form-control">
+        <div class="input__block">
+            <input type="password" name="password2" th:field="*{password2}" class="form-control" placeholder="비밀번호 재확인 입니다.">
         </div>
-        MBTI
-        <select name="mbtiId" id="mbtiId" class="form-select" aria-label="Default select example">
-            <option value="0">== 선택 ==</option>
-            <option th:each="mbti : ${mbtiList}" th:value="${mbti.id}" th:text="${mbti.name}"></option>
-        </select>
-
+        <div class="title__p">
+            <p>닉네임</p>
+        </div>
+        <div class="input__block">
+            <input type="text" name="nickname" th:field="*{nickname}" class="form-control" placeholder="닉네임을 입력하세요">
+        </div>
+        <div class="title__p">
+            <p>이메일</p>
+        </div>
+        <div class="input__block">
+            <input type="email" name="email" th:field="*{email}" class="form-control" placeholder="이메일을 입력하세요">
+        </div>
+        <div class="title__p">
+            <p>MBTI</p>
+            <select name="mbtiId" id="mbtiId" class="form-select" aria-label="Default select example">
+                <option value="0">== 선택 ==</option>
+                <option th:each="mbti : ${mbtiList}" th:value="${mbti.id}" th:text="${mbti.name}"></option>
+            </select>
+        </div>
         <br>
-        <button type="submit" class="btn btn-primary">회원가입</button>
+        <button class="signin__btn">
+            회원가입
+        </button>
     </form>
+    <div class="separator">
+        <p>OR</p>
+    </div>
+    <button class="kakao__btn">
+        <i class="fa fa-comment"></i>
+        <a href="/oauth2/authorization/kakao" style="text-decoration-line: none">카카오 로그인</a>
+    </button>
+    <button class="naver__btn">
+        <i class="fa fa-n"></i>
+        네이버 로그인
+    </button>
+    <button class="google__btn">
+        <i class="fa fa-google"></i>
+        구글 로그인
+    </button>
 </div>
-</body>
-</html>
+<script>
+    $(document).ready(function(){
+        let reset = $("#reset");
+
+        reset.on("click", function(e){
+            e.preventDefault();
+            $("#membername").val("");
+            $("#password1").val("");
+            $("#password2").val("");
+            $("#nickname").val("");
+            $("#email").val("");
+            $("#mbtiId").val("0");
+        });
+    });
+</script>
+<footer>
+
+</footer>

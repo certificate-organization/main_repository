@@ -1,69 +1,3 @@
-
-/*---------------------- mbit 리스트 메뉴 css start ----------------------*/
-.menu li {
-    list-style: none;
-    display: inline-block;
-}
-.menu a {
-    font-size: 17pt;
-    font-weight: 400;
-    width: 95px;
-    padding: 15px 25px;
-    position: relative;
-    display: block;
-    text-decoration: none;
-    text-transform: uppercase;
-}
-
-*, *:after, *:before {
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-a:hover, a:focus {
-    outline: none;
-}
-
-.link a {
-    color: #000;
-    transition: 0.35s;
-}
-
-.link a:hover {
-    color:#47BBEC;
-    transition: 0.35s;
-}
-
-.link a:before, .link a:after {
-    content: "";
-    width: 100%;
-    border-bottom: 4px solid  #47BBEC;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    opacity: 1;
-    transform: scale(1, 1);
-    transform-origin: right center 0;
-}
-
-.link a:after {
-    opacity: 0;
-    transform: scale(0, 1);
-    transform-origin: left center 0;
-}
-
-.link a:hover:before {
-    opacity: 0;
-    transform: scale(0, 1);
-    transition: opacity 0.2s ease-in-out 0.2s, transform 0.2s ease-in-out 0s;
-}
-
-.link a:hover:after {
-    opacity: 1;
-    transform: scale(1, 1);
-    transition: transform 0.2s ease-in-out 0.25s;
-}
-/*---------------------- mbit 리스트 메뉴 css end ----------------------*/
 html, body{
    width: 100%;
    height: 100%;
@@ -95,19 +29,24 @@ header {
 main {
     flex-grow: 1;
     padding: 20px 0 50px;
-    box-shadow: 0 3px 0 -10px #E2E2E2;
     display: flex;
     flex-wrap: wrap;
+    height: 200vh;
     justify-content: space-between;
 }
 
 footer {
-    height: auto;
+    position: relative;
+    height: 150px;
     margin-top: 20px;
-
-    }
+}
 
 /*-------------------- 로고 , 검색폼  start ------------------*/
+.wrap {
+    position: absolute;
+    right: 10%;
+}
+
 .TOP {
     display: flex;
     justify-content: space-between;
@@ -158,19 +97,87 @@ footer {
     width: 100%;
     height: 100%;
 }
-
+/*---------------------- 로고 , 검색폼 end ---------------------- */
+/*---------------------- mbit 리스트 메뉴 css start ----------------------*/
 .back.color-10 {
     width: 100%;
+    margin-top: 50px;
 }
-/*---------------------- 로고 , 검색폼 end ---------------------- */
+
+.menu li {
+    list-style: none;
+    display: inline-block;
+}
+.menu a {
+    font-size: 17pt;
+    font-weight: 400;
+    width: 95px;
+    padding: 15px 25px;
+    position: relative;
+    display: block;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+*, *:after, *:before {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+a:hover, a:focus {
+    outline: none;
+}
+
+.link a {
+    color: #000;
+    transition: 0.35s;
+}
+
+.link a:hover {
+    color:#47BBEC;
+    transition: 0.35s;
+}
+
+.link a:before, .link a:after {
+    content: "";
+    width: 100%;
+    border-bottom: 4px solid  #47BBEC;
+    position: absolute;
+    bottom: auto;
+    top: 100%;
+    left: 0;
+    opacity: 1;
+    transform: scale(1, 1);
+    transform-origin: right center 0;
+}
+
+.link a:after {
+    opacity: 0;
+    transform: scale(0, 1);
+    transform-origin: left center 0;
+}
+
+.link a:hover:before {
+    opacity: 0;
+    transform: scale(0, 1);
+    transition: opacity 0.2s ease-in-out 0.2s, transform 0.2s ease-in-out 0s;
+}
+
+.link a:hover:after {
+    opacity: 1;
+    transform: scale(1, 1);
+    transition: transform 0.2s ease-in-out 0.25s;
+}
+/*---------------------- mbit 리스트 메뉴 css end ----------------------*/
+
 /*---------------------- left 섹션 ---------------------- start */
 div.right-container {
     width: 30%;
-    margin-top: 100px;
+    margin-top: 20px;
 }
 div.left-container {
     flex-grow: 1;
-    margin-top: 100px;
+    margin-top: 20px;
 }
 .left-container > .hot_topic {
      height: 500px;

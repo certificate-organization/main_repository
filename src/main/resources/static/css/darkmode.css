@@ -1,8 +1,43 @@
-.wrap {
-    position: absolute;
-    right: 10%;
-}
 
+/* ------------- 시스템 모드 설정 start ------------*/
+/* 수정 필요
+@media (prefers-color-scheme: light) {
+    html, body {
+    background: #fff;
+    color: #000;
+   }
+   .link a {
+    color: #000;
+   }
+   .search-btn{
+       background: #ffffff;
+   }
+   .chat-btn {
+       background: #ffffff;
+   }
+}
+@media (prefers-color-scheme: dark) {
+    html, body {
+    background: #000;
+    color: #fff;
+}
+.link a {
+    color: #fff;
+}
+.bg_black {
+    fill: #000000;
+}
+.bg_white {
+    fill: #ffffff;
+}
+.search-btn{
+    background: #000000;
+}
+.chat-btn {
+    background: #000000;
+}
+*/
+/* ------------- 시스템 모드 설정 end ------------*/
 /*-------------- dark 모드 start--------------- */
 body[data-dark_mode=on] {
     background-color: #000;
@@ -11,7 +46,11 @@ body[data-dark_mode=on] {
 
 body[data-dark_mode=on] .link a,
 body[data-dark_mode=on] .search-txt,
-body[data-dark_mode=on] .chat-txt {
+body[data-dark_mode=on] .chat-txt,
+body[data-dark_mode=on] .article-logo,
+body[data-dark_mode=on] .article-list-subject-head,
+body[data-dark_mode=on] .article-list-subject,
+body[data-dark_mode=on] .article-list-author {
     color: #fff;
 }
 
@@ -20,6 +59,7 @@ body[data-dark_mode=on] .link a:hover {
 }
 
 body[data-dark_mode=on] .search-btn,
+body[data-dark_mode=on] .search-nav-btn,
 body[data-dark_mode=on] .chat-btn {
     background: #000;
 }

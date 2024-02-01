@@ -1,31 +1,86 @@
-        html, body{
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
+html, body{
+   width: 100%;
+   height: 100%;
+   margin: 0;
+   padding: 0;
+}
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 100px;
-    height: 100vh;
+body {
+   font-family: 'Jura', sans-serif;  /*Jura 폰트 피그마와 동일하게 적용하였음 */
+   font-weight: 700;
+   height:100%
+   margin: 0;
 }
 
 header {
     padding: 30px 0;
+    position : sticky;
 }
 
 main {
     padding: 20px 0 50px;
-    justify-content: center;
-    align-items: center;
     box-shadow: 0 3px 0 -10px #E2E2E2;
+    display: flex;
+    height:300vh;
 }
 
 footer {
-    height: auto;
+    position: relative;
+    height: 150px;
     margin-top: 20px;
+}
+
+/*-------------navbar 부분 strat -------------*/
+.custom-navbar {
+    margin: 0 auto;
+    padding: 0 100px;
+}
+
+.search-nav {
+    border: 2px solid #47BBEC;
+    border-radius: 25px;
+    margin-left: 30px;
+    overflow: hidden;
+    width: 50%;
+    height: 50px;
+}
+
+.search-nav-txt {
+    flex-grow: 1;
+    padding: 10px;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 16px;
+    border-radius: 25px;
+    color: #000;
+    margin-left: 15px;
+}
+
+.search-nav-btn {
+    background: #fff;
+    color: #47BBEC;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 0 25px 25px 0;
+}
+
+.fa-magnifying-glass {
+    font-size: 20px;
+    margin-right: 10px;
+}
+.search-nav-inner {
     display: flex;
-    flex-direction : colum;
-    }
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.fa-magnifying-nav-glass {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+/*-------------navbar 부분 end -------------*/
+
