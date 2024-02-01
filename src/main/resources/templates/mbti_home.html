@@ -9,11 +9,12 @@
     <!-- 추가적인 CSS 파일 -->
     <link type="text/css" th:href="@{/css/home.css}" rel="stylesheet">
     <link type="text/css" th:href="@{/css/darkmode.css}" rel="stylesheet">
+    <!-- jQuery를 먼저 로드 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!--    <script src="/js/jquery.js"></script>-->
     <!-- 추가적인 JS 파일 -->
-<!--    <script type="text/javascript" src="/js/home.js"></script>-->
-<!--    <script type="text/javascript" src="/js/darkmode.js"></script>-->
-    <!-- JQ 파일 -->
-<!--    <script src="/js/jquery.js"></script>-->
+    <script type="text/javascript" src="/js/darkmode.js"></script>
+    <script type="text/javascript" src="/js/chat.js"></script>
     <!-- 폰트어썸 이미지 사용위한 kits -->
     <script src="https://kit.fontawesome.com/26ee6f51e2.js" crossorigin="anonymous"></script>
     <title>MBTI</title>
@@ -24,8 +25,8 @@
         <div class="wrap">
             <div class="dark_mode">
                 <div class="inner">
-                    <input type="radio" name="toggle" id="toggle-radio-light" checked><label for="toggle-radio-light" class="tolight"><i class="fas fa-sun tolight"></i></label>
-                    <input type="radio" name="toggle" id="toggle-radio-dark"><label for="toggle-radio-dark" class="todark"><i class="fas fa-moon todark"></i></label>
+                    <input type="radio" name="toggle" id="toggle_light" checked><label for="toggle_light" class="light_icon"><i class="fas fa-sun light_icon"></i></label>
+                    <input type="radio" name="toggle" id="toggle_dark"><label for="toggle_dark" class="dark_icon"><i class="fas fa-moon dark_icon"></i></label>
                     <div class="dark_mode-bg"></div>
                 </div>
             </div>
@@ -55,8 +56,6 @@
                 </div>
             </div>
         </div>
-    </header>
-    <main>
         <!--mbti리스트 출력-->
         <div class="back color-10">
             <div class="row columns">
@@ -74,8 +73,8 @@
                 </ul>
             </div>
         </div>
-    </main>
-    <footer>
+    </header>
+    <main>
         <div class="left-container">
             <div class="hot_topic">인기 게시글
             </div>
@@ -197,6 +196,22 @@
                 </div>
             </div>
         </div>
+    </main>
+    <footer>
+            <div class="col-6">
+                <label><b>채팅방</b></label>
+            </div>
+            <div>
+                <div id="msgArea" class="col"></div>
+                <div class="col-6">
+                    <div class="input-group mb-3">
+                        <input type="text" id="msg" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="button-send">전송</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </footer>
 </div>
 </body>
