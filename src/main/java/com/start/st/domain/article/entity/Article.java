@@ -3,6 +3,8 @@ package com.start.st.domain.article.entity;
 import com.start.st.domain.comment.entity.Comment;
 import com.start.st.domain.mbti.entity.Mbti;
 import com.start.st.domain.member.entity.Member;
+import com.start.st.domain.reportArticle.entity.ReportArticle;
+import com.start.st.domain.reportComment.entity.ReportComment;
 import com.start.st.global.jpa.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -33,4 +35,7 @@ public class Article extends BaseEntity {
     private Long viewCount;
     @OneToMany(mappedBy = "article", cascade=CascadeType.REMOVE)
     private List<Comment> commentList;
+
+    @OneToMany(mappedBy = "article")
+    private List<ReportArticle> reportComments;
 }

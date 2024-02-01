@@ -43,6 +43,7 @@
                                class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
                                th:if="${article.author != null and #authentication.getPrincipal().getUsername() == article.author.membername}"
                                th:text="삭제"></a>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">신고</button>
                         </div>
                     </div>
                 </td>
@@ -81,6 +82,7 @@
                         </a>
 
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">신고</button>
+
 
                         <span th:if="${comment.likedByCurrentUser}">
                         <span class="badge rounded-pill bg-success" th:text="${#lists.size(comment.likers)}"></span>
