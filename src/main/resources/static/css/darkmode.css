@@ -43,7 +43,8 @@ body[data-dark_mode=on] {
     background-color: #000;
     color: #fff !important;
 }
-
+body[data-dark_mode=on] .tab,
+body[data-dark_mode=on] .textarea,
 body[data-dark_mode=on] .link a,
 body[data-dark_mode=on] .search-txt,
 body[data-dark_mode=on] .chat-txt,
@@ -51,7 +52,7 @@ body[data-dark_mode=on] .article-logo,
 body[data-dark_mode=on] .article-list-subject-head,
 body[data-dark_mode=on] .article-list-subject,
 body[data-dark_mode=on] .article-list-author {
-    color: #fff;
+    color: #ffffff;
 }
 
 body[data-dark_mode=on] .link a:hover {

@@ -252,10 +252,6 @@ div.left-container {
 .links a:hover {
     color: #47BBEC;
 }
-
-.fa-lock, .fa-user {
-    font-size: 20px;
-}
 /* ------------------- 로그인 end-------------------*/
 /* ------------------- 로그아웃 start-------------------*/
 .logout-container {
@@ -289,8 +285,7 @@ div.left-container {
 
 
 .fa-lock, .fa-pen-to-square,
-.fa-lock, .fa-keyboard,
-.fa-lock, .fa-user {
+.fa-keyboard, .fa-user {
     font-size: 20px;
 }
 
@@ -333,7 +328,20 @@ div.left-container {
     position: sticky;
     top: 200px;
 }
-
+.logout_chat {
+    width:100%;
+    height: 80%;
+    text-align:center;
+}
+.close_chat{
+    padding: 100px 100px 100px 100px;
+    width: 100%;
+    height: 100%;
+}
+.fa-circle-exclamation {
+    font-size: 100px;
+    color: red;
+}
 .chat-box {
     border: 2px solid #47BBEC;
     border-radius: 45px;
