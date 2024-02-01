@@ -3,7 +3,8 @@
     <title>MBTI 게시판</title>
 </head>
 <body>
-<div layout:fragment="content" class="container my-3">
+<div layout:fragment="content" class="article-container">
+    <!-- 게시판 상단 start -->
     <div class="col-6">
         <div class="TOP">
             <div class="logo">
@@ -14,16 +15,46 @@
                th:href="@{|/mbti/${mbti.id}/article/create|}" class="create-btn">글쓰기</a>
         </div>
     </div>
+    <!-- 게시판 상단 end -->
+    <!-- mbti 정보 start -->
+    <div class="mbti-information">
+        <div class="mbti-elements">
+            <div class="mbti-element" th:each="element : ${mbti.elements}">
+                <span class="mbti-element-text" th:text="${element}"></span>
+            </div>
+        </div>
+        <!-- tab메뉴 start -->
+        <div class="tab-container">
+            <div class="tab" th:onclick="informationTab('tab1')">1</div>
+            <div class="tab" th:onclick="informationTab('tab2')">2</div>
+        </div>
+        <div id="tab1" class="tab-content active-content">
+            <h2>탭 1 내용</h2>
+            <p>이곳에는 탭 1의 내용이 들어갑니다.</p>
+        </div>
+        <div id="tab2" class="tab-content">
+            <h2>탭 2 내용</h2>
+            <p>이곳에는 탭 2의 내용이 들어갑니다.</p>
+        </div>
+        <!-- tab메뉴 end -->
+    </div>
+    <div class="information-btn">
+        <a th:if="${member != null and member.membername == 'admin'}"
+           sec:authorize="isAuthenticated()"
+           th:href="@{|/mbti/${mbti.id}/information|}" class="back-btn">수정</a>
+    </div>
+    <!-- mbti 정보 end -->
+    <!-- 게시글 start -->
     <div class="article-table">
         <table class="article-list">
             <thead class="article-list-head">
             <tr>
-                <th style="width=10%">번호</th>
+                <th>번호</th>
                 <th class="article-list-subject-head">제목</th>
-                <th style="width=10%">작성자</th>
-                <th style="width=10%">작성일</th>
-                <th style="width=10%">조회수</th>
-                <th style="width=10%">추천수</th>
+                <th>작성자</th>
+                <th>작성일</th>
+                <th>조회수</th>
+                <th>추천수</th>
             </tr>
             </thead>
             <tbody>
@@ -33,8 +64,8 @@
                     <a class="article-list-subject" th:href="@{|/article/${article.id}|}"
                        th:text="${article.subject}">
                     </a>
-                    <span th:if="${#lists.size(article.likers) != 0}"
-                          class="article-comment" th:text="|[${#lists.size(article.likers)}]|"></span>
+                    <span th:if="${#lists.size(article.commentList) != 0}"
+                          class="article-comment" th:text="|[${#lists.size(article.commentList)}]|"></span>
                 </td>
                 <td>
                     <a class="article-list-author" href="#"
@@ -45,13 +76,14 @@
                 <td style="width: 6%" th:text="${#lists.size(article.likers)}|"></td>
                 <script th:src="@{/js/calculateDate.js}"></script>
                 <script th:inline="javascript">
-                    calculateDate (/*[[${article.createDate}]]*/ '', 'result' + /*[[${loop.index + 1}]]*/);
+                    calculateDate (/*[[${article.createDate}]]*/, 'result' + /*[[${loop.index + 1}]]*/);
                 </script>
             </tr>
             </tbody>
         </table>
     </div>
-
+    <!-- 게시글 end -->
+    <!-- 페이징 start -->
     <div th:if="${!articlePage.isEmpty()}">
         <ul class="article-paging">
             <li th:if="${articlePage.hasPrevious()}">
@@ -74,7 +106,8 @@
             </li>
         </ul>
     </div>
-
+    <!-- 페이징 end -->
+    <!-- 검색 start -->
     <div class="article-table" th:if="${!articlePage.isEmpty()}">
         <form th:action="@{|/mbti/${mbti.id}|}" method="get" class="search-box">
             <div class="search-box-inner">
@@ -86,11 +119,14 @@
             </div>
         </form>
     </div>
-
+    <!-- 검색 end -->
+    <!-- 검색기능 start -->
     <form th:action="@{|/mbti/${mbti.id}|}" method="get">
         <input type="hidden" name="keyword" th:value="${keyword}">
         <input type="hidden" name="page" th:value="${articlePage.number}">
     </form>
+    <!-- 검색기능 end -->
 </div>
 </body>
+<script th:src="@{/js/informationTab.js}"></script>
 </html>
