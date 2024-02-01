@@ -21,4 +21,10 @@ public class HomeController {
         model.addAttribute("mbtiList", mbtiList);
         return "mbti_home";
     }
+
+    @GetMapping("/test")
+    public String test() {
+
+        return "test";
+    }
 }

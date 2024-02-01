@@ -1,117 +1,109 @@
-<!DOCTYPE html>
 <html lang="ko" layout:decorate="~{layout}">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 추가적인 CSS 파일 -->
-    <link th:href="@{/css/darkmode.css}" rel="stylesheet">
-    <title>MBTI 게시판</title>
-</head>
-
 <body>
-<div layout:fragment="content" class="container my-3" style="width: 1000px;">
-    <div class="col-6">
-        <div class="TOP">
-            <div class="logo">
-                <a class="article-logo" th:href="@{|/mbti/${article.mbti.id}|}" th:text="|${article.mbti.name} 게시판|"></a>
+<main>
+    <div layout:fragment="content" class="container my-3" style="width: 1000px;">
+        <div class="col-6">
+            <div class="TOP">
+                <div class="logo">
+                    <a class="article-logo" th:href="@{|/mbti/${article.mbti.id}|}" th:text="|${article.mbti.name} 게시판|"></a>
+                </div>
             </div>
         </div>
-    </div>
-    <table style="table-layout:fixed; word-wrap:break-word;clear:both;" >
-        <tbody>
-        <tr>
-            <td>
-                <div class="article-detail" style="width: 1000px;">
-                    <div class="card-header" style="width: 1000px;">
-                        <div class="article-subject">
-                            <span th:text="${article.subject}"></span>
+        <table style="table-layout:fixed; word-wrap:break-word;clear:both;" >
+            <tbody>
+            <tr>
+                <td>
+                    <div class="article-detail" style="width: 1000px;">
+                        <div class="card-header" style="width: 1000px;">
+                            <div class="article-subject">
+                                <span th:text="${article.subject}"></span>
+                            </div>
+                            <div class="article-information">
+                                <div class="article-author-date">
+                                    <a class="article-author" href="#" th:text="|${article.author.membername}[${article.author.mbti.name}]|"></a>
+                                    <span class="article-between-line" th:text="${#temporals.format(article.createDate, 'yyyy-MM-dd HH:mm')}"></span>
+                                </div>
+                                <div class="article-like">
+                                    <span th:text="|조회 : ${article.viewCount}|"></span>
+                                    <span class="article-between-line" th:text="|추천 : ${#lists.size(article.likers)}|"></span>
+                                    <span class="article-between-line" th:text="|댓글 : |"></span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="article-information">
-                            <div class="article-author-date">
-                                <a class="article-author" href="#" th:text="|${article.author.membername}[${article.author.mbti.name}]|"></a>
-                                <span class="article-between-line" th:text="${#temporals.format(article.createDate, 'yyyy-MM-dd HH:mm')}"></span>
-                            </div>
-                            <div class="article-like">
-                                <span th:text="|조회 : ${article.viewCount}|"></span>
-                                <span class="article-between-line" th:text="|추천 : ${#lists.size(article.likers)}|"></span>
-                                <span class="article-between-line" th:text="|댓글 : |"></span>
-                            </div>
+                        <div class="card-body">
+                            <p class="card-text"  th:utext="${@commonUtil.markdown(article.content)}"></p>
+                            <a th:href="@{|/article/${article.id}/like|}" class="btn btn-sm btn-outline-secondary">추천
+                                <span class="badge rounded-pill bg-success" th:text="${#lists.size(article.likers)}"></span>
+                            </a>
+                            <a th:href="@{|/article/${article.id}/modify|}"
+                               class="btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
+                               th:if="${article.author != null and #authentication.getPrincipal().getUsername() == article.author.membername}"
+                               th:text="수정"></a>
+                            <a th:href="@{|/article/${article.id}/delete|}"
+                               class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
+                               th:if="${article.author != null and #authentication.getPrincipal().getUsername() == article.author.membername}"
+                               th:text="삭제"></a>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <p class="card-text"  th:utext="${@commonUtil.markdown(article.content)}"></p>
-                        <a th:href="@{|/article/${article.id}/like|}" class="btn btn-sm btn-outline-secondary">추천
-                            <span class="badge rounded-pill bg-success" th:text="${#lists.size(article.likers)}"></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- 최상위 댓글 추가 폼 -->
+        <form th:action="@{|/comment/create/${article.id}|}" th:object="${commentForm}" method="post">
+            <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
+                <div th:each="err : ${#fields.allErrors()}" th:text="${err}"></div>
+            </div>
+            <textarea sec:authorize="isAnonymous()" disabled th:field="*{content}" class="form-control" rows="3"></textarea>
+            <textarea sec:authorize="isAuthenticated()" th:field="*{content}" class="form-control" rows="3"></textarea>
+            <button type="submit" class="btn btn-primary">댓글 등록</button>
+        </form>
+
+        <!-- 수정된 코드 -->
+        <h2 th:text="|${#lists.size(article.commentList)}개의 댓글이 있습니다.|"></h2>
+        <div>
+            <ul>
+                <li th:if="${comment.parent == null}" th:each="comment : ${article.commentList}">
+                    <div class="my-3">
+                        <p th:text="${comment.content}"></p>
+                        <a th:if="${comment.author != null and #authentication.getPrincipal().getUsername() == comment.author.membername}"
+                           th:href="@{|/comment/modify/${comment.id}|}" class="btn btn-sm btn-outline-secondary"
+                           sec:authorize="isAuthenticated()" th:text="수정">
+
                         </a>
-                        <a th:href="@{|/article/${article.id}/modify|}"
-                           class="btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
-                           th:if="${article.author != null and #authentication.getPrincipal().getUsername() == article.author.membername}"
-                           th:text="수정"></a>
-                        <a th:href="@{|/article/${article.id}/delete|}"
-                           class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
-                           th:if="${article.author != null and #authentication.getPrincipal().getUsername() == article.author.membername}"
-                           th:text="삭제"></a>
+                        <a th:if="${comment.author != null and  #authentication.getPrincipal().getUsername() == comment.author.membername}"
+                           th:href="@{|/comment/delete/${comment.id}|}" class="delete btn btn-sm btn-outline-secondary"
+                           sec:authorize="isAuthenticated()" th:text="삭제">
+                        </a>
                     </div>
-                </div>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
-    <!-- 최상위 댓글 추가 폼 -->
-    <form th:action="@{|/comment/create/${article.id}|}" th:object="${commentForm}" method="post">
-        <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
-            <div th:each="err : ${#fields.allErrors()}" th:text="${err}"></div>
-        </div>
-        <textarea sec:authorize="isAnonymous()" disabled th:field="*{content}" class="form-control" rows="3"></textarea>
-        <textarea sec:authorize="isAuthenticated()" th:field="*{content}" class="form-control" rows="3"></textarea>
-        <button type="submit" class="btn btn-primary">댓글 등록</button>
-    </form>
-
-    <!-- 수정된 코드 -->
-    <h2 th:text="|${#lists.size(article.commentList)}개의 댓글이 있습니다.|"></h2>
-    <div>
-        <ul>
-            <li th:if="${comment.parent == null}" th:each="comment : ${article.commentList}">
-                <div class="my-3">
-                    <p th:text="${comment.content}"></p>
-                    <a th:if="${comment.author != null and #authentication.getPrincipal().getUsername() == comment.author.membername}"
-                       th:href="@{|/comment/modify/${comment.id}|}" class="btn btn-sm btn-outline-secondary"
-                       sec:authorize="isAuthenticated()" th:text="수정">
-
-                    </a>
-                    <a th:if="${comment.author != null and  #authentication.getPrincipal().getUsername() == comment.author.membername}"
-                       th:href="@{|/comment/delete/${comment.id}|}" class="delete btn btn-sm btn-outline-secondary"
-                       sec:authorize="isAuthenticated()" th:text="삭제">
-                    </a>
-                </div>
-                <form th:action="@{|/comment/create/${article.id}|}" method="post">
+                    <form th:action="@{|/comment/create/${article.id}|}" method="post">
                     <textarea sec:authorize="isAnonymous()" disabled name="content" class="form-control"
                               rows="3"></textarea>
-                    <textarea sec:authorize="isAuthenticated()" name="content" class="form-control" rows="3"></textarea>
-                    <input type="hidden" name="parentCommentId" th:value="${comment.id}">
-                    <button type="submit" class="btn btn-primary">대댓글 등록</button>
-                </form>
-                <ul>
-                    <li th:each="childrenComment : ${comment.childrenCommentList}">
-                        <div class="my-3">
-                            <p th:text="${childrenComment.content}"></p>
-                            <a th:if="${childrenComment.author != null and #authentication.getPrincipal().getUsername() == childrenComment.author.membername}"
-                               th:href="@{|/comment/modify/${childrenComment.id}|}" class="btn btn-sm btn-outline-secondary"
-                               sec:authorize="isAuthenticated()" th:text="수정">
-                            </a>
-                            <a th:if="${childrenComment.author != null and  #authentication.getPrincipal().getUsername() == childrenComment.author.membername}"
-                               th:href="@{|/comment/delete/${childrenComment.id}|}"
-                               class="delete btn btn-sm btn-outline-secondary"
-                               sec:authorize="isAuthenticated()" th:text="삭제">
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+                        <textarea sec:authorize="isAuthenticated()" name="content" class="form-control" rows="3"></textarea>
+                        <input type="hidden" name="parentCommentId" th:value="${comment.id}">
+                        <button type="submit" class="btn btn-primary">대댓글 등록</button>
+                    </form>
+                    <ul>
+                        <li th:each="childrenComment : ${comment.childrenCommentList}">
+                            <div class="my-3">
+                                <p th:text="${childrenComment.content}"></p>
+                                <a th:if="${childrenComment.author != null and #authentication.getPrincipal().getUsername() == childrenComment.author.membername}"
+                                   th:href="@{|/comment/modify/${childrenComment.id}|}" class="btn btn-sm btn-outline-secondary"
+                                   sec:authorize="isAuthenticated()" th:text="수정">
+                                </a>
+                                <a th:if="${childrenComment.author != null and  #authentication.getPrincipal().getUsername() == childrenComment.author.membername}"
+                                   th:href="@{|/comment/delete/${childrenComment.id}|}"
+                                   class="delete btn btn-sm btn-outline-secondary"
+                                   sec:authorize="isAuthenticated()" th:text="삭제">
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
-</div>
+</main>
 </body>
 </html>

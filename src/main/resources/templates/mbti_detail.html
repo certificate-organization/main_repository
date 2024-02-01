@@ -1,14 +1,7 @@
-<!DOCTYPE html>
 <html lang="ko" layout:decorate="~{layout}">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 추가적인 CSS 파일 -->
-    <link th:href="@{/css/darkmode.css}" rel="stylesheet">
     <title>MBTI 게시판</title>
 </head>
-
 <body>
 <div layout:fragment="content" class="article-container">
     <!-- 게시판 상단 start -->
@@ -71,8 +64,8 @@
                     <a class="article-list-subject" th:href="@{|/article/${article.id}|}"
                        th:text="${article.subject}">
                     </a>
-                    <span th:if="${#lists.size(article.likers) != 0}"
-                          class="article-comment" th:text="|[${#lists.size(article.likers)}]|"></span>
+                    <span th:if="${#lists.size(article.commentList) != 0}"
+                          class="article-comment" th:text="|[${#lists.size(article.commentList)}]|"></span>
                 </td>
                 <td>
                     <a class="article-list-author" href="#"
