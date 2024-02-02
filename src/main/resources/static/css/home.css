@@ -47,14 +47,14 @@ footer {
     right: 10%;
 }
 
-.TOP {
+.Main_TOP {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     padding-top: 30px;
     padding-bottom: 10px;
 }
-.TOP .logo {
+.Main_TOP .Main_logo {
     width: 70%;
 }
 .search-box {

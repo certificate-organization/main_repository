@@ -5,11 +5,12 @@
         <div class="col-6">
             <div class="TOP">
                 <div class="logo">
-                    <a class="article-logo" th:href="@{|/mbti/${article.mbti.id}|}" th:text="|${article.mbti.name} 게시판|"></a>
+                    <a class="article-logo" th:href="@{|/mbti/${article.mbti.id}|}"
+                       th:text="|${article.mbti.name} 게시판|"></a>
                 </div>
             </div>
         </div>
-        <table style="table-layout:fixed; word-wrap:break-word;clear:both;" >
+        <table style="table-layout:fixed; word-wrap:break-word;clear:both;">
             <tbody>
             <tr>
                 <td>
@@ -20,20 +21,26 @@
                             </div>
                             <div class="article-information">
                                 <div class="article-author-date">
-                                    <a class="article-author" href="#" th:text="|${article.author.membername}[${article.author.mbti.name}]|"></a>
-                                    <span class="article-between-line" th:text="${#temporals.format(article.createDate, 'yyyy-MM-dd HH:mm')}"></span>
+                                    <a class="article-author" href="#"
+                                       th:text="|${article.author.membername}[${article.author.mbti.name}]|"></a>
+                                    <span class="article-between-line"
+                                          th:text="${#temporals.format(article.createDate, 'yyyy-MM-dd HH:mm')}"></span>
                                 </div>
                                 <div class="article-like">
                                     <span th:text="|조회 : ${article.viewCount}|"></span>
-                                    <span class="article-between-line" th:text="|추천 : ${#lists.size(article.likers)}|"></span>
-                                    <span class="article-between-line" th:text="|댓글 : |"></span>
+                                    <span class="article-between-line"
+                                          th:text="|추천 : ${#lists.size(article.likers)}|"></span>
+                                    <span class="article-between-line"
+                                          th:text="|댓글 : ${#lists.size(article.commentList)}"></span>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body">
-                            <p class="card-text"  th:utext="${@commonUtil.markdown(article.content)}"></p>
-                            <a th:href="@{|/article/${article.id}/like|}" class="btn btn-sm btn-outline-secondary">추천
-                                <span class="badge rounded-pill bg-success" th:text="${#lists.size(article.likers)}"></span>
+                            <p class="card-text" th:utext="${@commonUtil.markdown(article.content)}"></p>
+                            <a th:href="@{|/article/${article.id}/like|}" class="btn btn-sm btn-outline-secondary">
+                                추천<i style="padding-left:5px;" class="fa-solid fa-thumbs-up"></i>
+                                <span class="badge rounded-pill bg-success"
+                                      th:text="${#lists.size(article.likers)}"></span>
                             </a>
                             <a th:href="@{|/article/${article.id}/modify|}"
                                class="btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
@@ -51,63 +58,82 @@
         </table>
 
         <!-- 최상위 댓글 추가 폼 -->
-        <form th:action="@{|/comment/create/${article.id}|}" th:object="${commentForm}" method="post">
-            <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
-                <div th:each="err : ${#fields.allErrors()}" th:text="${err}"></div>
-            </div>
-            <textarea sec:authorize="isAnonymous()" disabled th:field="*{content}" class="form-control" rows="3"></textarea>
-            <textarea sec:authorize="isAuthenticated()" th:field="*{content}" class="form-control" rows="3"></textarea>
-            <button type="submit" class="btn btn-primary">댓글 등록</button>
-        </form>
+        <div class="card-header">
+            <form th:action="@{|/comment/create/${article.id}|}" th:object="${commentForm}" method="post">
+                <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
+                    <div th:each="err : ${#fields.allErrors()}" th:text="${err}"></div>
+                </div>
+                <textarea style="margin-top: 10px;" sec:authorize="isAnonymous()" disabled th:field="*{content}" class="form-control" rows="3" placeholder="로그인 후 이용 가능 합니다" ></textarea>
+                <textarea style="margin-top: 10px;" sec:authorize="isAuthenticated()" th:field="*{content}" class="form-control" rows="3" placeholder="건전한 커뮤니티를 위해 비방 및 욕설은 자제 부탁드립니다" ></textarea>
+                <button style="margin-top: 10px;" type="submit" class="btn btn-sm btn-outline-secondary">댓글 등록</button>
+            </form>
+        </div>
 
         <!-- 수정된 코드 -->
-        <h2 th:text="|${#lists.size(article.commentList)}개의 댓글이 있습니다.|"></h2>
-        <div>
-            <ul>
+        <div class="comment_List_title">
+            <i class="fa-regular fa-comment"></i>
+            <h4 th:text="|${#lists.size(article.commentList)}개의 댓글이 있습니다.|"></h4>
+            <div class="underline"></div>
+        </div>
+        <div class="comment_List">
+            <ul style="list-style-type: none;">
                 <li th:if="${comment.parent == null}" th:each="comment : ${article.commentList}">
-                    <div class="my-3">
-                        <p th:text="${comment.content}"></p>
-                        <a th:if="${comment.author != null and #authentication.getPrincipal().getUsername() == comment.author.membername}"
-                           th:href="@{|/comment/modify/${comment.id}|}" class="btn btn-sm btn-outline-secondary"
-                           sec:authorize="isAuthenticated()" th:text="수정">
-                        </a>
-                        <a th:if="${comment.author != null and  #authentication.getPrincipal().getUsername() == comment.author.membername}"
-                           th:href="@{|/comment/delete/${comment.id}|}" class="delete btn btn-sm btn-outline-secondary"
-                           sec:authorize="isAuthenticated()" th:text="삭제">
-                        </a>
-                        <a th:href="@{|/comment/like/${comment.id}|}" class="btn btn-sm btn-outline-secondary" th:if="${not comment.likedByCurrentUser}">
-                            좋아요
-                            <span class="badge rounded-pill bg-success" th:text="${#lists.size(comment.likers)}"></span>
-                        </a>
-
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">신고</button>
-
-                        <span th:if="${comment.likedByCurrentUser}">
+                    <div class="a_comment">
+                        <div class="a_comment_title">제목</div>
+                        <div class="a_comment_part">
+                            <a th:if="${comment.author != null and #authentication.getPrincipal().getUsername() == comment.author.membername}"
+                               th:href="@{|/comment/modify/${comment.id}|}" class="btn btn-sm btn-outline-secondary"
+                               sec:authorize="isAuthenticated()" th:text="수정">
+                            </a>
+                            <a th:if="${comment.author != null and  #authentication.getPrincipal().getUsername() == comment.author.membername}"
+                               th:href="@{|/comment/delete/${comment.id}|}" class="delete btn btn-sm btn-outline-secondary"
+                               sec:authorize="isAuthenticated()" th:text="삭제">
+                            </a>
+                            <a th:href="@{|/comment/like/${comment.id}|}" class="btn btn-sm btn-outline-secondary"
+                               th:if="${not comment.likedByCurrentUser}">
+                                좋아요<i style="padding-left:5px;" class="fa-solid fa-heart"></i>
+                                <span class="badge rounded-pill bg-success" th:text="${#lists.size(comment.likers)}"></span>
+                            </a>
+                            <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal" data-bs-whatever="@mdo">신고
+                            </button>
+                            <!-- <button class="btn btn-sm btn-outline-secondary" id="rec_btn">댓글 달기</button>-->
+                            <span th:if="${comment.likedByCurrentUser}">
                         <span class="badge rounded-pill bg-success" th:text="${#lists.size(comment.likers)}"></span>
                         이미 좋아요 표시
-                    </span>
-
+                        </span>
+                        </div>
+                        <div class="a_comment_body">
+                            <p th:text="${comment.content}"></p>
+                        </div>
                     </div>
-                    <form th:action="@{|/comment/create/${article.id}|}" method="post">
-                    <textarea sec:authorize="isAnonymous()" disabled name="content" class="form-control"
-                              rows="3"></textarea>
-                        <textarea sec:authorize="isAuthenticated()" name="content" class="form-control" rows="3"></textarea>
-                        <input type="hidden" name="parentCommentId" th:value="${comment.id}">
-                        <button type="submit" class="btn btn-primary">대댓글 등록</button>
-                    </form>
-                    <ul>
+                    <div class="card-header">
+                        <form th:action="@{|/comment/create/${article.id}|}" method="post">
+                            <textarea style="margin-top: 10px;" sec:authorize="isAnonymous()" disabled name="content" class="form-control" rows="3" placeholder="로그인 후 이용 가능 합니다"></textarea>
+                            <textarea style="margin-top: 10px;" sec:authorize="isAuthenticated()" name="content" class="form-control" rows="3" placeholder="건전한 커뮤니티를 위해 비방 및 욕설은 자제 부탁드립니다"></textarea>
+                            <input type="hidden" name="parentCommentId" th:value="${comment.id}">
+                            <button style="margin-top: 10px;" type="submit" class="btn btn-sm btn-outline-secondary">답글 등록</button>
+                        </form>
+                    </div>
+                    <ul style="list-style-type: none;">
                         <li th:each="childrenComment : ${comment.childrenCommentList}">
-                            <div class="my-3">
-                                <p th:text="${childrenComment.content}"></p>
-                                <a th:if="${childrenComment.author != null and #authentication.getPrincipal().getUsername() == childrenComment.author.membername}"
-                                   th:href="@{|/comment/modify/${childrenComment.id}|}" class="btn btn-sm btn-outline-secondary"
-                                   sec:authorize="isAuthenticated()" th:text="수정">
-                                </a>
-                                <a th:if="${childrenComment.author != null and  #authentication.getPrincipal().getUsername() == childrenComment.author.membername}"
-                                   th:href="@{|/comment/delete/${childrenComment.id}|}"
-                                   class="delete btn btn-sm btn-outline-secondary"
-                                   sec:authorize="isAuthenticated()" th:text="삭제">
-                                </a>
+                            <div class="a_re-comment">
+                                <div class="a_re-comment_title">제목</div>
+                                <div class="a_re-comment_part">
+                                    <a th:if="${childrenComment.author != null and #authentication.getPrincipal().getUsername() == childrenComment.author.membername}"
+                                       th:href="@{|/comment/modify/${childrenComment.id}|}"
+                                       class="btn btn-sm btn-outline-secondary"
+                                       sec:authorize="isAuthenticated()" th:text="수정">
+                                    </a>
+                                    <a th:if="${childrenComment.author != null and  #authentication.getPrincipal().getUsername() == childrenComment.author.membername}"
+                                       th:href="@{|/comment/delete/${childrenComment.id}|}"
+                                       class="delete btn btn-sm btn-outline-secondary"
+                                       sec:authorize="isAuthenticated()" th:text="삭제">
+                                    </a>
+                                </div>
+                                <div class="a_re-comment_body">
+                                    <p th:text="${childrenComment.content}"></p>
+                                </div>
                             </div>
                         </li>
                     </ul>
@@ -139,5 +165,13 @@
         </div>
         <!-- 모달 부트스트랩 종료 -->
     </div>
+    <script>
+        $(document).ready(function(){
+            $("#rec_btn").click(function (){
+                $("#recomment").toggle();
+            });
+        });
+    </script>
+</main>
 </body>
 </html>

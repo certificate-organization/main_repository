@@ -72,6 +72,16 @@ body[data-dark_mode=on] .bg_black {
 body[data-dark_mode=on] .bg_white {
     fill: #fff;
 }
+body[data-dark_mode=on] .card-header {
+    background: #ced4da;
+}
+
+body[data-dark_mode=on] .comment_List_title,
+body[data-dark_mode=on] .a_comment,
+body[data-dark_mode=on] .a_re-comment {
+    box-shadow: 0px 1px 0px #ffffff;
+}
+
 /*-------------- dark 모드 end--------------- */
 
 .dark_mode > .inner {
