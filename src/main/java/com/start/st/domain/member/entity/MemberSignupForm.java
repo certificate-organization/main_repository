@@ -1,7 +1,5 @@
 package com.start.st.domain.member.entity;
 
-import com.start.st.domain.mbti.entity.Mbti;
-import jakarta.persistence.GeneratedValue;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
