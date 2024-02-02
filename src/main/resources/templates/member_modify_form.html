@@ -12,11 +12,11 @@
 <body>
 <div layout:fragment="content" class="container my-3">
     <h4>나의정보 / 수정</h4>
-    <form th:action="@{/member/modify}" th:object="${memberSignupForm}" method="post">
+    <form th:action="@{/member/modify}" th:object="${memberModifyForm}" method="post">
         <div th:replace="~{form_errors :: formErrorsFragment}"></div>
         <div class="mb-3">
             <label for="membername" class="form-label">사용자ID</label>
-            <input disabled type="text" th:value="${member.membername}" name="membername" class="form-control">
+            <input readonly type="text" th:value="${member.membername}" name="membername" class="form-control">
         </div>
         <div class="mb-3">
             <label for="nickname" class="form-label">닉네임</label>
@@ -24,7 +24,7 @@
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">이메일</label>
-            <input type="email" th:value="${member.email}" name="email" text="${member.email}" class="form-control">
+            <input type="email" th:value="${member.email}" name="email" class="form-control">
         </div>
         MBTI
         <select name="mbtiId" id="mbtiId" class="form-select" aria-label="Default select example">

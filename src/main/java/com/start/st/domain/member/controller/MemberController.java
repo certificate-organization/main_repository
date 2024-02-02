@@ -3,6 +3,7 @@ package com.start.st.domain.member.controller;
 import com.start.st.domain.mbti.entity.Mbti;
 import com.start.st.domain.mbti.service.MbtiService;
 import com.start.st.domain.member.entity.Member;
+import com.start.st.domain.member.entity.MemberModifyForm;
 import com.start.st.domain.member.entity.MemberSignupForm;
 import com.start.st.domain.member.security.MemberSecurityService;
 import com.start.st.domain.member.service.MemberService;
@@ -63,12 +64,36 @@ public class MemberController {
     }
 
     @GetMapping("/modify")
-    public String memberModify(Model model, Principal principal, MemberSignupForm memberSignupForm){
+    public String memberModify(Model model, Principal principal, MemberModifyForm memberModifyForm) {
         Member member = this.memberService.getMember(principal.getName());
         List<Mbti> mbtiList = this.mbtiService.findAllMbti();
         mbtiList.remove(member.getMbti());
-        model.addAttribute("member",member);
-        model.addAttribute("mbtiList",mbtiList);
+        model.addAttribute("member", member);
+        model.addAttribute("mbtiList", mbtiList);
         return "member_modify_form";
+    }
+
+    @PostMapping("/modify")
+    public String memberModify(@Valid MemberModifyForm memberModifyForm, BindingResult bindingResult,
+                               Model model, Principal principal) {
+        Member member = this.memberService.getMember(principal.getName());
+        List<Mbti> mbtiList = this.mbtiService.findAllMbti();
+        mbtiList.remove(member.getMbti());
+        if (!this.memberService.paswordConfirm(memberModifyForm.getPassword(), member)) {
+            bindingResult.rejectValue("password", "passwordInCorrect",
+                    "틀린 비밀번호 입니다.");
+        }
+        if (!memberModifyForm.getPassword1().equals(memberModifyForm.getPassword2())) {
+            bindingResult.rejectValue("password2", "passwordInCorrect",
+                    "비밀번호와 비밀번호 재확인이 일치하지 않습니다.");
+        }
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("member", member);
+            model.addAttribute("mbtiList", mbtiList);
+            return "member_modify_form";
+        }
+        Mbti mbti = this.mbtiService.getMbti(memberModifyForm.getMbtiId());
+        this.memberService.modify(memberModifyForm.getMembername(), memberModifyForm.getNickname(), mbti);
+        return "redirect:/member/modify";
     }
 }
