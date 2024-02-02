@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -21,11 +22,15 @@ public class HomeController {
     private final ArticleService articleService;
 
     @GetMapping("/")
-    public String root(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
+    public String root(String key, Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
         List<Mbti> mbtiList = this.mbtiService.findAllMbti();
-        Page<Article> articleList = this.articleService.getArticlePageByDate(page);
+        Page<Article> articlePageByDate = this.articleService.getArticlePageByDate(page);
+        Page<Article> articlePageByLike = this.articleService.getArticlePageByLike(page);
+        Page<Article> articlePageByView = this.articleService.getArticlePageByView(page);
         model.addAttribute("mbtiList", mbtiList);
-        model.addAttribute("articleList",articleList);
+        model.addAttribute("articlePageByDate", articlePageByDate);
+        model.addAttribute("articlePageByLike", articlePageByLike);
+        model.addAttribute("articlePageByView", articlePageByView);
         return "mbti_home";
     }
 

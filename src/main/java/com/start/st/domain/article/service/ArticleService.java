@@ -40,7 +40,17 @@ public class ArticleService {
     public Page<Article> getArticlePageByDate(int page) {
         List<Sort.Order> list = new ArrayList<>();
         list.add(Sort.Order.desc("createDate"));
-        Pageable pageable = PageRequest.of(page, 10, Sort.by(list));  //한 번에 볼 사이즈 수정
+        Pageable pageable = PageRequest.of(page, 11, Sort.by(list));  //한 번에 볼 사이즈 수정
+        return this.articleRepository.findAll(pageable);
+    }
+    public Page<Article> getArticlePageByLike(int page) {
+        Pageable pageable = PageRequest.of(page, 11);  //한 번에 볼 사이즈 수정
+        return this.articleRepository.findAllOrderedByCreateDateAndLikersSizeDesc(pageable);
+    }
+    public Page<Article> getArticlePageByView(int page) {
+        List<Sort.Order> list = new ArrayList<>();
+        list.add(Sort.Order.desc("viewCount"));
+        Pageable pageable = PageRequest.of(page, 11, Sort.by(list));  //한 번에 볼 사이즈 수정
         return this.articleRepository.findAll(pageable);
     }
 
@@ -90,7 +100,8 @@ public class ArticleService {
                 .build();
         this.articleRepository.save(viewArticle);
     }
-    public void report(Article article , String reportContent, Member member){
+
+    public void report(Article article, String reportContent, Member member) {
         ReportArticle reportArticle = ReportArticle.builder()
                 .article(article)
                 .content(reportContent)

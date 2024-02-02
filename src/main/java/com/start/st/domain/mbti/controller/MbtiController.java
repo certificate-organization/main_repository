@@ -29,13 +29,13 @@ public class MbtiController {
     private final ArticleService articleService;
 
     @GetMapping("/{id}")
-    public String mbtiDetail(@PathVariable("id") Long id, Model model, Principal principal,
+    public String mbtiDetail(@PathVariable("id") Long mbtiId, Model model, Principal principal,
                              @RequestParam(value = "page", defaultValue = "0") int page,
                              @RequestParam(value = "keyword", defaultValue = "") String keyword) {
-        Page<Article> articlePage = this.articleService.getArticlePageByMbti(keyword, id, page);
+        Page<Article> articlePage = this.articleService.getArticlePageByMbti(keyword, mbtiId, page);
         model.addAttribute("articlePage", articlePage);
         model.addAttribute("keyword", keyword);
-        Mbti mbti = this.mbtiService.getMbti(id);
+        Mbti mbti = this.mbtiService.getMbti(mbtiId);
         model.addAttribute("mbti", mbti);
         if (principal != null) {
             Member member = this.memberService.getMember(principal.getName());
