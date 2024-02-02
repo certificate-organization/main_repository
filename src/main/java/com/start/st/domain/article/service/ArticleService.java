@@ -2,8 +2,12 @@ package com.start.st.domain.article.service;
 
 import com.start.st.domain.article.entity.Article;
 import com.start.st.domain.article.repository.ArticleRepository;
+import com.start.st.domain.article.repository.ReportArticleRepository;
+import com.start.st.domain.comment.entity.Comment;
 import com.start.st.domain.mbti.entity.Mbti;
 import com.start.st.domain.member.entity.Member;
+import com.start.st.domain.reportArticle.entity.ReportArticle;
+import com.start.st.domain.reportComment.entity.ReportComment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,6 +23,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ArticleService {
     private final ArticleRepository articleRepository;
+    private final ReportArticleRepository reportArticleRepository;
 
     public List<Article> findAll() {
         return this.articleRepository.findAll();
@@ -82,6 +87,15 @@ public class ArticleService {
                 .viewCount(viewCount + 1L)
                 .build();
         this.articleRepository.save(viewArticle);
+    }
+    public void report(Article article , String reportContent, Member member){
+        ReportArticle reportArticle = ReportArticle.builder()
+                .article(article)
+                .content(reportContent)
+                .author(member)
+                .build();
+
+        this.reportArticleRepository.save(reportArticle);
     }
 
 }
