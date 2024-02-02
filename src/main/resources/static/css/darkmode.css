@@ -43,7 +43,7 @@ body[data-dark_mode=on] {
     background-color: #000;
     color: #fff !important;
 }
-body[data-dark_mode=on] .tab,
+
 body[data-dark_mode=on] .textarea,
 body[data-dark_mode=on] .link a,
 body[data-dark_mode=on] .search-txt,
@@ -63,6 +63,10 @@ body[data-dark_mode=on] .search-btn,
 body[data-dark_mode=on] .search-nav-btn,
 body[data-dark_mode=on] .chat-btn {
     background: #000;
+}
+body[data-dark_mode=on] .tab {
+    background: #ced4da;
+    color: #000000;
 }
 
 body[data-dark_mode=on] .bg_black {
