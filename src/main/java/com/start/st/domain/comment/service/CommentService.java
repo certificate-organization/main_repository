@@ -8,8 +8,14 @@ import com.start.st.domain.comment.entity.Comment;
 import com.start.st.domain.member.entity.Member;
 import com.start.st.domain.reportComment.entity.ReportComment;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +23,10 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
     private final ReportCommentRepository reportCommentRepository;
+
+    @Value("${custom.fileDirPath}")
+    private String fileDirPath;
+
 
     public Comment getcomment(Long id) {
         Optional<Comment> comment = this.commentRepository.findById(id);
@@ -44,7 +54,6 @@ public class CommentService {
                 .author(author)
                 .parent(parent)
                 .build();
-
         this.commentRepository.save(comment);
     }
     public void likeComment(Comment comment, Member liker){
@@ -56,11 +65,11 @@ public class CommentService {
         comment.getLikers().remove(unLiker);
         this.commentRepository.save(comment);
     }
-    public void report(Comment comment ,String reportContent, Member reporter){
+    public void report(Comment comment ,String reportContent, Member member){
         ReportComment reportComment = ReportComment.builder()
                 .comment(comment)
                 .content(reportContent)
-                .author(reporter)
+                .author(member)
                 .build();
 
         this.reportCommentRepository.save(reportComment);

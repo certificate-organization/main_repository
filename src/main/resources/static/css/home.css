@@ -386,5 +386,73 @@ div.left-container {
     padding-bottom: 10px;
 }
 /* ----------------------right 섹션 end---------------------- */
+/* ----------------------인기 게시글 start---------------------- */
+.article-table {
+    text-align: center;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    width: 100%
+}
+
+.article-list {
+    margin-right: 20px;
+    margin-top: 10px;
+    border: none;
+    width: 100%;
+}
+
+.article-list-body {
+    text-align: center;
+    border-bottom: 0.5px solid rgba(128, 128, 128, 0.2);
+    align-items: center;
+    height: 35px;
+}
+
+.article-list-subject-body {
+    vertical-align: middle;
+    color: black;
+    text-decoration: none;
+    width: 40%;
+    text-align: left;
+}
+
+.article-list-subject {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+    color: black;
+    text-decoration: none;
+    text-align: left;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 95%;
+}
+
+.article-list-subject:hover {
+    color: black;
+    text-decoration: underline;
+}
+
+.article-comment {
+    display: inline-block;
+    vertical-align: middle;
+    color: grey;
+}
+
+.article-list-author {
+    color: black;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.article-list-author:hover {
+    color: black;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+/* ----------------------인기 게시글 end---------------------- */
 
 

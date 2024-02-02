@@ -2,8 +2,12 @@ package com.start.st.domain.article.service;
 
 import com.start.st.domain.article.entity.Article;
 import com.start.st.domain.article.repository.ArticleRepository;
+import com.start.st.domain.article.repository.ReportArticleRepository;
+import com.start.st.domain.comment.entity.Comment;
 import com.start.st.domain.mbti.entity.Mbti;
 import com.start.st.domain.member.entity.Member;
+import com.start.st.domain.reportArticle.entity.ReportArticle;
+import com.start.st.domain.reportComment.entity.ReportComment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,6 +23,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ArticleService {
     private final ArticleRepository articleRepository;
+    private final ReportArticleRepository reportArticleRepository;
 
     public List<Article> findAll() {
         return this.articleRepository.findAll();
@@ -32,8 +37,10 @@ public class ArticleService {
         return article.get();
     }
 
-    public Page<Article> getArticlePage(int page) {
-        Pageable pageable = PageRequest.of(page, 10);  //한 번에 볼 사이즈 수정
+    public Page<Article> getArticlePageByDate(int page) {
+        List<Sort.Order> list = new ArrayList<>();
+        list.add(Sort.Order.desc("createDate"));
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(list));  //한 번에 볼 사이즈 수정
         return this.articleRepository.findAll(pageable);
     }
 
@@ -82,6 +89,15 @@ public class ArticleService {
                 .viewCount(viewCount + 1L)
                 .build();
         this.articleRepository.save(viewArticle);
+    }
+    public void report(Article article , String reportContent, Member member){
+        ReportArticle reportArticle = ReportArticle.builder()
+                .article(article)
+                .content(reportContent)
+                .author(member)
+                .build();
+
+        this.reportArticleRepository.save(reportArticle);
     }
 
 }

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.BindingResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
@@ -50,7 +51,6 @@ public class CommentController {
         if (commentForm.getParentCommentId() != null) {
             parent = this.commentService.getcomment(commentForm.getParentCommentId());
         }
-
 
         this.commentService.create(article, commentForm.getContent(), member, parent);
         return String.format("redirect:/article/%s", id);
@@ -112,13 +112,15 @@ public class CommentController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/report/{id}")
     public String reportComment(@PathVariable("id") Long id, Principal principal,
-                                @Valid ReportCommentForm reportCommentForm, BindingResult bindingResult
-                                )  {
+                                @Valid ReportCommentForm reportCommentForm,BindingResult bindingResult)  {
         Comment comment = this.commentService.getcomment(id);
 
+        if (bindingResult.hasErrors()){
+            return "article_detail";
+        }
 
         Member member = this.memberService.getMember(principal.getName());
         this.commentService.report(comment,reportCommentForm.getReportContent(),member);
-        return String.format("redirect:/article/%s", comment.getArticle().getId());
+        return String.format("redirect:/article/%s", id);
     }
 }

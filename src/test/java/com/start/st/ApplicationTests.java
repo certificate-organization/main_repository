@@ -20,6 +20,7 @@ class ApplicationTests {
     ArticleService articleService;
 
 
+
     @Autowired
     MbtiService mbtiService;
 
@@ -49,8 +50,8 @@ class ApplicationTests {
     @Test
     void registerMember() {
         Mbti mbti = mbtiService.getMbti(1L);
-        memberService.create("admin", "1234", "dsds",
-                "dsdsd@fsd.com", mbti);
+        memberService.create("admin", "1234", "관리자",
+                "admin@email.com", mbti);
 
     }
 
