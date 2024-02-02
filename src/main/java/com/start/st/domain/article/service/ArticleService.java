@@ -37,8 +37,10 @@ public class ArticleService {
         return article.get();
     }
 
-    public Page<Article> getArticlePage(int page) {
-        Pageable pageable = PageRequest.of(page, 10);  //한 번에 볼 사이즈 수정
+    public Page<Article> getArticlePageByDate(int page) {
+        List<Sort.Order> list = new ArrayList<>();
+        list.add(Sort.Order.desc("createDate"));
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(list));  //한 번에 볼 사이즈 수정
         return this.articleRepository.findAll(pageable);
     }
 
