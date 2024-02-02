@@ -157,7 +157,6 @@
     text-align: center;
     border-bottom: 1px solid grey;
     height: 50px;
-    align-items: flex-end;
 }
 
 
@@ -420,3 +419,46 @@
 .active-content {
     display: block;
 }
+/*---------------------- 댓글 start ---------------------- */
+.comment_List_title {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.25);
+}
+.comment_List_title h4 {
+    margin: 0;
+}
+.fa-comment {
+    font-size: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.a_comment,
+.a_re-comment {
+    margin-top: 30px; margin-bottom: 30px;
+    padding-top: 10px; padding-bottom: 10px;
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.a_comment_title,
+.a_re-comment_title {
+    width: 70%;
+    text-align: left;
+}
+.a_comment_part,
+.a_re-comment_part {
+    width: 30%;
+    text-align: right;
+}
+.a_comment_body,
+.a_re-comment_body {
+    width: 100%;
+    margin-top: 20px;
+    padding-bottom: 0;
+}
+
+/*---------------------- 댓글 end ---------------------- */
