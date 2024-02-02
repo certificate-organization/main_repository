@@ -8,8 +8,14 @@ import com.start.st.domain.comment.entity.Comment;
 import com.start.st.domain.member.entity.Member;
 import com.start.st.domain.reportComment.entity.ReportComment;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +23,10 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
     private final ReportCommentRepository reportCommentRepository;
+
+    @Value("${custom.fileDirPath}")
+    private String fileDirPath;
+
 
     public Comment getcomment(Long id) {
         Optional<Comment> comment = this.commentRepository.findById(id);
@@ -37,11 +47,21 @@ public class CommentService {
         this.commentRepository.delete(comment);
     }
 
-    public void create(Article article, String content, Member author, Comment parent){
+    public void create(Article article, String content, Member author, Comment parent, MultipartFile thumbnail){
+        String thumbnailRelPath = "article/" + UUID.randomUUID().toString() + ".jpg";
+        File thumbnailFile = new File(fileDirPath + "/" + thumbnailRelPath);
+
+        try {
+            thumbnail.transferTo(thumbnailFile);
+        } catch (IOException e) {
+            throw  new RuntimeException(e);
+        }
+
         Comment comment = Comment.builder()
                 .article(article)
                 .content(content)
                 .author(author)
+                .thumbnailImg(thumbnailRelPath)
                 .parent(parent)
                 .build();
 
@@ -56,11 +76,11 @@ public class CommentService {
         comment.getLikers().remove(unLiker);
         this.commentRepository.save(comment);
     }
-    public void report(Comment comment ,String reportContent, Member reporter){
+    public void report(Comment comment ,String reportContent, Member member){
         ReportComment reportComment = ReportComment.builder()
                 .comment(comment)
                 .content(reportContent)
-                .author(reporter)
+                .author(member)
                 .build();
 
         this.reportCommentRepository.save(reportComment);

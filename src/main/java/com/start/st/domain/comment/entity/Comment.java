@@ -36,10 +36,14 @@ public class Comment extends BaseEntity {
     private List<Comment> childrenCommentList;
 
     @ManyToMany
-    private Set<Member> likers = new HashSet<>(); // 좋아요를 누른 멤버들을 저장할 Set 추가
+    private Set<Member> likers = new HashSet<>();
 
     private boolean likedByCurrentUser;
 
     @OneToMany(mappedBy = "comment")
     private List<ReportComment> reportComments;
+
+    private String thumbnailImg;
+
+
 }
