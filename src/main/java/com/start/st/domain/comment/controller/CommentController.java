@@ -112,8 +112,12 @@ public class CommentController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/report/{id}")
     public String reportComment(@PathVariable("id") Long id, Principal principal,
-                                @Valid ReportCommentForm reportCommentForm)  {
+                                @Valid ReportCommentForm reportCommentForm,BindingResult bindingResult)  {
         Comment comment = this.commentService.getcomment(id);
+
+        if (bindingResult.hasErrors()){
+            return "article_detail";
+        }
 
         Member member = this.memberService.getMember(principal.getName());
         this.commentService.report(comment,reportCommentForm.getReportContent(),member);
