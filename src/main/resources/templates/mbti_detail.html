@@ -29,12 +29,12 @@
             <div class="tab" th:onclick="informationTab('tab2')">2</div>
         </div>
         <div id="tab1" class="tab-content active-content">
-            <h2>탭 1 내용</h2>
-            <p>이곳에는 탭 1의 내용이 들어갑니다.</p>
+            <h2>MBTI 세부 내용 제목</h2>
+            <p>MBTI 세부 내용</p>
         </div>
         <div id="tab2" class="tab-content">
-            <h2>탭 2 내용</h2>
-            <p>이곳에는 탭 2의 내용이 들어갑니다.</p>
+            <h2>MBTI 세부 내용 제목</h2>
+            <p>MBTI 세부 내용</p>
         </div>
         <!-- tab메뉴 end -->
     </div>
@@ -50,7 +50,6 @@
             <thead class="article-list-head">
             <tr>
                 <th>번호</th>
-                <th>섬네일</th>
                 <th class="article-list-subject-head">제목</th>
                 <th>작성자</th>
                 <th>작성일</th>
@@ -61,7 +60,6 @@
             <tbody>
             <tr class="article-list-body" th:each="article, loop : ${articlePage}">
                 <th th:text="${articlePage.getTotalElements - (articlePage.number * articlePage.size) - loop.index}"></th>
-                <td> 섬네일 1</td>
                 <td class="article-list-subject-body">
                     <a class="article-list-subject" th:href="@{|/article/${article.id}|}"
                        th:text="${article.subject}">
@@ -71,7 +69,7 @@
                 </td>
                 <td>
                     <a class="article-list-author" href="#"
-                       th:text="|${article.author.membername}[${article.author.mbti.name}]|"></a>
+                       th:text="|${article.author.nickname}[${article.author.mbti.name}]|"></a>
                 </td>
                 <td style="width: 8%" th:id="|result${loop.index + 1}|"></td>
                 <td style="width: 6%" th:text="${article.viewCount}"></td>

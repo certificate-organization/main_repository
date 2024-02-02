@@ -74,4 +74,8 @@ public Member whenSocialLogin(String providerTypeCode, String membername, String
         }
         return false;
     }
+    public Member findByMemberId(Long id){
+        Optional<Member> member = this.memberRepository.findById(id);
+        return member.get();
+    }
 }
