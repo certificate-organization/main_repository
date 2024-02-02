@@ -47,24 +47,13 @@ public class CommentService {
         this.commentRepository.delete(comment);
     }
 
-    public void create(Article article, String content, Member author, Comment parent, MultipartFile thumbnail){
-        String thumbnailRelPath = "article/" + UUID.randomUUID().toString() + ".jpg";
-        File thumbnailFile = new File(fileDirPath + "/" + thumbnailRelPath);
-
-        try {
-            thumbnail.transferTo(thumbnailFile);
-        } catch (IOException e) {
-            throw  new RuntimeException(e);
-        }
-
+    public void create(Article article, String content, Member author, Comment parent){
         Comment comment = Comment.builder()
                 .article(article)
                 .content(content)
                 .author(author)
-                .thumbnailImg(thumbnailRelPath)
                 .parent(parent)
                 .build();
-
         this.commentRepository.save(comment);
     }
     public void likeComment(Comment comment, Member liker){

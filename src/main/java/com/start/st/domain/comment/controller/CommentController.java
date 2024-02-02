@@ -37,7 +37,7 @@ public class CommentController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create/{id}")
     public String commentCreate(Model model, @PathVariable(value = "id") Long id,
-                                @Valid CommentForm commentForm, @RequestParam("thumbnail") MultipartFile thumbnail , BindingResult bindingResult, Principal principal) {
+                                @Valid CommentForm commentForm, BindingResult bindingResult, Principal principal) {
         Article article = this.articleService.getArticle(id);
 
         if (bindingResult.hasErrors()) {
@@ -52,7 +52,7 @@ public class CommentController {
             parent = this.commentService.getcomment(commentForm.getParentCommentId());
         }
 
-        this.commentService.create(article, commentForm.getContent(), member, parent,thumbnail);
+        this.commentService.create(article, commentForm.getContent(), member, parent);
         return String.format("redirect:/article/%s", id);
     }
 
