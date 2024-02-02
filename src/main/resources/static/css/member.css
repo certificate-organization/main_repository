@@ -32,7 +32,7 @@ h1 {
   float: right;
 }
 
-.links li:nth-child(3):hover {
+.links li:nth-child(2):hover {
   opacity: 1;
 }
 
@@ -85,7 +85,6 @@ form {
   color: rgba(15, 19, 42, 0.3);
   padding: 0 0 0 15px;
   font-size: 14px;
-  font-family: 'Montserrat', sans-serif;
   &:focus,
   &:active {
     outline: none;
@@ -98,12 +97,24 @@ form {
     transition: .2s linear;
   }
 }
+.show_info_block {
+    display: block;
+      width: 90%;
+      max-width: 680px;
+      height: 50px;
+      margin: 0 auto;
+      border-radius: 8px;
+      border: 2px solid black;
+      color: rgba(15, 19, 42, 0.85);
+      padding: 6 0 0 15px;
+      font-size: 20px;
+}
 
 .signin__btn {
   background: #47BBEC;
   color: white;
   display: block;
-  width: 92.5%;
+  width: 90%;
   max-width: 680px;
   height: 50px;
   border-radius: 8px;
@@ -111,11 +122,11 @@ form {
   border: none;
   cursor: pointer;
   font-size: 14px;
-  box-shadow: 0 5px 30px rgba(0, 255, 255, 1);
+ /* box-shadow: 0 5px 30px rgba(0, 255, 255, 1);*/
   transition: .2s linear;
-  &:hover {
+ /* &:hover {
     box-shadow: 0 0 0 rgba(233, 30, 99, 0);
-  }
+  }*/
 }
 
 .separator {
@@ -149,7 +160,7 @@ form {
   }
 }
 
-/* 구글 및 깃허브 버튼 스타일 */
+.mbit__btn,
 .kakao__btn,
 .naver__btn,
 .google__btn {
@@ -164,6 +175,16 @@ form {
   border: none;
   line-height: 40px;
 }
+.mbti__btn {
+  background: #00C9AD;
+  color: #000000;
+  transition: .2s linear;
+  .fa {
+    font-size: 20px;
+    padding: 0 5px 0 0;
+  }
+}
+
 .kakao__btn {
   background: #FEE500;
   color: #000000;
@@ -198,3 +219,4 @@ a {
 footer {
 
 }
+

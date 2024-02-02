@@ -1,7 +1,17 @@
+.article-container {
+    width: 1000px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
 /*---------------------- 게시판상단 start ---------------------- */
 .TOP {
     display: flex;
-    width: 1320px;
+    width: 1000px;
     justify-content: space-between;
     align-items: flex-end;
     border-bottom: 3px solid #47BBEC;
@@ -27,8 +37,8 @@
     border: 2px solid #47BBEC;
     border-radius: 45px;
     overflow: hidden;
-    width: 50%;
-    height: 50px;
+    width: 45%;
+    height: 35px;
 }
 
 .search-txt {
@@ -37,14 +47,14 @@
     border: none;
     outline: none;
     background: none;
-    font-size: 16px;
+    font-size: 13px;
     border-radius: 25px;
     color: #000;
     margin-left: 15px;
 }
 
 .search-btn {
-margin-top: 17px;
+    margin-top: 17px;
     background: #fff;
     color: #47BBEC;
     border: none;
@@ -84,7 +94,7 @@ margin-top: 17px;
 /*---------------------- 게시판제목 start ---------------------- */
 
 .article-detail {
-    width: 1320px;
+    width: 100%;
 }
 
 .article-subject {
@@ -131,9 +141,10 @@ margin-top: 17px;
 /*---------------------- 게시판목록 start ---------------------- */
 .article-table {
     text-align: center;
-    margin: 0 auto;
+    margin: auto;
     display: flex;
     justify-content: center;
+    width: 100%
 }
 
 .article-list {
@@ -146,7 +157,6 @@ margin-top: 17px;
     text-align: center;
     border-bottom: 1px solid grey;
     height: 50px;
-    align-items: flex-end;
 }
 
 
@@ -207,7 +217,6 @@ margin-top: 17px;
     align-items: center;
     height: 35px;
 }
-
 
 .article-paging {
     justify-content: center;
@@ -331,3 +340,125 @@ margin-top: 17px;
 
 
 /*---------------------- 게시판폼 end ---------------------- */
+/*---------------------- mbti정보 start ---------------------- */
+
+.mbti-information {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.mbti-elements {
+    align-items: center;
+    width: 100%
+}
+
+.mbti-element {
+    border: 1px solid rgba(128, 128, 128, 0.6);
+    padding: 5px;
+    display: inline-block;
+    border-radius: 20px;
+    margin-top: 2px;
+    margin-left: 10px;
+    height: 25px;
+    line-height: 12px;
+}
+
+.mbti-element-text {
+    color: rgba(128, 128, 128, 0.8);
+    font-size: 12px;
+    margin-top: -2px;
+    vertical-align: middle;
+}
+
+.information-btn {
+    margin-top: 10px;
+    display: flex;
+    justify-content: right;
+}
+/*---------------------- tab메뉴 start ---------------------- */
+.tab-container {
+    margin-top: 10px;
+    margin-left: 10px;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.6);
+    display: flex;
+    border-radius: 5px 5px 0 0;
+    width: 100%
+}
+
+.tab {
+    padding: 1px 10px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    border-radius: 5px 5px 0 0;
+    margin-right: 5px;
+}
+
+.tab:hover {
+    background-column: #ddd;
+}
+
+.tab-content {
+    display: none;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 0 0 5px 5px;
+    margin-left: 10px;
+    width: 100%;
+}
+
+.active-tab {
+    background-color: #fff;
+    border-bottom: 1px solid #fff;
+}
+
+.active-content {
+    display: block;
+}
+/*---------------------- 댓글 start ---------------------- */
+.comment_List_title {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.25);
+}
+.comment_List_title h4 {
+    margin: 0;
+}
+.fa-comment {
+    font-size: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.a_comment,
+.a_re-comment {
+    margin-top: 30px; margin-bottom: 30px;
+    padding-top: 10px; padding-bottom: 10px;
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.a_comment_title,
+.a_re-comment_title {
+    width: 70%;
+    text-align: left;
+}
+.a_comment_part,
+.a_re-comment_part {
+    width: 30%;
+    text-align: right;
+}
+.a_comment_body,
+.a_re-comment_body {
+    width: 100%;
+    margin-top: 20px;
+    padding-bottom: 0;
+}
+
+/*---------------------- 댓글 end ---------------------- */
