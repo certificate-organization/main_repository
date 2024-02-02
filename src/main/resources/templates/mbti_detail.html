@@ -50,6 +50,7 @@
             <thead class="article-list-head">
             <tr>
                 <th>번호</th>
+                <th>섬네일</th>
                 <th class="article-list-subject-head">제목</th>
                 <th>작성자</th>
                 <th>작성일</th>
@@ -60,6 +61,7 @@
             <tbody>
             <tr class="article-list-body" th:each="article, loop : ${articlePage}">
                 <th th:text="${articlePage.getTotalElements - (articlePage.number * articlePage.size) - loop.index}"></th>
+                <td> 섬네일 1</td>
                 <td class="article-list-subject-body">
                     <a class="article-list-subject" th:href="@{|/article/${article.id}|}"
                        th:text="${article.subject}">
