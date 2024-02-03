@@ -5,23 +5,19 @@ import com.start.st.domain.mbti.service.MbtiService;
 import com.start.st.domain.member.entity.Member;
 import com.start.st.domain.member.entity.MemberModifyForm;
 import com.start.st.domain.member.entity.MemberSignupForm;
-import com.start.st.domain.member.security.MemberSecurityService;
 import com.start.st.domain.member.service.MemberService;
 import jakarta.validation.Valid;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 
 @Controller
 @RequiredArgsConstructor
@@ -30,7 +26,6 @@ public class MemberController {
 
     private final MemberService memberService;
     private final MbtiService mbtiService;
-    private final MemberSecurityService memberSecurityService;
 
     @GetMapping("/signup")
     public String memberSignup(Model model, MemberSignupForm memberSignupForm) {
@@ -81,19 +76,25 @@ public class MemberController {
         mbtiList.remove(member.getMbti());
         if (!this.memberService.paswordConfirm(memberModifyForm.getPassword(), member)) {
             bindingResult.rejectValue("password", "passwordInCorrect",
-                    "틀린 비밀번호 입니다.");
+                    "정보를 수정하려면 올바른 비밀번호를 입력하세요.");
         }
-        if (!memberModifyForm.getPassword1().equals(memberModifyForm.getPassword2())) {
-            bindingResult.rejectValue("password2", "passwordInCorrect",
-                    "비밀번호와 비밀번호 재확인이 일치하지 않습니다.");
+        if (memberModifyForm.getPassword1() != null && memberModifyForm.getPassword1().isEmpty()) {
+            if (!memberModifyForm.getPassword1().equals(memberModifyForm.getPassword2())) {
+                bindingResult.rejectValue("password2", "passwordInCorrect",
+                        "변경할 비밀번호와 변경할 비밀번호 재확인이 일치하지 않습니다.");
+            }
+            if(memberModifyForm.getPassword1().length()<4||memberModifyForm.getPassword1().length()>50)
+                bindingResult.rejectValue("password1","Length","비밀번호는 4자 이상 50이하의 길이만 가능합니다.");
         }
         if (bindingResult.hasErrors()) {
             model.addAttribute("member", member);
             model.addAttribute("mbtiList", mbtiList);
             return "member_modify_form";
         }
-        Mbti mbti = this.mbtiService.getMbti(memberModifyForm.getMbtiId());
-        this.memberService.modify(memberModifyForm.getMembername(), memberModifyForm.getNickname(), mbti);
+        if (memberModifyForm.getPassword1() != null && !memberModifyForm.getPassword1().isEmpty()) {
+            Mbti mbti = this.mbtiService.getMbti(memberModifyForm.getMbtiId());
+            this.memberService.modify(memberModifyForm.getMembername(), memberModifyForm.getNickname(), mbti, memberModifyForm.getPassword1());
+        }
         return "redirect:/member/modify";
     }
 }

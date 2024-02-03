@@ -23,7 +23,6 @@ public class MemberService {
 
     public void create(String membername, String password, String nickname, String email,
                        Mbti mbti) {
-
         Member member = Member.builder()
                 .membername(membername)
                 .password(passwordEncoder.encode(password))
@@ -35,6 +34,17 @@ public class MemberService {
         this.memberRepository.save(member);
     }
 
+    public void modify(String membername, String nickname, Mbti mbti,String password) {
+        Optional<Member> member = this.memberRepository.findByMembername(membername);
+        Member modifyMember = member.get().toBuilder()
+                .nickname(nickname)
+                .mbti(mbti)
+                .password(passwordEncoder.encode(password))
+                .build();
+
+        this.memberRepository.save(modifyMember);
+    }
+
     public Member getMember(String membername) {
         Optional<Member> member = this.memberRepository.findByMembername(membername);
         if (member.isEmpty()) {
@@ -43,17 +53,22 @@ public class MemberService {
         return member.get();
     }
 
-    //    public boolean isMembernameExists(String membername) {
-//        return this.memberRepository.existsByMembername(membername);
-//    }
-//
-//    public boolean isNicknameExists(String nickname) {
-//        return this.memberRepository.existByNickname(nickname);
-//    }
-//
-//    public boolean isEmailExists(String email) {
-//        return this.memberRepository.existByEmail(email);
-//    }
+    public Member findByMemberId(Long id) {
+        Optional<Member> member = this.memberRepository.findById(id);
+        if (member.isEmpty()) {
+            return null;
+        }
+        return member.get();
+    }
+
+    private Optional<Member> findByMembername(String membername) {
+        return memberRepository.findByMembername(membername);
+    }
+
+    public boolean paswordConfirm(String password, Member member) {
+        return passwordEncoder.matches(password, member.getPassword());
+    }
+
     @Transactional
     public Member whenSocialLogin(String providerTypeCode, String membername, String nickname) {
         Optional<Member> opMember = findByMembername(membername);
@@ -64,26 +79,4 @@ public class MemberService {
         return this.memberRepository.findByMembername(membername).get(); // 최초 로그인 시 딱 한번 실행
     }
 
-    private Optional<Member> findByMembername(String membername) {
-        return memberRepository.findByMembername(membername);
-    }
-
-    public boolean paswordConfirm(String password, Member member) {
-        return passwordEncoder.matches(password,member.getPassword());
-    }
-
-    public Member findByMemberId(Long id) {
-        Optional<Member> member = this.memberRepository.findById(id);
-        return member.get();
-    }
-
-    public void modify(String membername,String nickname, Mbti mbti) {
-        Optional<Member> member = this.memberRepository.findByMembername(membername);
-        Member modifyMember = member.get().toBuilder()
-                .nickname(nickname)
-                .mbti(mbti)
-                .build();
-
-        this.memberRepository.save(modifyMember);
-    }
 }

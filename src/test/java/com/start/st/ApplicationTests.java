@@ -69,8 +69,8 @@ class ApplicationTests {
         Random random = new Random();
         // 11부터 19까지의 랜덤한 숫자 생성
         for (int i = 1; i < 200; i++) {
-            Long randomNumber = (long) (random.nextDouble() * (19 - 11 + 1)) + 11;
-            Member member = memberService.findByMemberId((randomNumber));
+            Long randomNumber = (long) (random.nextDouble() * (10 - 2 + 1)) + 2;
+            Member member = memberService.findByMemberId(randomNumber);
             articleService.create(i + "번 게시글 제목", i + "번 게시글 내용 입니다.", mbti, member);
         }
     }
@@ -78,7 +78,7 @@ class ApplicationTests {
     @Test
     void makeViewCount() {
         Random random = new Random();
-        for (int i = 207; i < 406; i++) {
+        for (int i = 1; i < 200; i++) {
             Long randomNumber = (long) (random.nextDouble() * 5001);
             Long id = (long) i;
             Article article = articleService.getArticle(id);
@@ -90,7 +90,7 @@ class ApplicationTests {
     CommentService commentService;
     @Test
     void makeComment(){
-        for(int i = 207;i<406;i++){
+        for(int i = 1;i<200;i++){
             Long id = (long) i;
             Article article = articleService.getArticle(id);
             Member member = memberService.getMember("admin");

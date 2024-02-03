@@ -3,6 +3,7 @@ package com.start.st.domain.member.entity;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 @Getter
 @Setter
@@ -26,7 +27,6 @@ public class MemberModifyForm {
 
     private String password;
 
-    @Size(min = 4, max = 50,message = "비밀번호 길이는 4자이상 50자 미만 입니다.")
     private String password1;
 
     private String password2;
