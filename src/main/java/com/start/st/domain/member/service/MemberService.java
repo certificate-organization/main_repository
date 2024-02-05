@@ -19,7 +19,6 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
-    private final MbtiRepository mbtiRepository;
 
     public void create(String membername, String password, String nickname, String email,
                        Mbti mbti) {
@@ -34,7 +33,7 @@ public class MemberService {
         this.memberRepository.save(member);
     }
 
-    public void modify(String membername, String nickname,String email, Mbti mbti, String password) {
+    public void modify(String membername, String nickname, String email, Mbti mbti, String password) {
         Optional<Member> member = this.memberRepository.findByMembername(membername);
 
         if (password.isEmpty()) {
@@ -55,14 +54,6 @@ public class MemberService {
         }
     }
 
-    public Member getMember(String membername) {
-        Optional<Member> member = this.memberRepository.findByMembername(membername);
-        if (member.isEmpty()) {
-            return null;
-        }
-        return member.get();
-    }
-
     public Member findByMemberId(Long id) {
         Optional<Member> member = this.memberRepository.findById(id);
         if (member.isEmpty()) {
@@ -71,8 +62,28 @@ public class MemberService {
         return member.get();
     }
 
-    private Optional<Member> findByMembername(String membername) {
-        return memberRepository.findByMembername(membername);
+    public Member getMember(String membername) {
+        Optional<Member> member = this.memberRepository.findByMembername(membername);
+        if (member.isEmpty()) {
+            return null;
+        }
+        return member.get();
+    }
+
+    public Member findByNickname(String nickname) {
+        Optional<Member> member = this.memberRepository.findByNickname(nickname);
+        if (member.isEmpty()) {
+            return null;
+        }
+        return member.get();
+    }
+
+    public Member findByEmail(String email) {
+        Optional<Member> member = this.memberRepository.findByEmail(email);
+        if (member.isEmpty()) {
+            return null;
+        }
+        return member.get();
     }
 
     public boolean paswordConfirm(String password, Member member) {
@@ -81,8 +92,10 @@ public class MemberService {
 
     @Transactional
     public Member whenSocialLogin(String providerTypeCode, String membername, String nickname) {
-        Optional<Member> opMember = findByMembername(membername);
-        if (opMember.isPresent()) return opMember.get();
+        Member member = getMember(membername);
+        if (member != null) {
+            return member;
+        }
 
         create(membername, "", nickname, null, null);
         return this.memberRepository.findByMembername(membername).get(); // 최초 로그인 시 딱 한번 실행

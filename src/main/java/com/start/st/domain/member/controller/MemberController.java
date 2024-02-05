@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -35,16 +36,15 @@ public class MemberController {
     }
 
     @PostMapping("/signup")
-    public String memberSignup(@Valid MemberSignupForm memberSignupForm, BindingResult bindingResult, Model model) {
+    public String memberSignup(@Valid MemberSignupForm memberSignupForm,
+                               BindingResult bindingResult, Model model) {
         List<Mbti> mbtiList = this.mbtiService.findAllMbti();
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("mbtiList", mbtiList);
-            return "signup_form";
-        }
         if (!memberSignupForm.getPassword1().equals(memberSignupForm.getPassword2())) {
-            model.addAttribute("mbtiList", mbtiList);
             bindingResult.rejectValue("password2", "passwordInCorrect",
                     "비밀번호와 비밀번호 재확인이 일치하지 않습니다.");
+        }
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("mbtiList", mbtiList);
             return "signup_form";
         }
         Mbti mbti = this.mbtiService.getMbti(memberSignupForm.getMbtiId());
@@ -83,16 +83,18 @@ public class MemberController {
                 bindingResult.rejectValue("password2", "passwordInCorrect",
                         "변경할 비밀번호와 변경할 비밀번호 재확인이 일치하지 않습니다.");
             }
-            if(memberModifyForm.getPassword1().length()<4||memberModifyForm.getPassword1().length()>50)
-                bindingResult.rejectValue("password1","Length","비밀번호는 4자 이상 50이하의 길이만 가능합니다.");
+            if (memberModifyForm.getPassword1().length() < 4 || memberModifyForm.getPassword1().length() > 50)
+                bindingResult.rejectValue("password1", "Length",
+                        "비밀번호는 4자 이상 50이하의 길이만 가능합니다.");
         }
         if (bindingResult.hasErrors()) {
             model.addAttribute("member", member);
             model.addAttribute("mbtiList", mbtiList);
             return "member_modify_form";
         }
-            Mbti mbti = this.mbtiService.getMbti(memberModifyForm.getMbtiId());
-            this.memberService.modify(memberModifyForm.getMembername(), memberModifyForm.getNickname(),memberModifyForm.getEmail(), mbti, memberModifyForm.getPassword1());
+        Mbti mbti = this.mbtiService.getMbti(memberModifyForm.getMbtiId());
+        this.memberService.modify(memberModifyForm.getMembername(), memberModifyForm.getNickname(),
+                memberModifyForm.getEmail(), mbti, memberModifyForm.getPassword1());
         return "redirect:/member/modify";
     }
 }
