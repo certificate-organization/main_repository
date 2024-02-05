@@ -17,11 +17,14 @@ public class MusicService {
     public List<Music> findAll() {
         return this.musicRepository.findAll();
     }
-    public void create(String name) {
+    public void create(String genre) {
         Music music = Music.builder()
-                .name(name)
+                .genre(genre)
                 .build();
         this.musicRepository.save(music);
     }
 
+    public List<Music> findAllMusic() {
+        return this.musicRepository.findAll();
+    }
 }

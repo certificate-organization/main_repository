@@ -216,18 +216,69 @@
                     <div>
                         <span>아이언맨, 스파이더맨</span>
                     </div>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
+                            data-bs-target="#movieModal" data-bs-whatever="@mdo">수정
+                    </button>
                 </div>
                 <div class="music">음악 추천
                     <div>
                         <span>댄스댄스, POP, 발라드</span>
                     </div>
                 </div>
+                <div class="modal fade" id="movieModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">영화</h1>
+                                <select name="movieList" id="movieList" onchange="showMovieForm()" class="form-select"
+                                        aria-label="Default select example">
+                                    <option value="0" style="text-center">== 장르 ==</option>
+                                    <option th:each="movie : ${movieList}" th:value="${movie.genre}"
+                                            th:text="${movie.genre}"></option>
+                                </select>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <form th:action="@{|/movie/modify}" method="post">
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <textarea class="form-control" name="reportContent"
+                                                  id="message-text"></textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                                    <button type="submit" class="btn btn-primary">저장</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="information-btn">
-                <a th:if="${#authentication.getPrincipal().getUsername() == 'admin'}"
-                   sec:authorize="isAuthenticated()"
-                   th:href="@{|/mbti/information|}" class="back-btn">페이지관리</a>
-            </div>
+            <script>
+                function showMovieForm() {
+                    var selectedMovieGenre = document.getElementById("movieList").value;
+
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("GET", "/api/movie/" + selectedMovieGenre, true);
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            var selectedMovie = JSON.parse(xhr.responseText);
+
+                            // 선택한 movie에 해당하는 정보를 폼에 설정
+                            document.getElementById("love").value = selectedMbti.love;
+                            document.getElementById("relationship").value = selectedMbti.relationship;
+                            document.getElementById("celebrity").value = selectedMbti.celebrity;
+                            document.getElementById("job").value = selectedMbti.job;
+
+                            // 폼 제출 시에 해당 MBTI 정보를 서버로 전송하도록 설정
+                            document.getElementById("mbtiForm").action = "/mbti/information/" + selectedMbti.id;
+                        }
+                    };
+                    xhr.send();
+                }
+            </script>
         </div>
         <div class="right-container">
             <div class="mbti_link">
