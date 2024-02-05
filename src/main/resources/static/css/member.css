@@ -1,7 +1,5 @@
-body {
-  background: white;
-}
-.container {
+
+.m_container {
   display: block;
   max-width: 680px;
   width: 80%;
@@ -17,26 +15,26 @@ h1 {
   transition: .2s linear;
 }
 
-.links {
+.m_links {
   list-style-type: none;
 }
 
-.links li {
+.m_links li {
   display: inline-block;
   margin: 0 20px 0 0;
   transition: .2s linear;
 }
 
-.links li:nth-child(2) {
+.m_links li:nth-child(2) {
   opacity: .6;
   float: right;
 }
 
-.links li:nth-child(2):hover {
+.m_links li:nth-child(2):hover {
   opacity: 1;
 }
 
-.links li a {
+.m_links li a {
   text-decoration: none;
   color: #0f132a;
   font-weight: bolder;
@@ -214,9 +212,5 @@ form {
 }
 a {
     color: #000000;
-}
-
-footer {
-
 }
 

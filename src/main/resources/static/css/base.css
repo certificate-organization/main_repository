@@ -31,10 +31,11 @@ footer {
 }
 
 /*-------------navbar 부분 strat -------------*/
-.custom-navbar {
-    margin: 0 auto;
-    padding: 0 100px;
-}
+/*.underline {
+    width:100%;
+    border: 1px solid #000;
+    display:block;
+}*/
 
 .search-nav {
     border: 2px solid #47BBEC;
@@ -80,6 +81,17 @@ footer {
 .fa-magnifying-nav-glass {
     font-size: 20px;
     margin-right: 10px;
+}
+.nav_container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.wrap {
+    position: absolute;
+    right: 0;
 }
 
 /*-------------navbar 부분 end -------------*/
