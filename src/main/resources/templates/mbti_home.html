@@ -240,11 +240,11 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                             </div>
-                            <form th:action="@{|/movie/modify}" method="post">
+                            <form name="movieForm" method="post">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                                 <div class="modal-body">
                                     <div class="mb-3">
-                                        <textarea class="form-control" name="reportContent"
-                                                  id="message-text"></textarea>
+                                        <textarea id="movieNames" name="names"></textarea>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -266,14 +266,16 @@
                         if (xhr.readyState === 4 && xhr.status === 200) {
                             var selectedMovie = JSON.parse(xhr.responseText);
 
+                            document.getElementById("names").innerHTML = "";
                             // 선택한 movie에 해당하는 정보를 폼에 설정
-                            document.getElementById("love").value = selectedMbti.love;
-                            document.getElementById("relationship").value = selectedMbti.relationship;
-                            document.getElementById("celebrity").value = selectedMbti.celebrity;
-                            document.getElementById("job").value = selectedMbti.job;
+                            selectedMovie.names.forEach(function (nameItem) {
+                                var option = document.createElement("option");
+                                option.next = nameItem;
+                                document.getElementById("names").add(option);
+                            )
 
-                            // 폼 제출 시에 해당 MBTI 정보를 서버로 전송하도록 설정
-                            document.getElementById("mbtiForm").action = "/mbti/information/" + selectedMbti.id;
+                            // 폼 제출 시에 해당 movie 정보를 서버로 전송하도록 설정
+                            document.getElementById("movieForm").action = "/movie/" + selectedMovie.id;
                         }
                     };
                     xhr.send();

@@ -72,8 +72,6 @@ public class MbtiService {
         return this.mbtiRepository.findAll();
     }
 
-
-
     public Mbti getMbti(Long id) {
         Optional<Mbti> mbti = this.mbtiRepository.findById(id);
         if (mbti.isEmpty()) {
