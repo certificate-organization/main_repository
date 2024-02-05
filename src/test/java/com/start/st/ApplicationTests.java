@@ -6,10 +6,12 @@ import com.start.st.domain.comment.service.CommentService;
 import com.start.st.domain.mbti.entity.Mbti;
 import com.start.st.domain.mbti.service.MbtiService;
 import com.start.st.domain.member.entity.Member;
+import com.start.st.domain.member.repository.MemberRepository;
 import com.start.st.domain.member.service.MemberService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Random;
 
@@ -97,4 +99,5 @@ class ApplicationTests {
             commentService.create(article, "2번 댓글 입니다.", member, null);
         }
     }
+
 }

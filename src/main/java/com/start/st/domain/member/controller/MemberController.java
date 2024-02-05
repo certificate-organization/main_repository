@@ -78,7 +78,7 @@ public class MemberController {
             bindingResult.rejectValue("password", "passwordInCorrect",
                     "정보를 수정하려면 올바른 비밀번호를 입력하세요.");
         }
-        if (memberModifyForm.getPassword1() != null && memberModifyForm.getPassword1().isEmpty()) {
+        if (memberModifyForm.getPassword1() != null && !memberModifyForm.getPassword1().isEmpty()) {
             if (!memberModifyForm.getPassword1().equals(memberModifyForm.getPassword2())) {
                 bindingResult.rejectValue("password2", "passwordInCorrect",
                         "변경할 비밀번호와 변경할 비밀번호 재확인이 일치하지 않습니다.");
@@ -91,10 +91,8 @@ public class MemberController {
             model.addAttribute("mbtiList", mbtiList);
             return "member_modify_form";
         }
-        if (memberModifyForm.getPassword1() != null && !memberModifyForm.getPassword1().isEmpty()) {
             Mbti mbti = this.mbtiService.getMbti(memberModifyForm.getMbtiId());
             this.memberService.modify(memberModifyForm.getMembername(), memberModifyForm.getNickname(), mbti, memberModifyForm.getPassword1());
-        }
         return "redirect:/member/modify";
     }
 }

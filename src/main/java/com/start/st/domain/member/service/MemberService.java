@@ -34,15 +34,23 @@ public class MemberService {
         this.memberRepository.save(member);
     }
 
-    public void modify(String membername, String nickname, Mbti mbti,String password) {
+    public void modify(String membername, String nickname, Mbti mbti, String password) {
         Optional<Member> member = this.memberRepository.findByMembername(membername);
-        Member modifyMember = member.get().toBuilder()
-                .nickname(nickname)
-                .mbti(mbti)
-                .password(passwordEncoder.encode(password))
-                .build();
 
-        this.memberRepository.save(modifyMember);
+        if (password.isEmpty()) {
+            Member modifyMember = member.get().toBuilder()
+                    .nickname(nickname)
+                    .mbti(mbti)
+                    .build();
+            this.memberRepository.save(modifyMember);
+        } else {
+            Member modifyMember = member.get().toBuilder()
+                    .nickname(nickname)
+                    .mbti(mbti)
+                    .password(passwordEncoder.encode(password))
+                    .build();
+            this.memberRepository.save(modifyMember);
+        }
     }
 
     public Member getMember(String membername) {
