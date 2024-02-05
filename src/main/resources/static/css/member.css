@@ -56,15 +56,23 @@ p {
        padding-inline-start: 40px;
 }
 .form-select {
-    width: 100%;
+    width: 90%;
 }
-
 
 
 form {
   width: 100%;
   max-width: 680px;
   margin: 40px auto 10px;
+}
+
+
+.form-error {
+    margin-top: 5;
+    margin-left: 40px;
+    width: 100%;
+    font-size: 14px;
+    color: red;
 }
 
 .input__block {
