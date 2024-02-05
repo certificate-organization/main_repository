@@ -14,6 +14,7 @@
     <!--    <script src="/js/jquery.js"></script>-->
     <!-- 추가적인 JS 파일 -->
     <script type="text/javascript" src="/js/darkmode.js"></script>
+    <script type="text/javascript" src="/js/chat.js"></script>
     <!-- 폰트어썸 이미지 사용위한 kits -->
     <script src="https://kit.fontawesome.com/26ee6f51e2.js" crossorigin="anonymous"></script>
     <title>MBTI</title>
@@ -177,79 +178,92 @@
                     </svg>
                 </a>
             </div>
-                <div class="login-container" sec:authorize="isAnonymous()">
-                    <div class="login">
-                        <a class="login_button" aria-current="page" href="/member/login">로그인</a>
+            <div class="login-container" sec:authorize="isAnonymous()">
+                <div class="login">
+                    <a class="login_button" onclick='loginBtn()' aria-current="page" href="/member/login">로그인</a>
+                </div>
+                <div class="links">
+                    <div class="lock">
+                        <a href="#">
+                            <i class="fa-solid fa-lock"></i>
+                            아이디/비밀번호 찾기
+                        </a>
                     </div>
-                    <div class="links">
-                        <div class="lock">
-                            <a href="#">
-                                <i class="fa-solid fa-lock"></i>
-                                아이디/비밀번호 찾기
-                            </a>
-                        </div>
-                        <div class="signup">
-                            <a th:href="@{/member/signup}">
-                                <i class="fa-solid fa-user"></i>
-                                회원 가입
-                            </a>
-                        </div>
+                    <div class="signup">
+                        <a th:href="@{/member/signup}">
+                            <i class="fa-solid fa-user"></i>
+                            회원 가입
+                        </a>
                     </div>
                 </div>
-                <div class="logout-container" sec:authorize="isAuthenticated()">
-                    <div class="logout">
-                        <a class="logout_button" onclick='logoutBtn()' th:href="@{/member/logout}">로그아웃</a>
+            </div>
+            <div class="logout-container" sec:authorize="isAuthenticated()">
+                <div class="logout">
+                    <a class="logout_button" onclick='logoutBtn()' th:href="@{/member/logout}">로그아웃</a>
+                </div>
+                <div class="links">
+                    <div>
+                        <a th:href="@{/}">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            내가 쓴 글
+                        </a>
                     </div>
-                    <div class="links">
-                        <div>
-                            <a th:href="@{/}">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                                내가 쓴 글
-                            </a>
-                        </div>
-                        <div>
-                            <a th:href="@{/}">
-                                <i class="fa-solid fa-keyboard"></i>
-                                내가 쓴 댓글
-                            </a>
-                        </div>
-                        <div>
-                            <a th:href="@{/member/modify}">
-                                <i class="fa-solid fa-user"></i>
-                                개인정보 수정
-                            </a>
-                        </div>
+                    <div>
+                        <a th:href="@{/}">
+                            <i class="fa-solid fa-keyboard"></i>
+                            내가 쓴 댓글
+                        </a>
+                    </div>
+                    <div>
+                        <a th:href="@{/member/modify}">
+                            <i class="fa-solid fa-user"></i>
+                            개인정보 수정
+                        </a>
                     </div>
                 </div>
-                <div class="chat" sec:authorize="isAnonymous()">채팅방(예정)
-                    <div class="logout_chat">
-                        <div class="close_chat">
-                            <i class="fa-solid fa-circle-exclamation"></i>
-                        </div>
-                    </div>
-                    <div class="chat-box">
-                        <div class="chat-box-inner">
-                            <input class="chat-txt" type="text" placeholder="로그인 후 이용 가능합니다.">
-                            <button class="chat-btn" type="submit">
-                                <i class="fa-solid fa-paper-plane"></i>
-                            </button>
-                        </div>
+            </div>
+            <div class="chat" sec:authorize="isAnonymous()">채팅방(예정)
+                <div class="logout_chat">
+                    <div class="close_chat">
+                        <i class="fa-solid fa-circle-exclamation"></i>
                     </div>
                 </div>
-                <div class="chat"  sec:authorize="isAuthenticated()">채팅방(예정)
-                    <div class="chat-box">
-                        <div class="chat-box-inner">
-                            <input class="chat-txt" type="text" placeholder="채팅 내용을 입력하세요.">
-                            <button  id="button-send" class="chat-btn" type="submit">
-                                <i class="fa-solid fa-paper-plane"></i>
-                            </button>
-                        </div>
+                <div class="chat-box">
+                    <div class="chat-box-inner">
+                        <input class="chat-txt" type="text" placeholder="로그인 후 이용 가능합니다.">
+                        <button class="chat-btn" type="submit">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
                     </div>
                 </div>
+            </div>
+            <div class="chat"  sec:authorize="isAuthenticated()">채팅방(예정)
+                <div class="chat-box">
+                    <div class="chat-box-inner">
+                        <input class="chat-txt" type="text" placeholder="채팅 내용을 입력하세요.">
+                        <button class="chat-btn" type="submit">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
     <footer>
-
+<!--            <div class="col-6">-->
+<!--                <label><b>채팅방</b></label>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <div id="msgArea" class="col"></div>-->
+<!--                <div class="col-6">-->
+<!--                    <div class="input-group mb-3">-->
+<!--                        <input type="text" id="msg" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">-->
+<!--                        <div class="input-group-append">-->
+<!--                            <button class="btn btn-outline-secondary" type="button" id="button-send">전송</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
     </footer>
 </div>
 </body>

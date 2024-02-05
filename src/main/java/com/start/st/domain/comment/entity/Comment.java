@@ -32,7 +32,7 @@ public class Comment extends BaseEntity {
     @ManyToOne
     private Comment parent;
 
-    @OneToMany(mappedBy = "parent")
+    @OneToMany(mappedBy = "parent",cascade = CascadeType.REMOVE)
     private List<Comment> childrenCommentList;
 
     @ManyToMany
