@@ -6,6 +6,7 @@ import com.start.st.domain.mbti.entity.Mbti;
 import com.start.st.domain.mbti.service.MbtiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -21,8 +23,9 @@ public class HomeController {
     private final MbtiService mbtiService;
     private final ArticleService articleService;
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/")
-    public String root(String key, Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
+    public String root(String key, Model model, @RequestParam(value = "page", defaultValue = "0") int page, Principal principal) {
         List<Mbti> mbtiList = this.mbtiService.findAllMbti();
         Page<Article> articlePageByDate = this.articleService.getArticlePageByDate(page);
         Page<Article> articlePageByLike = this.articleService.getArticlePageByLike(page);

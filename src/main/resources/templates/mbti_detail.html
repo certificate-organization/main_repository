@@ -2,6 +2,7 @@
 <head>
     <title>MBTI 게시판</title>
 </head>
+
 <body>
 <div layout:fragment="content" class="article-container">
     <!-- 게시판 상단 start -->
@@ -24,25 +25,47 @@
             </div>
         </div>
         <!-- tab메뉴 start -->
-        <div class="tab-container">
-            <div class="tab" th:onclick="informationTab('tab1')">연애</div>
-            <div class="tab" th:onclick="informationTab('tab2')">관계</div>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane"
+                        type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">연애
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane"
+                        type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">관계
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane"
+                        type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">유명인
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="disabled-tab" data-bs-toggle="tab" data-bs-target="#disabled-tab-pane"
+                        type="button" role="tab" aria-controls="disabled-tab-pane" aria-selected="false">직업
+                </button>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
+                 tabindex="0">직업
+            </div>
+            <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                ...
+            </div>
+            <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+                직업
+            </div>
+            <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab"
+                 tabindex="0">...
+            </div>
         </div>
-        <div id="tab1" class="tab-content active-content">
-            <h2>궁합</h2>
-            <p>최고의 짝</p>
-            <p>ESFP, ESTP</p>
-            <p>최악의 짝</p>
-            <p>INTJ, INFj</p>
-        </div>
-        <div id="tab2" class="tab-content">
-            <h2>탭 2 내용</h2>
-            <p>이곳에는 탭 2의 내용이 들어갑니다.</p>
-        </div>
+
         <!-- tab메뉴 end -->
     </div>
     <div class="information-btn">
-        <a th:if="${member != null and member.membername == 'admin'}"
+        <a th:if="${member != null and #authentication.getPrincipal().getUsername() == 'admin'}"
            sec:authorize="isAuthenticated()"
            th:href="@{|/mbti/${mbti.id}/information|}" class="back-btn">수정</a>
     </div>
@@ -132,6 +155,7 @@
     </form>
     <!-- 검색기능 end -->
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-<script th:src="@{/js/informationTab.js}"></script>
+
 </html>

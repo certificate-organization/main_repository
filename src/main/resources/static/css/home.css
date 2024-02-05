@@ -180,12 +180,13 @@ div.left-container {
     margin-top: 20px;
 }
 .left-container > .hot_topic {
-     height: 500px;
-     align-items:center;
+    height: 500px;
+    align-items:center;
 }
 
 .left-container > .mm {
-     display:flex;
+    margin-top: 15px;
+    display:flex;
 }
 
 .mm > .movie {
@@ -451,6 +452,31 @@ div.left-container {
     color: black;
     font-weight: normal;
     text-decoration: none;
+}
+
+.article-list-th {
+    width: 4%;
+}
+
+.information-btn {
+    margin-top: 10px;
+    margin-right: 10px;
+    display: flex;
+    justify-content: right;
+    height: 30px;
+}
+
+.back-btn {
+    justify-content:right;
+    color: rgba(128, 128, 128, 0.4);
+    font-size: 15px;
+    padding: 3px 3px 3px 3px;
+    text-decoration: none;
+    font-weight: bold;
+    border: 2px solid rgba(128, 128, 128, 0.4);
+    border-radius: 10px;
+    margin-right: 10px;
+    margin-bottom: 5px;
 }
 
 /* ----------------------인기 게시글 end---------------------- */

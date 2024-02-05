@@ -90,7 +90,8 @@ public class CommentController {
     @GetMapping("/delete/{id}")
     public String commentDelete(@PathVariable("id") Long id, Principal principal) {
         Comment comment = this.commentService.getcomment(id);
-        if (!comment.getAuthor().getMembername().equals(principal.getName())) {
+        if (!comment.getAuthor().getMembername().equals(principal.getName()) &&
+                !principal.getName().equals("admin")) {
             return "article_detail";
         }
         this.commentService.delete(comment);
@@ -98,6 +99,7 @@ public class CommentController {
         return String.format("redirect:/article/%s", comment.getArticle().getId());
 
     }
+
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/like/{id}")
     public String likeComment(@PathVariable("id") Long id, Principal principal) {
@@ -109,18 +111,19 @@ public class CommentController {
         }
         return String.format("redirect:/article/%s", comment.getArticle().getId());
     }
+
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/report/{id}")
     public String reportComment(@PathVariable("id") Long id, Principal principal,
-                                @Valid ReportCommentForm reportCommentForm,BindingResult bindingResult)  {
+                                @Valid ReportCommentForm reportCommentForm, BindingResult bindingResult) {
         Comment comment = this.commentService.getcomment(id);
 
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             return "article_detail";
         }
 
         Member member = this.memberService.getMember(principal.getName());
-        this.commentService.report(comment,reportCommentForm.getReportContent(),member);
+        this.commentService.report(comment, reportCommentForm.getReportContent(), member);
         return String.format("redirect:/article/%s", id);
     }
 }

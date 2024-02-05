@@ -45,18 +45,18 @@ public class MbtiController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/{id}/information")
-    public String mbtiInformation(@PathVariable("id") Long id, Model model, Principal principal) {
+    @GetMapping("/information")
+    public String mbtiInformation(Model model, Principal principal) {
         if (!principal.getName().equals("admin")) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "접근권한이 없습니다.");
         }
-        Mbti mbti = this.mbtiService.getMbti(id);
-        model.addAttribute("mbti", mbti);
+        List<Mbti> mbtiList = this.mbtiService.findAllMbti();
+        model.addAttribute("mbtiList", mbtiList);
         return "information_form";
     }
 
     @PreAuthorize("isAuthenticated()")
-    @PostMapping("/{id}/information")
+    @PostMapping("/information/{id}")
     public String mbtiInformation(@PathVariable("id") Long id, Model model, Principal principal,
                                   @RequestParam("love") String love, @RequestParam("relationship") String relationship,
                                   @RequestParam("celebrity") String celebrity, @RequestParam("job") String job) {

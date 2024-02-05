@@ -118,10 +118,9 @@
                                 <thead class="article-list-head">
                                 <tr>
                                     <th class="article-list-subject-head">제목</th>
-                                    <th>작성자</th>
-                                    <th>작성일</th>
-                                    <th>조회수</th>
-                                    <th>추천수</th>
+                                    <th class="article-list-th">작성자</th>
+                                    <th class="article-list-th">조회수</th>
+                                    <th class="article-list-th">추천수</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -137,13 +136,8 @@
                                         <a class="article-list-author" href="#"
                                            th:text="|${article.author.membername}[${article.author.mbti.name}]|"></a>
                                     </td>
-                                    <td style="width: 8%" th:id="|result${loop.index + 1}|"></td>
                                     <td style="width: 6%" th:text="${article.viewCount}"></td>
                                     <td style="width: 6%" th:text="${#lists.size(article.likers)}|"></td>
-                                    <script th:src="@{/js/calculateDate.js}"></script>
-                                    <script th:inline="javascript">
-                                        calculateDate (/*[[${article.createDate}]]*/, 'result' + /*[[${loop.index + 1}]]*/);
-                                    </script>
                                 </tr>
                                 </tbody>
                             </table>
@@ -156,10 +150,9 @@
                                 <thead class="article-list-head">
                                 <tr>
                                     <th class="article-list-subject-head">제목</th>
-                                    <th>작성자</th>
-                                    <th>작성일</th>
-                                    <th>조회수</th>
-                                    <th>추천수</th>
+                                    <th class="article-list-th">작성자</th>
+                                    <th class="article-list-th">조회수</th>
+                                    <th class="article-list-th">추천수</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -175,13 +168,8 @@
                                         <a class="article-list-author" href="#"
                                            th:text="|${article.author.membername}[${article.author.mbti.name}]|"></a>
                                     </td>
-                                    <td style="width: 8%" th:id="|result${loop.index + 1}|"></td>
                                     <td style="width: 6%" th:text="${article.viewCount}"></td>
                                     <td style="width: 6%" th:text="${#lists.size(article.likers)}|"></td>
-                                    <script th:src="@{/js/calculateDate.js}"></script>
-                                    <script th:inline="javascript">
-                                        calculateDate (/*[[${article.createDate}]]*/, 'result' + /*[[${loop.index + 1}]]*/);
-                                    </script>
                                 </tr>
                                 </tbody>
                             </table>
@@ -194,10 +182,9 @@
                                 <thead class="article-list-head">
                                 <tr>
                                     <th class="article-list-subject-head">제목</th>
-                                    <th>작성자</th>
-                                    <th>작성일</th>
-                                    <th>조회수</th>
-                                    <th>추천수</th>
+                                    <th class="article-list-th">작성자</th>
+                                    <th class="article-list-th">조회수</th>
+                                    <th class="article-list-th">추천수</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -213,13 +200,8 @@
                                         <a class="article-list-author" href="#"
                                            th:text="|${article.author.membername}[${article.author.mbti.name}]|"></a>
                                     </td>
-                                    <td style="width: 8%" th:id="|result${loop.index + 1}|"></td>
                                     <td style="width: 6%" th:text="${article.viewCount}"></td>
                                     <td style="width: 6%" th:text="${#lists.size(article.likers)}|"></td>
-                                    <script th:src="@{/js/calculateDate.js}"></script>
-                                    <script th:inline="javascript">
-                                        calculateDate (/*[[${article.createDate}]]*/, 'result' + /*[[${loop.index + 1}]]*/);
-                                    </script>
                                 </tr>
                                 </tbody>
                             </table>
@@ -239,6 +221,11 @@
                         <span>댄스댄스, POP, 발라드</span>
                     </div>
                 </div>
+            </div>
+            <div class="information-btn">
+                <a th:if="${#authentication.getPrincipal().getUsername() == 'admin'}"
+                   sec:authorize="isAuthenticated()"
+                   th:href="@{|/mbti/information|}" class="back-btn">페이지관리</a>
             </div>
         </div>
         <div class="right-container">
@@ -436,41 +423,6 @@
         <!--            </div>-->
     </footer>
 </div>
-<!--탭 기능-->
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-
-    const urlParams = new URLSearchParams(window.location.search);
-        const keyParam = urlParams.get('tab');
-
-    let key = "${param.key}";
-    console.log(key);
-    if(key === "recent"){
-        $("#recent-tab").addClass("active");
-        $("#like-tab").removeClass("active");
-        $("#view-tab").removeClass("active");
-
-        $("#recent").addClass("show active");
-        $("#like").removeClass("show active");
-        $("#view").removeClass("show active");
-    }else if(key === "like"){
-        $("#recent-tab").removeClass("active");
-        $("#like-tab").addClass("active");
-        $("#view-tab").removeClass("active");
-
-        $("#recent").removeClass("show active");
-        $("#like").addClass("show active");
-        $("#view").removeClass("show active");
-    }else if(key === "view"){
-        $("#recent-tab").removeClass("active");
-        $("#like-tab").removeClass("active");
-        $("#view-tab").addClass("active");
-
-        $("#recent").removeClass("show active");
-        $("#like").removeClass("show active");
-        $("#view").addClass("show active");
-    }
-</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

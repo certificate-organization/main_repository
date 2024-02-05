@@ -1,37 +1,79 @@
 <!DOCTYPE html>
 <html lang="ko" layout:decorate="~{layout}">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 추가적인 CSS 파일 -->
-    <link th:href="@{/css/darkmode.css}" rel="stylesheet">
-    <title th:text="|${mbti.name} 정보 수정|"></title>
-</head>
 
 <body>
-<div layout:fragment="content" class="container my-3">
-    <h4 th:text="|${mbti.name} 정보 수정|"></h4>
-    <form th:action="@{|/mbti/${mbti.id}/information|}" th:object="${mbti}" method="post">
-        <div class="mb-3">
-            <label for="love" class="form-label">연애</label>
-            <input type="text" name="love" th:field="*{love}" class="form-control">
+<div layout:fragment="content">
+    <p>MBTI</p>
+    <select name="mbtiId" id="mbtiSelect" onchange="showForm()" class="form-select" aria-label="Default select example">
+        <option value="0" style="text-center">== 선택 ==</option>
+        <option th:each="mbti : ${mbtiList}" th:value="${mbti.name}" th:text="${mbti.name}"></option>
+    </select>
+    <label id="formName">수정</label>
+    <!-- 폼 -->
+    <form id="mbtiForm" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <label for="love">연애</label>
+        <textarea id="love" name="love"></textarea>
+        <label for="relationship">관계</label>
+        <textarea id="relationship" name="relationship"></textarea>
+        <label for="celebrity">유명인</label>
+        <textarea id="celebrity" name="celebrity"></textarea>
+        <label for="job">직업</label>
+        <textarea id="job" name="job"></textarea>
+        <div class="form-create-btn">
+            <a th:href="@{|/|}" class="back-btn">취소</a>
+            <button type="submit" class="create-btn">등록</button>
         </div>
-        <div class="mb-3">
-            <label for="relationship" class="form-label">관계</label>
-            <input type="text" name="relationship" th:field="*{relationship}" class="form-control">
-        </div>
-        <div class="mb-3">
-            <label for="celebrity" class="form-label">유명인</label>
-            <input type="text" name="celebrity" th:field="*{celebrity}" class="form-control">
-        </div>
-        <div class="mb-3">
-            <label for="직업" class="form-label">직업</label>
-            <input type="text" name="직업" th:field="*{job}" class="form-control">
-        </div>
-        <br>
-        <button type="submit" class="create-btn">저장</button>
-        <a th:href="@{|/mbti/${mbti.id}|}" class="back-btn">취소</a>
     </form>
+    <script>
+        function showForm() {
+        var selectedMbtiName = document.getElementById("mbtiSelect").value;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "/api/mbti/" + selectedMbtiName, true);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var selectedMbti = JSON.parse(xhr.responseText);
+
+                // 선택한 MBTI에 해당하는 정보를 폼에 설정
+                document.getElementById("love").value = selectedMbti.love;
+                document.getElementById("relationship").value = selectedMbti.relationship;
+                document.getElementById("celebrity").value = selectedMbti.celebrity;
+                document.getElementById("job").value = selectedMbti.job;
+
+                // 폼 제출 시에 해당 MBTI 정보를 서버로 전송하도록 설정
+                document.getElementById("mbtiForm").action = "/mbti/information/" + selectedMbti.id;
+            }
+        };
+        xhr.send();
+    }
+    </script>
 </div>
+
+<!--    <div layout:fragment="content" class="container my-3">-->
+<!--        <h4 th:text="|${mbti.name} 정보 수정|"></h4>-->
+<!--        <form th:action="@{|/mbti/${mbti.id}/information|}" th:object="${mbti}" method="post">-->
+<!--            <div class="mb-3">-->
+<!--                <label for="love" class="form-label">연애</label>-->
+<!--                <input type="text" name="love" th:field="*{love}" class="form-control">-->
+<!--            </div>-->
+<!--            <div class="mb-3">-->
+<!--                <label for="relationship" class="form-label">관계</label>-->
+<!--                <input type="text" name="relationship" th:field="*{relationship}" class="form-control">-->
+<!--            </div>-->
+<!--            <div class="mb-3">-->
+<!--                <label for="celebrity" class="form-label">유명인</label>-->
+<!--                <input type="text" name="celebrity" th:field="*{celebrity}" class="form-control">-->
+<!--            </div>-->
+<!--            <div class="mb-3">-->
+<!--                <label for="직업" class="form-label">직업</label>-->
+<!--                <input type="text" name="직업" th:field="*{job}" class="form-control">-->
+<!--            </div>-->
+<!--            <br>-->
+<!--            <button type="submit" class="create-btn">저장</button>-->
+<!--            <a th:href="@{|/|}" class="back-btn">취소</a>-->
+<!--        </form>-->
+<!--    </div>-->
+
 </body>
 </html>
