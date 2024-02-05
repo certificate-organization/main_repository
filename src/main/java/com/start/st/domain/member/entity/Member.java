@@ -14,7 +14,7 @@ import java.util.Set;
 
 @Entity
 @Getter
-@SuperBuilder
+@SuperBuilder(toBuilder = true)
 @NoArgsConstructor
 @AllArgsConstructor
 public class Member extends BaseEntity {

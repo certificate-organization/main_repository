@@ -23,7 +23,6 @@ public class MemberService {
 
     public void create(String membername, String password, String nickname, String email,
                        Mbti mbti) {
-
         Member member = Member.builder()
                 .membername(membername)
                 .password(passwordEncoder.encode(password))
@@ -35,6 +34,27 @@ public class MemberService {
         this.memberRepository.save(member);
     }
 
+    public void modify(String membername, String nickname,String email, Mbti mbti, String password) {
+        Optional<Member> member = this.memberRepository.findByMembername(membername);
+
+        if (password.isEmpty()) {
+            Member modifyMember = member.get().toBuilder()
+                    .nickname(nickname)
+                    .email(email)
+                    .mbti(mbti)
+                    .build();
+            this.memberRepository.save(modifyMember);
+        } else {
+            Member modifyMember = member.get().toBuilder()
+                    .nickname(nickname)
+                    .email(email)
+                    .mbti(mbti)
+                    .password(passwordEncoder.encode(password))
+                    .build();
+            this.memberRepository.save(modifyMember);
+        }
+    }
+
     public Member getMember(String membername) {
         Optional<Member> member = this.memberRepository.findByMembername(membername);
         if (member.isEmpty()) {
@@ -43,28 +63,29 @@ public class MemberService {
         return member.get();
     }
 
-//    public boolean isMembernameExists(String membername) {
-//        return this.memberRepository.existsByMembername(membername);
-//    }
-//
-//    public boolean isNicknameExists(String nickname) {
-//        return this.memberRepository.existByNickname(nickname);
-//    }
-//
-//    public boolean isEmailExists(String email) {
-//        return this.memberRepository.existByEmail(email);
-//    }
-@Transactional
-public Member whenSocialLogin(String providerTypeCode, String membername, String nickname) {
-    Optional<Member> opMember = findByMembername(membername);
-    if (opMember.isPresent()) return opMember.get();
-
-    // 소셜 로그인를 통한 가입시 비번은 없다.
-    create(membername, "", nickname, null,null);
-    return this.memberRepository.findByMembername(membername).get(); // 최초 로그인 시 딱 한번 실행
-}
+    public Member findByMemberId(Long id) {
+        Optional<Member> member = this.memberRepository.findById(id);
+        if (member.isEmpty()) {
+            return null;
+        }
+        return member.get();
+    }
 
     private Optional<Member> findByMembername(String membername) {
         return memberRepository.findByMembername(membername);
     }
+
+    public boolean paswordConfirm(String password, Member member) {
+        return passwordEncoder.matches(password, member.getPassword());
+    }
+
+    @Transactional
+    public Member whenSocialLogin(String providerTypeCode, String membername, String nickname) {
+        Optional<Member> opMember = findByMembername(membername);
+        if (opMember.isPresent()) return opMember.get();
+
+        create(membername, "", nickname, null, null);
+        return this.memberRepository.findByMembername(membername).get(); // 최초 로그인 시 딱 한번 실행
+    }
+
 }
