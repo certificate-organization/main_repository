@@ -34,18 +34,20 @@ public class MemberService {
         this.memberRepository.save(member);
     }
 
-    public void modify(String membername, String nickname, Mbti mbti, String password) {
+    public void modify(String membername, String nickname,String email, Mbti mbti, String password) {
         Optional<Member> member = this.memberRepository.findByMembername(membername);
 
         if (password.isEmpty()) {
             Member modifyMember = member.get().toBuilder()
                     .nickname(nickname)
+                    .email(email)
                     .mbti(mbti)
                     .build();
             this.memberRepository.save(modifyMember);
         } else {
             Member modifyMember = member.get().toBuilder()
                     .nickname(nickname)
+                    .email(email)
                     .mbti(mbti)
                     .password(passwordEncoder.encode(password))
                     .build();
@@ -82,7 +84,6 @@ public class MemberService {
         Optional<Member> opMember = findByMembername(membername);
         if (opMember.isPresent()) return opMember.get();
 
-        // 소셜 로그인를 통한 가입시 비번은 없다.
         create(membername, "", nickname, null, null);
         return this.memberRepository.findByMembername(membername).get(); // 최초 로그인 시 딱 한번 실행
     }

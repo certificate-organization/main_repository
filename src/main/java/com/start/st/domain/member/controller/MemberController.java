@@ -92,7 +92,7 @@ public class MemberController {
             return "member_modify_form";
         }
             Mbti mbti = this.mbtiService.getMbti(memberModifyForm.getMbtiId());
-            this.memberService.modify(memberModifyForm.getMembername(), memberModifyForm.getNickname(), mbti, memberModifyForm.getPassword1());
+            this.memberService.modify(memberModifyForm.getMembername(), memberModifyForm.getNickname(),memberModifyForm.getEmail(), mbti, memberModifyForm.getPassword1());
         return "redirect:/member/modify";
     }
 }
