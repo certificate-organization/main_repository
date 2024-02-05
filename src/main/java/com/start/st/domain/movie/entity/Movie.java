@@ -16,6 +16,6 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Movie extends BaseEntity {
-    @Column(length = 200)
     private String name;
+    private String genre;
 }
