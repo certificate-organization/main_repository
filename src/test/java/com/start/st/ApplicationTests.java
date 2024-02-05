@@ -20,7 +20,6 @@ class ApplicationTests {
     ArticleService articleService;
 
 
-
     @Autowired
     MbtiService mbtiService;
 
@@ -48,7 +47,7 @@ class ApplicationTests {
     MemberService memberService;
 
     @Test
-    void registerMember() {
+    void registerMember() { // 어드민 계정 생성
         Mbti mbti = mbtiService.getMbti(1L);
         memberService.create("admin", "1234", "관리자",
                 "admin@email.com", mbti);
@@ -56,7 +55,7 @@ class ApplicationTests {
     }
 
     @Test
-    void makeMember() {
+    void makeMember() { // 더미 계정 9개 생성  아이디 비번 각각 111, 222 , ... , 999 mbti는 ISTJ로 통일
         Mbti mbti = mbtiService.getMbti(1L);
         for (int i = 1; i < 10; i++) {
             memberService.create("" + i + i + i, "" + i + i + i, "" + i + i + i, "" + i + i + i + "@email.com", mbti);
@@ -64,10 +63,9 @@ class ApplicationTests {
     }
 
     @Test
-    void makeArticle() {
+    void makeArticle() { // 더미 계정으로 랜덤한 작성자를 갖는 게시글 199개 생성
         Mbti mbti = mbtiService.getMbti(1L);
         Random random = new Random();
-        // 11부터 19까지의 랜덤한 숫자 생성
         for (int i = 1; i < 200; i++) {
             Long randomNumber = (long) (random.nextDouble() * (10 - 2 + 1)) + 2;
             Member member = memberService.findByMemberId(randomNumber);
@@ -76,26 +74,27 @@ class ApplicationTests {
     }
 
     @Test
-    void makeViewCount() {
+    void makeViewCount() { // 게시글 들에 5000까지 랜덤한 조회수 부여
         Random random = new Random();
         for (int i = 1; i < 200; i++) {
             Long randomNumber = (long) (random.nextDouble() * 5001);
             Long id = (long) i;
             Article article = articleService.getArticle(id);
-            articleService.view(article,randomNumber);
+            articleService.view(article, randomNumber);
         }
     }
 
     @Autowired
     CommentService commentService;
+
     @Test
-    void makeComment(){
-        for(int i = 1;i<200;i++){
+    void makeComment() { // 게시글 마다 2개의 댓글 생성
+        for (int i = 1; i < 200; i++) {
             Long id = (long) i;
             Article article = articleService.getArticle(id);
             Member member = memberService.getMember("admin");
-            commentService.create(article,"1번 댓글 입니다.",member,null);
-            commentService.create(article,"2번 댓글 입니다.",member,null);
+            commentService.create(article, "1번 댓글 입니다.", member, null);
+            commentService.create(article, "2번 댓글 입니다.", member, null);
         }
     }
 }
