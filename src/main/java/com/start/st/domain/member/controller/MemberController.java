@@ -39,6 +39,18 @@ public class MemberController {
     public String memberSignup(@Valid MemberSignupForm memberSignupForm,
                                BindingResult bindingResult, Model model) {
         List<Mbti> mbtiList = this.mbtiService.findAllMbti();
+        if (this.memberService.getMember(memberSignupForm.getMembername()) != null) {
+            bindingResult.rejectValue("membername", "duplicateMembername",
+                    "중복된 아이디 입니다.");
+        }
+        if (this.memberService.findByNickname(memberSignupForm.getNickname()) != null) {
+            bindingResult.rejectValue("nickname", "duplicateNickname",
+                    "중복된 닉네임 입니다.");
+        }
+        if (this.memberService.findByEmail(memberSignupForm.getEmail()) != null) {
+            bindingResult.rejectValue("email", "duplicateEmail",
+                    "중복된 이메일 입니다.");
+        }
         if (!memberSignupForm.getPassword1().equals(memberSignupForm.getPassword2())) {
             bindingResult.rejectValue("password2", "passwordInCorrect",
                     "비밀번호와 비밀번호 재확인이 일치하지 않습니다.");
