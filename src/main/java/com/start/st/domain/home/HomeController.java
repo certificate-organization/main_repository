@@ -30,38 +30,26 @@ public class HomeController {
     private final MemberService memberService;
 
     @GetMapping("/")
-    public String root(Model model, Principal principal ,@RequestParam(value = "page", defaultValue = "0") int page) {
-    public String root(String key, Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
+    public String root(Model model, Principal principal, String key, @RequestParam(value = "page", defaultValue = "0") int page) {
         List<Mbti> mbtiList = this.mbtiService.findAllMbti();
         List<Movie> movieList = this.movieService.findAllMovie();
         Page<Article> articlePageByDate = this.articleService.getArticlePageByDate(page);
         Page<Article> articlePageByLike = this.articleService.getArticlePageByLike(page);
         Page<Article> articlePageByView = this.articleService.getArticlePageByView(page);
         model.addAttribute("mbtiList", mbtiList);
+        model.addAttribute("movieList", movieList);
+        model.addAttribute("articlePageByDate", articlePageByDate);
+        model.addAttribute("articlePageByLike", articlePageByLike);
+        model.addAttribute("articlePageByView", articlePageByView);
         if (principal != null) {
             String username = principal.getName();
             Member member = memberService.getMember(principal.getName());
             Page<Article> articleList = this.articleService.getArticlePageByDate(page);
-            model.addAttribute("articleList",articleList);
+            model.addAttribute("articleList", articleList);
             model.addAttribute("nickname", member.getNickname());
             return "mbti_home";
         } else {
             return "mbti_home";
         }
-        model.addAttribute("movieList", movieList);
-        model.addAttribute("articlePageByDate", articlePageByDate);
-        model.addAttribute("articlePageByLike", articlePageByLike);
-        model.addAttribute("articlePageByView", articlePageByView);
-        return "mbti_home";
-    }
-
-    }
-
-
-
-    @GetMapping("/test")
-    public String test() {
-
-        return "test";
     }
 }
