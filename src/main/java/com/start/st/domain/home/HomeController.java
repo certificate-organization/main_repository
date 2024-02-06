@@ -4,6 +4,8 @@ import com.start.st.domain.article.entity.Article;
 import com.start.st.domain.article.service.ArticleService;
 import com.start.st.domain.mbti.entity.Mbti;
 import com.start.st.domain.mbti.service.MbtiService;
+import com.start.st.domain.member.entity.Member;
+import com.start.st.domain.member.service.MemberService;
 import com.start.st.domain.movie.entity.Movie;
 import com.start.st.domain.movie.service.MovieService;
 import lombok.RequiredArgsConstructor;
@@ -25,9 +27,10 @@ public class HomeController {
     private final MbtiService mbtiService;
     private final ArticleService articleService;
     private final MovieService movieService;
+    private final MemberService memberService;
 
     @GetMapping("/")
-    public String root(String key, Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
+    public String root(Model model, Principal principal, String key, @RequestParam(value = "page", defaultValue = "0") int page) {
         List<Mbti> mbtiList = this.mbtiService.findAllMbti();
         List<Movie> movieList = this.movieService.findAllMovie();
         Page<Article> articlePageByDate = this.articleService.getArticlePageByDate(page);
@@ -38,12 +41,15 @@ public class HomeController {
         model.addAttribute("articlePageByDate", articlePageByDate);
         model.addAttribute("articlePageByLike", articlePageByLike);
         model.addAttribute("articlePageByView", articlePageByView);
-        return "mbti_home";
-    }
-
-    @GetMapping("/test")
-    public String test() {
-
-        return "test";
+        if (principal != null) {
+            String username = principal.getName();
+            Member member = memberService.getMember(principal.getName());
+            Page<Article> articleList = this.articleService.getArticlePageByDate(page);
+            model.addAttribute("articleList", articleList);
+            model.addAttribute("nickname", member.getNickname());
+            return "mbti_home";
+        } else {
+            return "mbti_home";
+        }
     }
 }
