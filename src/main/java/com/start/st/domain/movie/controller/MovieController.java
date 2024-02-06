@@ -24,12 +24,17 @@ public class MovieController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/movie/{id}")
     public String mbtiInformation(@PathVariable("id") Long id, Model model, Principal principal,
-                                  @RequestParam("names") List<String> names) {
+                                  @RequestParam("movieNames") List<String> movieNames,
+                                  @RequestParam("movieGenre") String movieGenre) {
+        Movie movie = this.movieService.findMovieById(id);
         if (!principal.getName().equals("admin")) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "접근권한이 없습니다.");
         }
-        Movie movie = this.movieService.findMovieById(id);
-        this.movieService.modify(movie, movie.getNames(), movie.getGenre());
+        if (movie == null) {
+            this.movieService.create(movieNames, movieGenre);
+        } else {
+            this.movieService.modify(movie, movieNames, movieGenre);
+        }
         return "redirect:/";
     }
 }

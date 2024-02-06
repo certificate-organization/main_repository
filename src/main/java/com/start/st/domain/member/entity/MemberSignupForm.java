@@ -3,6 +3,8 @@ package com.start.st.domain.member.entity;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.checkerframework.common.aliasing.qual.Unique;
+import org.hibernate.validator.constraints.UniqueElements;
 
 @Getter
 @Setter

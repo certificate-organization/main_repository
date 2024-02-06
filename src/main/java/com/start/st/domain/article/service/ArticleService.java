@@ -100,12 +100,13 @@ public class ArticleService {
                 .build();
         this.articleRepository.save(viewArticle);
     }
+    public void report(Article article, String reportContent, Member member, String reportType) {
 
-    public void report(Article article, String reportContent, Member member) {
         ReportArticle reportArticle = ReportArticle.builder()
+                .author(member)
                 .article(article)
                 .content(reportContent)
-                .author(member)
+                .reportType(reportType)
                 .build();
 
         this.reportArticleRepository.save(reportArticle);

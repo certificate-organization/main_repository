@@ -1,7 +1,5 @@
-body {
-  background: white;
-}
-.container {
+
+.m_container {
   display: block;
   max-width: 680px;
   width: 80%;
@@ -17,28 +15,30 @@ h1 {
   transition: .2s linear;
 }
 
-.links {
-  list-style-type: none;
+.m_links {
+  display: flex;
+  justify-content : space-between;
+      margin-right: 23px;
 }
 
-.links li {
+.m_links li {
   display: inline-block;
-  margin: 0 20px 0 0;
+  margin: 0 10px 0 0;
   transition: .2s linear;
 }
 
-.links li:nth-child(2) {
+.m_links li a {
   opacity: .6;
   float: right;
 }
 
-.links li:nth-child(2):hover {
+.m_links li a:hover {
   opacity: 1;
 }
 
-.links li a {
+.m_links li a {
   text-decoration: none;
-  color: #0f132a;
+  color: #000000;
   font-weight: bolder;
   text-align: center;
   cursor: pointer;
@@ -56,15 +56,25 @@ p {
        padding-inline-start: 40px;
 }
 .form-select {
-    width: 100%;
+    margin-left: -6px;
+    margin-bottom: -12px;
+    width: 96%;
 }
 
 
 
-form {
+.m_form {
   width: 100%;
   max-width: 680px;
-  margin: 40px auto 10px;
+}
+
+
+.form-error {
+    margin-top: 5;
+    margin-left: 40px;
+    width: 100%;
+    font-size: 14px;
+    color: red;
 }
 
 .input__block {
@@ -214,9 +224,5 @@ form {
 }
 a {
     color: #000000;
-}
-
-footer {
-
 }
 

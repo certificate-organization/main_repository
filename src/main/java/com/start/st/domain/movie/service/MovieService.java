@@ -14,9 +14,10 @@ import java.util.Optional;
 public class MovieService {
     private final MovieRepository movieRepository;
 
-    public void create(String genre) {
+    public void create(List<String> names, String genre) {
         Movie movie = Movie.builder()
                 .genre(genre)
+                .names(names)
                 .build();
         this.movieRepository.save(movie);
     }

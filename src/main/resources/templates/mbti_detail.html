@@ -1,5 +1,6 @@
 <html lang="ko" layout:decorate="~{layout}">
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <title>MBTI 게시판</title>
 </head>
 
@@ -7,6 +8,15 @@
 <div layout:fragment="content" class="article-container">
     <!-- 게시판 상단 start -->
     <div class="col-6">
+        <div class="wrap">
+            <div class="dark_mode">
+                <div class="inner">
+                    <input type="radio" name="toggle" id="toggle_light" checked><label for="toggle_light" class="light_icon"><i class="fas fa-sun light_icon"></i></label>
+                    <input type="radio" name="toggle" id="toggle_dark"><label for="toggle_dark" class="dark_icon"><i class="fas fa-moon dark_icon"></i></label>
+                    <div class="dark_mode-bg"></div>
+                </div>
+            </div>
+        </div>
         <div class="TOP">
             <div class="logo">
                 <a class="article-logo" th:href="@{|/mbti/${mbti.id}|}" th:text="|${mbti.name} 게시판|"></a>

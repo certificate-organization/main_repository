@@ -115,15 +115,31 @@ public class CommentController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/report/{id}")
     public String reportComment(@PathVariable("id") Long id, Principal principal,
-                                @Valid ReportCommentForm reportCommentForm, BindingResult bindingResult) {
-        Comment comment = this.commentService.getcomment(id);
+                                @Valid ReportCommentForm reportCommentForm, BindingResult bindingResult)  {
+
+        Long commentId = reportCommentForm.getCommentId();
+        Comment comment = this.commentService.getcomment(commentId);
 
         if (bindingResult.hasErrors()) {
             return "article_detail";
         }
-
         Member member = this.memberService.getMember(principal.getName());
-        this.commentService.report(comment, reportCommentForm.getReportContent(), member);
+
+        String reportType = determineReportType(reportCommentForm.getReportType());
+
+        this.commentService.report(comment, reportCommentForm.getReportContent(), member,reportType);
+
         return String.format("redirect:/article/%s", id);
+    }
+    private String determineReportType(String selectedValue) {
+
+        if ("욕설".equals(selectedValue)) {
+            return "욕설";
+        } else if ("스팸 및 광고".equals(selectedValue)) {
+            return "스팸 및 광고";
+        } else if ("불법적인 콘텐츠".equals(selectedValue)) {
+            return "불법적인 콘텐츠";
+        }
+        return "기타";
     }
 }
