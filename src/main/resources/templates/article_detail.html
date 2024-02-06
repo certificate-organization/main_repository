@@ -210,6 +210,7 @@
                     </div>
                     <form class="was-validated" method="post" th:action="@{|/comment/report/${article.id}|}">
                         <div class="modal-body">
+                            <input type="hidden" id="commentId" name="commentId">
                             <div class="mb-3">
                                 <label class="col-form-label" for="validationTextareaComment">내용</label>
                                 <textarea class="form-control" id="validationTextareaComment" name="reportContent"
@@ -245,9 +246,9 @@
         </div>
         <!-- 댓글 모달 부트스트랩 종료 -->
         <script>
-            var commentId
             $(".reportComment").on('click', function() {
-                  commentId = $(this).attr('data-comment-id'));
+                  var commentId = $(this).attr('data-comment-id');
+                  $("input[name=commentId]").val(commentId)
             })
         </script>
     </div>

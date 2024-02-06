@@ -113,7 +113,9 @@ public class CommentController {
     @PostMapping("/report/{id}")
     public String reportComment(@PathVariable("id") Long id, Principal principal,
                                 @Valid ReportCommentForm reportCommentForm, BindingResult bindingResult)  {
-        Comment comment = this.commentService.getcomment(id);
+
+        Long commentId = reportCommentForm.getCommentId();
+        Comment comment = this.commentService.getcomment(commentId);
 
         if (bindingResult.hasErrors()){
             return "article_detail";

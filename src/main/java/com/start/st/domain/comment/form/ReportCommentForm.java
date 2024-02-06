@@ -11,9 +11,10 @@ public class ReportCommentForm {
     @NotEmpty(message = "신고 내용은 필수입력 사항입니다.")
     private String reportContent;
 
-
     private String badSpeak;
+
     private String badAdvertise;
+
     private String badContent;
 
     private String selectedValue;
@@ -23,4 +24,6 @@ public class ReportCommentForm {
     private String radioButtonValue;
 
     private String reportType;
+
+    private Long commentId;
 }
