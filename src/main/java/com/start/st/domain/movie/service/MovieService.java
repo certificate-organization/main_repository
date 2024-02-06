@@ -6,8 +6,10 @@ import com.start.st.domain.movie.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -51,5 +53,13 @@ public class MovieService {
 
     public void deleteMovieGenre(Movie movie) {
         this.movieRepository.delete(movie);
+    }
+
+    public Set<Movie> getMovieSet(List<Long> movieIds) {
+        Set<Movie> movieSet = new HashSet<>();
+        for (Long id : movieIds) {
+            movieSet.add(this.findMovieById(id));
+        }
+        return movieSet;
     }
 }

@@ -2,12 +2,15 @@ package com.start.st.domain.mbti.service;
 
 import com.start.st.domain.mbti.entity.Mbti;
 import com.start.st.domain.mbti.repository.MbtiRepository;
+import com.start.st.domain.movie.entity.Movie;
+import com.start.st.domain.music.entity.Music;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -58,12 +61,15 @@ public class MbtiService {
         this.mbtiRepository.save(mbti);
     }
 
-    public void modify(Mbti mbti, String love, String relationship, String celebrity, String job) {
+    public void modify(Mbti mbti, String love, String relationship, String celebrity, String job,
+                       Set<Movie> movieList, Set<Music> musicList) {
         Mbti modifyMbti = mbti.toBuilder()
                 .love(love)
                 .relationship(relationship)
                 .celebrity(celebrity)
                 .job(job)
+                .movieList(movieList)
+                .musicList(musicList)
                 .build();
         this.mbtiRepository.save(modifyMbti);
     }

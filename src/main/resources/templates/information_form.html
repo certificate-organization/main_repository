@@ -3,22 +3,70 @@
 
 <body>
 <div layout:fragment="content" class="article-container">
-    <p>MBTI</p>
-    <select name="mbtiId" id="mbtiSelect" onchange="showForm()" class="form-select" aria-label="Default select example">
-        <option value="0" style="text-center">== 선택 ==</option>
-        <option th:each="mbti : ${mbtiList}" th:value="${mbti.name}" th:text="${mbti.name}"></option>
-    </select>
+    <div class="col-6">
+        <div class="TOP">
+            <div class="logo">
+                <a class="article-logo" th:text="|MBTI수정|"></a>
+            </div>
+        </div>
+    </div>
+    <div class="title__p">
+        <select name="mbtiId" id="mbtiSelect" onchange="showForm()" class="form-select"
+                aria-label="Default select example">
+            <option value="0" style="text-center">== 선택 ==</option>
+            <option th:each="mbti : ${mbtiList}" th:value="${mbti.name}" th:text="${mbti.name}"></option>
+        </select>
+    </div>
     <!-- 폼 -->
     <form id="mbtiForm" method="post" action="/mbti/information/" onsubmit="setFormAction()">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-        <label for="love">연애</label>
-        <textarea id="love" name="love"></textarea>
-        <label for="relationship">관계</label>
-        <textarea id="relationship" name="relationship"></textarea>
-        <label for="celebrity">유명인</label>
-        <textarea id="celebrity" name="celebrity"></textarea>
-        <label for="job">직업</label>
-        <textarea id="job" name="job"></textarea>
+        <div class="genre-container">
+            <div class="genre-section" style="margin-right: 20px;">
+                <label for="love">연애</label>
+                <textarea id="love" name="love" class="form-control"
+                          style="resize: none; height: 280px; margin-top: 8px;"></textarea>
+            </div>
+            <div class="genre-section" style="margin-right: 10px;">
+                <label for="relationship">관계</label>
+                <textarea id="relationship" name="relationship" class="form-control"
+                          style="resize: none; height: 280px; margin-top: 8px;"></textarea>
+            </div>
+            <div class="genre-section" style="margin-left: 10px;">
+                <label for="celebrity">유명인</label>
+                <textarea id="celebrity" name="celebrity" class="form-control"
+                          style="resize: none; height: 280px; margin-top: 8px;"></textarea>
+            </div>
+            <div class="genre-section" style="margin-left: 20px;">
+                <label for="job">직업</label>
+                <textarea id="job" name="job" class="form-control"
+                          style="resize: none; height: 280px; margin-top: 8px;"></textarea>
+            </div>
+        </div>
+        <div class="genre-container">
+            <div class="genre-section" style="height: 180px;">
+                <p>영화</p>
+                <div class="scrollable-container" style="height: 110px">
+                    <div class="form-check" th:each="movie : ${movieList}">
+                        <input class="form-check-input" name="movieId" type="checkbox" th:value="${movie.id}"
+                               th:id="'genre-' + ${movie.id}">
+                        <label class="form-check-label" th:for="'genre-' + ${movie.id}"
+                               th:text="${movie.genre}"></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="genre-section" style="height: 180px;">
+                <p>음악</p>
+                <div class="scrollable-container" style="height: 110px">
+                    <div class="form-check" th:each="music : ${musicList}">
+                        <input class="form-check-input" name="musicId" type="checkbox" th:value="${music.id}"
+                               th:id="'genre-' + ${music.id}">
+                        <label class="form-check-label" th:for="'genre-' + ${music.id}"
+                               th:text="${music.genre}"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="form-create-btn">
             <a href="/" class="back-btn">취소</a>
             <button type="submit" class="create-btn">저장</button>
@@ -53,70 +101,6 @@
         }
     </script>
 
-    <script>
-        function showMovieForm() {
-            var selectedMovieGenre = document.getElementById("movieSelect").value;
-
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", "/api/movie/" + selectedMovieGenre, true);
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    var selectedMovie = JSON.parse(xhr.responseText);
-
-                    // 선택한 movie에 해당하는 정보를 폼에 설정
-
-                    document.getElementById("movieGenre").value = selectedMovie.genre;
-                    selectedMovieId = selectedMovie.id;
-                }
-            };
-            xhr.send();
-        }
-
-    function setMovieFormAction() {
-        // 폼 제출 시에 선택한 영화 정보를 서버로 전송하도록 설정
-        document.getElementById("movieForm").action = "/movie/" + selectedMovieId;
-    }
-
-    function addInputMovie() {
-        var container = document.getElementById('movieForm');
-        var input = document.createElement('input');
-        input.type = 'text';
-        input.name = 'movieNames';
-        container.appendChild(input);
-    }
-    </script>
-    <button onclick="movieHide()" class="btn btn-sm btn-outline-secondary">수정
-    </button>
-    <div id="movieHide" class="hideForm">
-        <select name="movieGenreSelect" id="movieGenreSelect" class="form-select" aria-label="Default select example">
-            <option value="0" style="text-center">== 선택 ==</option>
-            <option th:each="movie : ${movieList}" th:value="${movie.genre}" th:text="${movie.genre}"></option>
-            <button type="button" onclick="addInputMovie()">등록</button>
-        </select>
-
-        <form action="">
-
-        </form>
-
-
-        <select name="movieId" id="movieSelect" class="form-select"
-                aria-label="Default select example" onchange="showMovieForm()">
-            <option value="0" style="text-center">== 장르 ==</option>
-            <option th:each="movie : ${movieList}" th:value="${movie.genre}"
-                    th:text="${movie.genre}"></option>
-            <option th:value="${#lists.size(movieList)}">== 추가 ==</option>
-        </select>
-        <!-- 폼 -->
-        <form id="movieForm" method="post" action="/movie/" onsubmit="setMovieFormAction()">
-            <input type="text" id="movieGenre" name="movieGenre">
-            <label>영화</label>
-            <button type="button" onclick="addInputMovie()">등록</button>
-            <div class="form-create-btn">
-                <a href="/" class="back-btn">취소</a>
-                <button type="submit" class="create-btn">저장</button>
-            </div>
-        </form>
-    </div>
 </div>
 </body>
 </html>

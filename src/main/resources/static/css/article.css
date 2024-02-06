@@ -463,6 +463,14 @@
     border-radius: 20px;
     height: 345px;
 }
+.genre-section-info {
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    height: 345px;
+    margin-left: 10px;
+}
 
 .genre-create-btn {
     font-size: 15px;
