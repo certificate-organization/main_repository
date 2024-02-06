@@ -90,7 +90,8 @@
     <main>
         <!--전체게시글 출력-->
         <div class="left-container">
-            <div class="hot_topic">인기 게시글
+            <div class="hot_topic">
+                <span style="font-size: large;">인기 게시글</span>
                 <ul class="nav nav-tabs" style="width: 680px; margin-top: 15px;" id="myTab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
@@ -212,19 +213,22 @@
 
             </div>
             <div class="mm">
-                <div th:if="${member != null}" class="movie">영화 추천
+                <div th:if="${member != null}" class="movie">
+                    <span style="font-size: large;">영화 추천</span>
                     <div>
                         <span th:text="${movie.names}"></span>
                     </div>
                 </div>
-                <div th:if="${member != null}" class="music">음악 추천
+                <div th:if="${member != null}" class="music">
+                    <span style="font-size: large;">음악 추천</span>
                     <div>
                         <span th:text="${music.names}"></span>
                     </div>
                 </div>
             </div>
             <div class="form-create-btn">
-                <a href="/genre" class="back-btn" th:if="${member != null and member.membername == 'admin'}">수정</a>
+                <a href="/genre" class="back-btn" th:if="${member != null and member.membername == 'admin'}"
+                   style="justify-content: center; margin-top: 30px;">수정</a>
             </div>
         </div>
         <div class="right-container">
