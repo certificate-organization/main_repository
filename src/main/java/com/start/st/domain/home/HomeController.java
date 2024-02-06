@@ -30,7 +30,7 @@ public class HomeController {
     private final MemberService memberService;
 
     @GetMapping("/")
-    public String root(Model model, Principal principal, String key, @RequestParam(value = "page", defaultValue = "0") int page) {
+    public String root(Model model, Principal principal, @RequestParam(value = "page", defaultValue = "0") int page) {
         List<Mbti> mbtiList = this.mbtiService.findAllMbti();
         List<Movie> movieList = this.movieService.findAllMovie();
         Page<Article> articlePageByDate = this.articleService.getArticlePageByDate(page);

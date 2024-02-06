@@ -19,7 +19,7 @@ public class MbtiApiController {
     private MbtiService mbtiService;
 
     @GetMapping("/{name}")
-    public ResponseEntity<Mbti> getMbtiByName(@PathVariable String name) {
+    public ResponseEntity<Mbti> getMbtiByName(@PathVariable(value = "name") String name) {
         Mbti mbti = mbtiService.findMbtiByName(name);
 
         if (mbti != null) {
