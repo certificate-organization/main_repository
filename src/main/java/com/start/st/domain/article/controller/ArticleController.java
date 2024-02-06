@@ -117,14 +117,31 @@ public class ArticleController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @PostMapping("/report/{id}")
+    @PostMapping("/article/report/{id}")
     public String reportComment(@PathVariable("id") Long id, Principal principal,
-                                @Valid ReportArticleForm reportArticleForm) {
+                                @Valid ReportArticleForm reportArticleForm,BindingResult bindingResult)  {
         Article article = this.articleService.getArticle(id);
 
+        if (bindingResult.hasErrors()){
+            return "article_detail";
+        }
 
         Member member = this.memberService.getMember(principal.getName());
-        this.articleService.report(article, reportArticleForm.getReportContent(), member);
+        String reportType = determineReportType(reportArticleForm.getReportType());
+
+        this.articleService.report(article,reportArticleForm.getReportContent(),member,reportType);
         return String.format("redirect:/article/%s", id);
+    }
+
+    private String determineReportType(String selectedValue) {
+
+        if ("욕설".equals(selectedValue)) {
+            return "욕설";
+        } else if ("스팸 및 광고".equals(selectedValue)) {
+            return "스팸 및 광고";
+        } else if ("불법적인 콘텐츠".equals(selectedValue)) {
+            return "불법적인 콘텐츠";
+        }
+        return "기타";
     }
 }

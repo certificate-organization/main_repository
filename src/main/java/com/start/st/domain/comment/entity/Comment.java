@@ -42,4 +42,11 @@ public class Comment extends BaseEntity {
 
     @OneToMany(mappedBy = "comment")
     private List<ReportComment> reportComments;
+
+    private String reportType;
+
+    @Column
+    private String radioButtonValue;
+    private String subject;
+
 }

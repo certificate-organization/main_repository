@@ -24,10 +24,6 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final ReportCommentRepository reportCommentRepository;
 
-    @Value("${custom.fileDirPath}")
-    private String fileDirPath;
-
-
     public Comment getcomment(Long id) {
         Optional<Comment> comment = this.commentRepository.findById(id);
         if (comment.isEmpty()) {
@@ -54,6 +50,7 @@ public class CommentService {
                 .author(author)
                 .parent(parent)
                 .build();
+
         this.commentRepository.save(comment);
     }
     public void likeComment(Comment comment, Member liker){
@@ -65,12 +62,15 @@ public class CommentService {
         comment.getLikers().remove(unLiker);
         this.commentRepository.save(comment);
     }
-    public void report(Comment comment ,String reportContent, Member member){
+    public void report(Comment comment, String reportContent, Member member, String reportType) {
+
         ReportComment reportComment = ReportComment.builder()
+                .author(member)
                 .comment(comment)
                 .content(reportContent)
-                .author(member)
+                .reportType(reportType)
                 .build();
+
 
         this.reportCommentRepository.save(reportComment);
     }
