@@ -1,6 +1,4 @@
-<html lang="ko" layout:decorate="~{layout}">
-<body>
-<main>
+<html layout:decorate="~{layout}">
     <div layout:fragment="content" class="container my-3" style="width: 1000px;">
         <div class="col-6">
             <div class="wrap">
@@ -157,6 +155,17 @@
                                        class="delete btn btn-sm btn-outline-secondary"
                                        sec:authorize="isAuthenticated()" th:text="삭제">
                                     </a>
+                                    <a th:href="@{|/comment/like/${childrenComment.id}|}" class="btn btn-sm btn-outline-secondary"
+                                       th:if="${not childrenComment.likedByCurrentUser}">
+                                        좋아요<i style="padding-left:5px;" class="fa-solid fa-heart"></i>
+                                        <span class="badge rounded-pill bg-success"
+                                              th:text="${#lists.size(childrenComment.likers)}"></span>
+                                    </a>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary reportComment" data-bs-toggle="modal"
+                                            data-bs-target="#reportCommentModal"
+                                            th:data-comment-id="${childrenComment.id}"
+                                            id="reportCommentButton">신고
+                                    </button>
                                 </div>
                                 <div class="a_re-comment_body">
                                     <p th:text="${childrenComment.content}"></p>
@@ -262,7 +271,6 @@
             $(".reportComment").on('click', function() {
                   var commentId = $(this).attr('data-comment-id');
                   $("input[name=commentId]").val(commentId)
-
             })
         </script>
     </div>
