@@ -345,27 +345,18 @@
                     </div>
                 </div>
                 <div class="logout-container" sec:authorize="isAuthenticated()">
-
-                    <div class="logout">
-                        <a class="logout_button" onclick='logoutBtn()' th:href="@{/member/logout}">로그아웃</a>
-                    </div>
+                    <div>개인정보 자리</div>
                     <div class="links">
-                        <div>
-                            <a th:href="@{/}">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                                내가 쓴 글
-                            </a>
-                        </div>
-                        <div>
-                            <a th:href="@{/}">
-                                <i class="fa-solid fa-keyboard"></i>
-                                내가 쓴 댓글
-                            </a>
-                        </div>
                         <div>
                             <a th:href="@{/member/modify}">
                                 <i class="fa-solid fa-user"></i>
                                 개인정보 수정
+                            </a>
+                        </div>
+                        <div>
+                            <a th:href="@{/member/logout}">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                로그아웃
                             </a>
                         </div>
                     </div>
