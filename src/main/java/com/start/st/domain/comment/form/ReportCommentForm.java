@@ -15,7 +15,6 @@ public class ReportCommentForm {
 
     private String badAdvertise;
 
-
     private String badContent;
 
     private String selectedValue;

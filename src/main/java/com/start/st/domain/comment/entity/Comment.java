@@ -40,7 +40,7 @@ public class Comment extends BaseEntity {
 
     private boolean likedByCurrentUser;
 
-    @OneToMany(mappedBy = "comment")
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.REMOVE)
     private List<ReportComment> reportComments;
 
     private String reportType;
