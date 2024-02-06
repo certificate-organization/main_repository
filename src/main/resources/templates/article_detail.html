@@ -1,4 +1,6 @@
-<html layout:decorate="~{layout}">
+<html lang="ko" layout:decorate="~{layout}">
+<body>
+<main>
     <div layout:fragment="content" class="container my-3" style="width: 1000px;">
         <div class="col-6">
             <div class="TOP">
@@ -89,7 +91,8 @@
                                th:href="@{|/comment/modify/${comment.id}|}" class="btn btn-sm btn-outline-secondary"
                                sec:authorize="isAuthenticated()" th:text="수정">
                             </a>
-                            <a th:if="${comment.author != null and  #authentication.getPrincipal().getUsername() == comment.author.membername}"
+                            <a th:if="${comment.author != null and (#authentication.getPrincipal().getUsername() == comment.author.membername
+                                or #authentication.getPrincipal().getUsername() == 'admin')}"
                                th:href="@{|/comment/delete/${comment.id}|}"
                                class="delete btn btn-sm btn-outline-secondary"
                                sec:authorize="isAuthenticated()" th:text="삭제">
@@ -139,7 +142,8 @@
                                        class="btn btn-sm btn-outline-secondary"
                                        sec:authorize="isAuthenticated()" th:text="수정">
                                     </a>
-                                    <a th:if="${childrenComment.author != null and  #authentication.getPrincipal().getUsername() == childrenComment.author.membername}"
+                                    <a th:if="${childrenComment.author != null and (#authentication.getPrincipal().getUsername() == childrenComment.author.membername
+                                        or #authentication.getPrincipal().getUsername() == 'admin')}"
                                        th:href="@{|/comment/delete/${childrenComment.id}|}"
                                        class="delete btn btn-sm btn-outline-secondary"
                                        sec:authorize="isAuthenticated()" th:text="삭제">

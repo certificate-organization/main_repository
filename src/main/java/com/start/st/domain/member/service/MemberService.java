@@ -20,6 +20,8 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
+
+
     public void create(String membername, String password, String nickname, String email,
                        Mbti mbti) {
         Member member = Member.builder()
