@@ -36,7 +36,7 @@ public class Comment extends BaseEntity {
     private List<Comment> childrenCommentList;
 
     @ManyToMany
-    private Set<Member> likers = new HashSet<>();
+    private Set<Member> likers;
 
     private boolean likedByCurrentUser;
 

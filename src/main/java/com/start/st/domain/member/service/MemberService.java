@@ -19,7 +19,8 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
-    private final MbtiRepository mbtiRepository;
+
+
 
     public void create(String membername, String password, String nickname, String email,
                        Mbti mbti) {

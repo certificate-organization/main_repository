@@ -381,44 +381,10 @@
 /*---------------------- tab메뉴 start ---------------------- */
 .tab-container {
     margin-top: 10px;
-    margin-left: 10px;
-    border-bottom: 1px solid rgba(128, 128, 128, 0.6);
-    display: flex;
     border-radius: 5px 5px 0 0;
-    width: 100%
+    width: 95%
 }
 
-.tab {
-    padding: 1px 10px;
-    background-color: #f1f1f1;
-    cursor: pointer;
-    border: 1px solid #ccc;
-    border-bottom: none;
-    border-radius: 5px 5px 0 0;
-    margin-right: 5px;
-}
-
-.tab:hover {
-    background-column: #ddd;
-}
-
-.tab-content {
-    display: none;
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 0 0 5px 5px;
-    margin-left: 10px;
-    width: 100%;
-}
-
-.active-tab {
-    background-color: #fff;
-    border-bottom: 1px solid #fff;
-}
-
-.active-content {
-    display: block;
-}
 /*---------------------- 댓글 start ---------------------- */
 .comment_List_title {
     padding-top: 30px;
