@@ -8,15 +8,14 @@ import com.start.st.domain.member.entity.Member;
 import com.start.st.domain.member.service.MemberService;
 import com.start.st.domain.movie.entity.Movie;
 import com.start.st.domain.movie.service.MovieService;
+import com.start.st.domain.music.entity.Music;
+import com.start.st.domain.music.service.MusicService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -27,17 +26,20 @@ public class HomeController {
     private final MbtiService mbtiService;
     private final ArticleService articleService;
     private final MovieService movieService;
+    private final MusicService musicService;
     private final MemberService memberService;
 
     @GetMapping("/")
     public String root(Model model, Principal principal, @RequestParam(value = "page", defaultValue = "0") int page) {
         List<Mbti> mbtiList = this.mbtiService.findAllMbti();
         List<Movie> movieList = this.movieService.findAllMovie();
+        List<Music> musicList = this.musicService.findAllMusic();
         Page<Article> articlePageByDate = this.articleService.getArticlePageByDate(page);
         Page<Article> articlePageByLike = this.articleService.getArticlePageByLike(page);
         Page<Article> articlePageByView = this.articleService.getArticlePageByView(page);
         model.addAttribute("mbtiList", mbtiList);
         model.addAttribute("movieList", movieList);
+        model.addAttribute("musicList", musicList);
         model.addAttribute("articlePageByDate", articlePageByDate);
         model.addAttribute("articlePageByLike", articlePageByLike);
         model.addAttribute("articlePageByView", articlePageByView);
@@ -51,5 +53,15 @@ public class HomeController {
         } else {
             return "mbti_home";
         }
+    }
+
+    //    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/genre")
+    public String modifyGenre(Model model, Principal principal) {
+        List<Movie> movieList = this.movieService.findAllMovie();
+        List<Music> musicList = this.musicService.findAllMusic();
+        model.addAttribute("movieList", movieList);
+        model.addAttribute("musicList", musicList);
+        return "genre_form";
     }
 }

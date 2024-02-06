@@ -14,10 +14,9 @@ import java.util.Optional;
 public class MovieService {
     private final MovieRepository movieRepository;
 
-    public void create(List<String> names, String genre) {
+    public void create(String genre) {
         Movie movie = Movie.builder()
                 .genre(genre)
-                .names(names)
                 .build();
         this.movieRepository.save(movie);
     }
@@ -48,5 +47,9 @@ public class MovieService {
             return null;
         }
         return movie.get();
+    }
+
+    public void deleteMovieGenre(Movie movie) {
+        this.movieRepository.delete(movie);
     }
 }

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko" layout:decorate="~{layout}">
+
+<body>
+<div layout:fragment="content" class="article-container">
+    <span>영화 장르</span>
+    <div class="container">
+        <form th:action="@{/genre/movie/delete}">
+            <div class="scrollable-container" th:each="movie : ${movieList}">
+                <input class="form-check-input" name="movieId" th:id="'genre-' + ${movie.id}" type="radio"
+                       th:value="${movie.id}">
+                <label class="form-check-label" th:for="'genre-' + ${movie.id}" th:text="${movie.genre}"></label>
+            </div>
+            <button type="submit" class="back-btn">삭제</button>
+        </form>
+        <form th:action="@{/genre/movie/register}" method="post">
+            <input type="text" name="movieGenre">
+            <div class="form-create-btn">
+                <button type="submit" class="create-btn">저장</button>
+            </div>
+        </form>
+    </div>
+
+    <span>음악 장르</span>
+    <div class="container">
+        <form th:action="@{/genre/music/delete}">
+            <div class="scrollable-container" th:each="music : ${musicList}">
+                <input class="form-check-input" name="musicId" th:id="'genre-' + ${music.id}" type="radio"
+                       th:value="${music.id}">
+                <label class="form-check-label" th:for="'genre-' + ${music.id}" th:text="${music.genre}"></label>
+            </div>
+            <button type="submit" class="back-btn">삭제</button>
+        </form>
+        <form th:action="@{/genre/music/register}" method="post">
+            <input type="text" name="musicGenre">
+            <div class="form-create-btn">
+                <button type="submit" class="create-btn">저장</button>
+            </div>
+        </form>
+    </div>
+
+
+</body>
+</html>
+
+

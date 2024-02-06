@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,18 +24,31 @@ public class MovieController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/movie/{id}")
-    public String mbtiInformation(@PathVariable("id") Long id, Model model, Principal principal,
-                                  @RequestParam("movieNames") List<String> movieNames,
-                                  @RequestParam("movieGenre") String movieGenre) {
+    public String modifyMovie(@PathVariable("id") Long id, Model model, Principal principal,
+                              @RequestParam("movieNames") List<String> movieNames,
+                              @RequestParam("movieGenre") String movieGenre) {
         Movie movie = this.movieService.findMovieById(id);
         if (!principal.getName().equals("admin")) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "접근권한이 없습니다.");
-        }
-        if (movie == null) {
-            this.movieService.create(movieNames, movieGenre);
-        } else {
+        } else
             this.movieService.modify(movie, movieNames, movieGenre);
-        }
+
         return "redirect:/";
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/genre/movie/register")
+    public String registerMovieGenre(Principal principal, @RequestParam("movieGenre") String movieGenre) {
+        this.movieService.create(movieGenre);
+        return "redirect:/genre";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/genre/movie/delete")
+    public String deleteMovieGenre(@RequestParam("movieId") Long genreId, Principal principal) {
+        Movie movie = this.movieService.findMovieById(genreId);
+        this.movieService.deleteMovieGenre(movie);
+        return "redirect:/genre";
+    }
+
 }

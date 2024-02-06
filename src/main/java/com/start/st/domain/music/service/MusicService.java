@@ -48,4 +48,8 @@ public class MusicService {
         }
         return music.get();
     }
+
+    public void deleteMusicGenre(Music music) {
+        this.musicRepository.delete(music);
+    }
 }
