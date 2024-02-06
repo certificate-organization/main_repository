@@ -479,4 +479,25 @@ div.left-container {
     margin-bottom: 5px;
 }
 
+.create-btn {
+    font-size: 15px;
+    color: #47BBEC;
+    padding: 3px 3px 3px 3px;
+    margin-bottom: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    border: 2px solid #47BBEC;
+    border-radius: 10px;
+}
+
+.form-create-btn {
+    margin-top: 10px;
+    display: flex;
+    justify-content: right;
+}
+
 /* ----------------------인기 게시글 end---------------------- */
+
+.hideForm {
+    display: none;
+}

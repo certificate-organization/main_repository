@@ -57,10 +57,10 @@ public class MbtiController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "접근권한이 없습니다.");
         }
         List<Mbti> mbtiList = this.mbtiService.findAllMbti();
-        List<Movie> movieList = this.movieService.findAllMovie();
+
         List<Music> musicList = this.musicService.findAllMusic();
         model.addAttribute("mbtiList", mbtiList);
-        model.addAttribute("movieList", movieList);
+
         model.addAttribute("musicList", musicList);
         return "information_form";
     }
