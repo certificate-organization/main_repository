@@ -41,7 +41,7 @@ public class ArticleController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/mbti/{id}/article/create")
     public String createArticle(@PathVariable("id") Long id, Model model, Principal principal,
-                         @Valid ArticleForm articleForm, BindingResult bindingResult) {
+                                @Valid ArticleForm articleForm, BindingResult bindingResult) {
         Member member = this.memberService.getMember(principal.getName());
         Mbti mbti = member.getMbti();
         if (bindingResult.hasErrors()) {
@@ -95,11 +95,12 @@ public class ArticleController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/article/{id}/delete")
-    public String deleteArticle(@PathVariable("id")Long id, Principal principal) {
+    public String deleteArticle(@PathVariable("id") Long id, Principal principal) {
         Member member = this.memberService.getMember(principal.getName());
         Mbti mbti = member.getMbti();
         Article article = this.articleService.getArticle(id);
-        if (!article.getAuthor().getMembername().equals(principal.getName())) {
+        if (!article.getAuthor().getMembername().equals(principal.getName()) &&
+                !principal.getName().equals("admin")) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
         this.articleService.delete(article);
@@ -108,12 +109,13 @@ public class ArticleController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/article/{id}/like")
-    public String likeArticle(@PathVariable("id")Long id, Principal principal) {
+    public String likeArticle(@PathVariable("id") Long id, Principal principal) {
         Member member = this.memberService.getMember(principal.getName());
         Article article = this.articleService.getArticle(id);
         this.articleService.like(article, member);
-        return String.format("redirect:/article/%s",id);
+        return String.format("redirect:/article/%s", id);
     }
+
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/article/report/{id}")
     public String reportComment(@PathVariable("id") Long id, Principal principal,

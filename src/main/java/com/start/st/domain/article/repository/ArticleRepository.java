@@ -30,4 +30,9 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
             + "   and A.mbti.id = :mbtiId")
     Page<Article> findAllByKeywordAndMbtiId(@Param("keyword") String keyword,
                                    @Param("mbtiId") Long mbtiId, Pageable pageable);
+
+    @Query("SELECT a FROM Article a " +
+            "LEFT JOIN a.likers l " +
+            "GROUP BY a ORDER BY a.createDate DESC, COUNT(l) DESC")
+    Page<Article> findAllOrderedByCreateDateAndLikersSizeDesc(Pageable pageable);
 }
