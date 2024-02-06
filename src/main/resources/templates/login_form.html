@@ -1,17 +1,11 @@
-<!-- jQuery를 먼저 로드 -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- 추가적인 CSS 파일 -->
-<link type="text/css" th:href="@{/css/member.css}" rel="stylesheet">
-<!-- 폰트어썸 이미지 사용위한 kits -->
-<script src="https://kit.fontawesome.com/26ee6f51e2.js" crossorigin="anonymous"></script>
+<!--<html layout:decorate="~{layout}">-->
+<!--<div layout:fragment="content">-->
 
-<div class="container">
-    <!-- Heading -->
+<div class="m_container">
+
     <h1>로그인</h1>
-
-    <!-- Links -->
-    <ul class="links">
-        <li>
+    <ul class="m_links">
+        <li style="display: flex; align-items: center;">
             <i class="fa fa-user-plus"></i>
             <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/member/signup}" style="text-decoration-line: none" >회원가입</a>
         </li>
@@ -20,7 +14,7 @@
         </li>
     </ul>
 
-    <form th:action="@{/member/login}" method="post">
+    <form class="m_form" th:action="@{/member/login}" method="post">
         <div class="first-input input__block first-input__block">
             <input type="text" name="username" id="username" class="form-control"  placeholder="아이디">
         </div>
@@ -37,7 +31,7 @@
     <button class="kakao__btn">
         <i class="fa fa-comment"></i>
         <a href="/oauth2/authorization/kakao" style="text-decoration-line: none">카카오 로그인</a>
-    </button>
+    </button><p>테스트1</p>
     <button class="naver__btn">
         <i class="fa fa-n"></i>
         네이버 로그인
@@ -58,6 +52,5 @@
         });
     });
 </script>
-<footer>
-
-</footer>
+<!--</div>-->
+<!--</html>-->
