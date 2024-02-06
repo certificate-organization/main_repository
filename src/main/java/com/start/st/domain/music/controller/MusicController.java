@@ -48,4 +48,13 @@ public class MusicController {
         this.musicService.deleteMusicGenre(music);
         return "redirect:/genre";
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/name/music")
+    public String registerMovieName(@RequestParam("musicId") Long genreId, Model model, Principal principal,
+                                    @RequestParam("musicNames") List<String> names) {
+        Music music = this.musicService.findMusicById(genreId);
+        this.musicService.modify(music, names, music.getGenre());
+        return "redirect:/genre";
+    }
 }

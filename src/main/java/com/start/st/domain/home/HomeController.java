@@ -12,10 +12,12 @@ import com.start.st.domain.music.entity.Music;
 import com.start.st.domain.music.service.MusicService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.List;
@@ -44,20 +46,22 @@ public class HomeController {
         model.addAttribute("articlePageByLike", articlePageByLike);
         model.addAttribute("articlePageByView", articlePageByView);
         if (principal != null) {
-            String username = principal.getName();
             Member member = memberService.getMember(principal.getName());
             Page<Article> articleList = this.articleService.getArticlePageByDate(page);
             model.addAttribute("articleList", articleList);
-            model.addAttribute("nickname", member.getNickname());
+            model.addAttribute("member", member);
             return "mbti_home";
         } else {
             return "mbti_home";
         }
     }
 
-    //    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/genre")
     public String modifyGenre(Model model, Principal principal) {
+        if (!principal.getName().equals("admin")) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "접근권한이 없습니다.");
+        }
         List<Movie> movieList = this.movieService.findAllMovie();
         List<Music> musicList = this.musicService.findAllMusic();
         model.addAttribute("movieList", movieList);

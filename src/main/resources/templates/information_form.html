@@ -52,6 +52,71 @@
         document.getElementById("mbtiForm").action = "/mbti/information/" + selectedMbtiId;
         }
     </script>
+
+    <script>
+        function showMovieForm() {
+            var selectedMovieGenre = document.getElementById("movieSelect").value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/api/movie/" + selectedMovieGenre, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var selectedMovie = JSON.parse(xhr.responseText);
+
+                    // 선택한 movie에 해당하는 정보를 폼에 설정
+
+                    document.getElementById("movieGenre").value = selectedMovie.genre;
+                    selectedMovieId = selectedMovie.id;
+                }
+            };
+            xhr.send();
+        }
+
+    function setMovieFormAction() {
+        // 폼 제출 시에 선택한 영화 정보를 서버로 전송하도록 설정
+        document.getElementById("movieForm").action = "/movie/" + selectedMovieId;
+    }
+
+    function addInputMovie() {
+        var container = document.getElementById('movieForm');
+        var input = document.createElement('input');
+        input.type = 'text';
+        input.name = 'movieNames';
+        container.appendChild(input);
+    }
+    </script>
+    <button onclick="movieHide()" class="btn btn-sm btn-outline-secondary">수정
+    </button>
+    <div id="movieHide" class="hideForm">
+        <select name="movieGenreSelect" id="movieGenreSelect" class="form-select" aria-label="Default select example">
+            <option value="0" style="text-center">== 선택 ==</option>
+            <option th:each="movie : ${movieList}" th:value="${movie.genre}" th:text="${movie.genre}"></option>
+            <button type="button" onclick="addInputMovie()">등록</button>
+        </select>
+
+        <form action="">
+
+        </form>
+
+
+        <select name="movieId" id="movieSelect" class="form-select"
+                aria-label="Default select example" onchange="showMovieForm()">
+            <option value="0" style="text-center">== 장르 ==</option>
+            <option th:each="movie : ${movieList}" th:value="${movie.genre}"
+                    th:text="${movie.genre}"></option>
+            <option th:value="${#lists.size(movieList)}">== 추가 ==</option>
+        </select>
+        <!-- 폼 -->
+        <form id="movieForm" method="post" action="/movie/" onsubmit="setMovieFormAction()">
+            <input type="text" id="movieGenre" name="movieGenre">
+            <label>영화</label>
+            <button type="button" onclick="addInputMovie()">등록</button>
+            <div class="form-create-btn">
+                <a href="/" class="back-btn">취소</a>
+                <button type="submit" class="create-btn">저장</button>
+            </div>
+        </form>
+    </div>
 </div>
 </body>
 </html>

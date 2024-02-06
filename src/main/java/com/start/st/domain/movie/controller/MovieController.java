@@ -51,4 +51,12 @@ public class MovieController {
         return "redirect:/genre";
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/name/movie")
+    public String registerMovieName(@RequestParam("movieId") Long genreId, Model model, Principal principal,
+                                    @RequestParam("movieNames") List<String> names) {
+        Movie movie = this.movieService.findMovieById(genreId);
+        this.movieService.modify(movie, names, movie.getGenre());
+        return "redirect:/genre";
+    }
 }

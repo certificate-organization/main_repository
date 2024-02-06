@@ -435,4 +435,73 @@
       overflow-y: auto;
       border: 1px solid #ddd; /* 스타일링을 위한 예제 테두리 스타일 */
       padding: 10px; /* 내용과의 간격을 조절하세요 */
+      border-radius: 10px;
+}
+
+.genre-container {
+    margin-left: 20px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.genre-tile {
+    font-size: large;
+    margin-left: 10px;
+}
+
+.section-container {
+    margin-top: 15px;
+    height: 340px;
+}
+
+.genre-section {
+    width: 48%;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    height: 345px;
+}
+
+.genre-create-btn {
+    font-size: 15px;
+    color: #47BBEC;
+    padding: 3px 3px 3px 3px;
+    margin-bottom: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    border: 2px solid #47BBEC;
+    border-radius: 10px;
+}
+
+.genre-delete-btn {
+    justify-content:right;
+    color: rgba(128, 128, 128, 0.4);
+    font-size: 15px;
+    padding: 3px 3px 3px 3px;
+    text-decoration: none;
+    font-weight: bold;
+    border: 2px solid rgba(128, 128, 128, 0.4);
+    border-radius: 10px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+.genre-btn {
+    margin-top: 10px;
+    display: flex;
+    justify-content: right;
+}
+
+.name-section {
+   max-height: 170px;
+   overflow-y: auto;
+   padding: 10px;
+   border-radius: 10px;
+   margin-top: 20px;
+}
+
+.add-name-section {
+    height: 170px;
 }
