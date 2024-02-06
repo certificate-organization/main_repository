@@ -20,7 +20,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 @Controller
 @RequiredArgsConstructor
@@ -34,19 +37,20 @@ public class HomeController {
     @GetMapping("/")
     public String root(Model model, Principal principal, @RequestParam(value = "page", defaultValue = "0") int page) {
         List<Mbti> mbtiList = this.mbtiService.findAllMbti();
-        List<Movie> movieList = this.movieService.findAllMovie();
-        List<Music> musicList = this.musicService.findAllMusic();
+
         Page<Article> articlePageByDate = this.articleService.getArticlePageByDate(page);
         Page<Article> articlePageByLike = this.articleService.getArticlePageByLike(page);
         Page<Article> articlePageByView = this.articleService.getArticlePageByView(page);
         model.addAttribute("mbtiList", mbtiList);
-        model.addAttribute("movieList", movieList);
-        model.addAttribute("musicList", musicList);
         model.addAttribute("articlePageByDate", articlePageByDate);
         model.addAttribute("articlePageByLike", articlePageByLike);
         model.addAttribute("articlePageByView", articlePageByView);
         if (principal != null) {
             Member member = memberService.getMember(principal.getName());
+            Movie movie = this.getRandomMovie(member.getMbti().getMovieList());
+            Music music = this.getRandomMusic(member.getMbti().getMusicList());
+            model.addAttribute("movie", movie);
+            model.addAttribute("music", music);
             Page<Article> articleList = this.articleService.getArticlePageByDate(page);
             model.addAttribute("articleList", articleList);
             model.addAttribute("member", member);
@@ -68,4 +72,35 @@ public class HomeController {
         model.addAttribute("musicList", musicList);
         return "genre_form";
     }
+
+    public Movie getRandomMovie(Set<Movie> movieSet) {
+        if (movieSet.isEmpty()) {
+            return null;
+        }
+        int randomIndex = new Random().nextInt(movieSet.size());
+        int currentIndex = 0;
+        for (Movie movie : movieSet) {
+            if (currentIndex == randomIndex) {
+                return movie;
+            }
+            currentIndex++;
+        }
+        return null;
+    }
+    public Music getRandomMusic(Set<Music> musicSet) {
+        if (musicSet.isEmpty()) {
+            return null;
+        }
+        int randomIndex = new Random().nextInt(musicSet.size());
+        int currentIndex = 0;
+        for (Music music : musicSet) {
+            if (currentIndex == randomIndex) {
+                return music;
+            }
+            currentIndex++;
+        }
+        return null;
+    }
 }
+
+
