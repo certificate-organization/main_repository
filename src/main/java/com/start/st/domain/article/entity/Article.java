@@ -38,4 +38,9 @@ public class Article extends BaseEntity {
 
     @OneToMany(mappedBy = "article")
     private List<ReportArticle> reportComments;
+
+    private String reportType;
+
+    @Column
+    private String radioButtonValue;
 }
