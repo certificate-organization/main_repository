@@ -43,6 +43,9 @@ body[data-dark_mode=on] {
     background-color: #000;
     color: #fff !important;
 }
+
+body[data-dark_mode=on] .chat_my_bg,
+body[data-dark_mode=on] .chat_you_bg,
 body[data-dark_mode=on] .article-list-subject,
 body[data-dark_mode=on] .textarea,
 body[data-dark_mode=on] .link a,
@@ -53,10 +56,15 @@ body[data-dark_mode=on] .article-list-subject-head,
 body[data-dark_mode=on] .article-list-author {
     color: #ffffff;
 }
-
+body[data-dark_mode=on] .custom-navbar {
+    border-bottom: 1px solid #47BBEC;
+}
 body[data-dark_mode=on] .link a:hover {
     color: #47BBEC;
 }
+body[data-dark_mode=on] .custom-navbar,
+body[data-dark_mode=on] .chat_my_bg,
+body[data-dark_mode=on] .chat_you_bg,
 body[data-dark_mode=on] .search-btn,
 body[data-dark_mode=on] .search-nav-btn,
 body[data-dark_mode=on] .chat-btn {

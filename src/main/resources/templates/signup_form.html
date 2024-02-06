@@ -1,17 +1,15 @@
-<html lang="ko" layout:decorate="~{layout}">
-<div layout:fragment="content" class="container">
-    <div class="m_container">
-        <h1>회원가입</h1>
 
-    <!-- Links -->
-    <ul class="links">
+<div class="m_container">
+    <h1>회원가입</h1>
+
+    <ul class="m_links">
         <li></li>
         <li>
             <a href="#" id="reset">초기화</a>
         </li>
     </ul>
 
-    <form th:action="@{/member/signup}" th:object="${memberSignupForm}" method="post">
+    <form class="m_form" th:action="@{/member/signup}" th:object="${memberSignupForm}" method="post">
         <div th:replace="~{form_errors :: formErrorsFragment}"></div>
         <div class="separator">
             <p>가입</p>
@@ -71,7 +69,6 @@
         구글 로그인
     </button>
 </div>
-
 <script>
     $(document).ready(function(){
         let reset = $("#reset");
@@ -87,6 +84,4 @@
         });
     });
 </script>
-<footer>
 
-</footer>

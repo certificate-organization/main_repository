@@ -178,92 +178,187 @@
                     </svg>
                 </a>
             </div>
-            <div class="login-container" sec:authorize="isAnonymous()">
-                <div class="login">
-                    <a class="login_button" onclick='loginBtn()' aria-current="page" href="/member/login">로그인</a>
-                </div>
-                <div class="links">
-                    <div class="lock">
-                        <a href="#">
-                            <i class="fa-solid fa-lock"></i>
-                            아이디/비밀번호 찾기
-                        </a>
+            <div class="right_sticky">
+                <div class="login-container" sec:authorize="isAnonymous()">
+                    <div class="login">
+                        <a class="login_button" onclick='loginBtn()' aria-current="page" href="/member/login">로그인</a>
                     </div>
-                    <div class="signup">
-                        <a th:href="@{/member/signup}">
-                            <i class="fa-solid fa-user"></i>
-                            회원 가입
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="logout-container" sec:authorize="isAuthenticated()">
-                <div class="logout">
-                    <a class="logout_button" onclick='logoutBtn()' th:href="@{/member/logout}">로그아웃</a>
-                </div>
-                <div class="links">
-                    <div>
-                        <a th:href="@{/}">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                            내가 쓴 글
-                        </a>
-                    </div>
-                    <div>
-                        <a th:href="@{/}">
-                            <i class="fa-solid fa-keyboard"></i>
-                            내가 쓴 댓글
-                        </a>
-                    </div>
-                    <div>
-                        <a th:href="@{/member/modify}">
-                            <i class="fa-solid fa-user"></i>
-                            개인정보 수정
-                        </a>
+                    <div class="links">
+                        <div class="lock">
+                            <a href="#">
+                                <i class="fa-solid fa-lock"></i>
+                                아이디/비밀번호 찾기
+                            </a>
+                        </div>
+                        <div class="signup">
+                            <a th:href="@{/member/signup}">
+                                <i class="fa-solid fa-user"></i>
+                                회원 가입
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="chat" sec:authorize="isAnonymous()">채팅방(예정)
-                <div class="logout_chat">
-                    <div class="close_chat">
-                        <i class="fa-solid fa-circle-exclamation"></i>
+                <div class="logout-container" sec:authorize="isAuthenticated()">
+
+                    <div class="logout">
+                        <a class="logout_button" onclick='logoutBtn()' th:href="@{/member/logout}">로그아웃</a>
+                    </div>
+                    <div class="links">
+                        <div>
+                            <a th:href="@{/}">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                                내가 쓴 글
+                            </a>
+                        </div>
+                        <div>
+                            <a th:href="@{/}">
+                                <i class="fa-solid fa-keyboard"></i>
+                                내가 쓴 댓글
+                            </a>
+                        </div>
+                        <div>
+                            <a th:href="@{/member/modify}">
+                                <i class="fa-solid fa-user"></i>
+                                개인정보 수정
+                            </a>
+                        </div>
                     </div>
                 </div>
-                <div class="chat-box">
-                    <div class="chat-box-inner">
-                        <input class="chat-txt" type="text" placeholder="로그인 후 이용 가능합니다.">
-                        <button class="chat-btn" type="submit">
-                            <i class="fa-solid fa-paper-plane"></i>
-                        </button>
+                <div class="chat_container"  sec:authorize="isAuthenticated()">
+                    <div class="chat_title">
+                        <label><b>채팅방</b></label>
+                    </div>
+                    <div class="chat_main">
+                        <div id="chatroom" class="col"></div>
+                        <div class="chat_textarea">
+                            <div class="chat-box">
+                                <div class="chat-box-inner">
+                                    <input type="text" id="msg" class="chat-txt" aria-label="Recipient's username" aria-describedby="button-addon2"  placeholder="채팅 내용을 입력하세요.">
+                                    <div class="input-group-append">
+                                        <button class="chat-btn" type="button" id="button-send"><i class="fa-solid fa-paper-plane"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="chat"  sec:authorize="isAuthenticated()">채팅방(예정)
-                <div class="chat-box">
-                    <div class="chat-box-inner">
-                        <input class="chat-txt" type="text" placeholder="채팅 내용을 입력하세요.">
-                        <button class="chat-btn" type="submit">
-                            <i class="fa-solid fa-paper-plane"></i>
-                        </button>
+                <div class="chat" sec:authorize="isAnonymous()">채팅방(예정)
+                    <div class="logout_chat">
+                        <div class="close_chat">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                        </div>
+                    </div>
+                    <div class="chat-box">
+                        <div class="chat-box-inner">
+                            <input class="chat-txt" type="text" placeholder="로그인 후 이용 가능합니다.">
+                            <button class="chat-btn" type="submit">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
     <footer>
-<!--            <div class="col-6">-->
-<!--                <label><b>채팅방</b></label>-->
-<!--            </div>-->
-<!--            <div>-->
-<!--                <div id="msgArea" class="col"></div>-->
-<!--                <div class="col-6">-->
-<!--                    <div class="input-group mb-3">-->
-<!--                        <input type="text" id="msg" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">-->
-<!--                        <div class="input-group-append">-->
-<!--                            <button class="btn btn-outline-secondary" type="button" id="button-send">전송</button>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
+        <script th:inline="javascript">
+            $(document).ready(function () {
+                const nickname = [[${nickname}]];
+
+                $("#disconnerct").on("click", (e) => {
+                    disconnect();
+                });
+
+                $("#button-send").on("click", (e) => {
+                    send();
+                });
+
+                const websocket = new WebSocket("ws://localhost:8010/ws/chat");
+
+                websocket.onmessage = onMessage;
+                websocket.onopen = onOpen;
+                websocket.onclose = onClose;
+
+                function send() {
+                    let msg = document.getElementById("msg");
+
+                    console.log(nickname + ":" + msg.value);
+                    websocket.send(nickname + ":" + msg.value);
+                    msg.value = '';
+                }
+
+                function displayDate() {
+                    var currentDate = new Date();
+                    var formattedDate = currentDate.toISOString().slice(0, 10);
+                    var dateMessage = "ㅡ " + formattedDate + " ㅡ";
+
+                    var dateDiv = $("<div class='chat_date'>").text(dateMessage);
+                    $("#chatroom").append(dateDiv);
+                }
+
+                function displayTime() {
+                    var currentTime = new Date();
+                    var hours = currentTime.getHours();
+                    var minutes = currentTime.getMinutes();
+                    var formattedTime = (hours < 10 ? "0" : "") + hours + ":" + (minutes < 10 ? "0" : "") + minutes;
+
+                    return formattedTime;
+                }
+
+                // 채팅창에서 나갔을 때
+                function onClose(evt) {
+                    var str = nickname + ": 님이 방을 나가셨습니다.";
+                    websocket.send(str);
+                }
+
+                // 채팅창에 들어왔을 때
+                function onOpen(evt) {
+                    displayDate(); // 입장 전에 오늘 날짜 표시
+                    var str = nickname + ": 님이 입장하셨습니다.";
+                    websocket.send(str);
+                }
+
+                function onMessage(msg) {
+                    var data = msg.data;
+                    var sessionId = null;
+                    var message = null;
+                    var arr = data.split(":");
+
+                    var cur_session = nickname;
+
+                    sessionId = arr[0];
+                    message = arr[1];
+
+                    var isCurrentUser = sessionId == cur_session;
+
+                    var str = "<div class='chat_div'>";
+                    if (isCurrentUser) {
+                        str += "<div class='chat_my_bg'>";
+                        str += "<b>" + sessionId + " : " + message + " <span class='chat_time'>" + displayTime() + "</span></b>";
+                    } else {
+                        str += "<div class='chat_you_bg'>";
+                        if (message.indexOf('입장하셨습니다.') !== -1) {
+                            str += "<b>" + sessionId + " : " + message + "</b>";
+                        } else {
+                            str += "<b>" + sessionId + " : " + message;
+                            str += " <span class='chat_time'>" + displayTime() + "</span></b>";
+                        }
+                    }
+
+                    str += "</div></div>";
+                    $("#chatroom").append(str);
+                    $("#chatroom").scrollTop($("#chatroom")[0].scrollHeight);
+                }
+
+                // 엔터 키로 메시지 전송
+                $("#msg").keyup(function (event) {
+                    if (event.which === 13) {
+                        send();
+                    }
+                });
+            });
+        </script>
+
     </footer>
 </div>
 </body>

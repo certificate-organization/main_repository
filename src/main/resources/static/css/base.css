@@ -31,11 +31,14 @@ footer {
 }
 
 /*-------------navbar 부분 strat -------------*/
-/*.underline {
-    width:100%;
-    border: 1px solid #000;
-    display:block;
-}*/
+.custom-navbar {
+    border-bottom: 1px solid #000;
+    background: #fff;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
 
 .search-nav {
     border: 2px solid #47BBEC;
@@ -95,4 +98,7 @@ footer {
 }
 
 /*-------------navbar 부분 end -------------*/
-
+.wrap {
+     position: absolute;
+     right: 10%;
+ }
