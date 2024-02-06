@@ -27,18 +27,18 @@ h1 {
   transition: .2s linear;
 }
 
-.links li:nth-child(2) {
+.links li a {
   opacity: .6;
   float: right;
 }
 
-.links li:nth-child(2):hover {
+.links li a:hover {
   opacity: 1;
 }
 
 .links li a {
   text-decoration: none;
-  color: #0f132a;
+  color: #000000;
   font-weight: bolder;
   text-align: center;
   cursor: pointer;
@@ -56,7 +56,9 @@ p {
        padding-inline-start: 40px;
 }
 .form-select {
-    width: 90%;
+    margin-left: -6px;
+    margin-bottom: -12px;
+    width: 96%;
 }
 
 
