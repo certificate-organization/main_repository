@@ -15,6 +15,7 @@
     <!-- 추가적인 JS 파일 -->
     <script type="text/javascript" src="/js/darkmode.js"></script>
     <script type="text/javascript" src="/js/chat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- 폰트어썸 이미지 사용위한 kits -->
     <script src="https://kit.fontawesome.com/26ee6f51e2.js" crossorigin="anonymous"></script>
     <title>MBTI</title>
@@ -75,42 +76,154 @@
         </div>
     </header>
     <main>
+        <!--전체게시글 출력-->
         <div class="left-container">
             <div class="hot_topic">인기 게시글
-                <div>
-                    <a href="">최신</a>
-                    <a href="">추천</a>
-                    <a href="">조회</a>
+                <ul class="nav nav-tabs" style="width: 680px;" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
+                                data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane"
+                                aria-selected="true">최신
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
+                                data-bs-target="#profile-tab-pane" type="button" role="tab"
+                                aria-controls="profile-tab-pane" aria-selected="false">추천
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="contact-tab" data-bs-toggle="tab"
+                                data-bs-target="#contact-tab-pane" type="button" role="tab"
+                                aria-controls="contact-tab-pane" aria-selected="false">조회
+                        </button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab"
+                         tabindex="0">
+                        <div class="article-table">
+                            <table class="article-list">
+                                <thead class="article-list-head">
+                                <tr>
+                                    <th class="article-list-subject-head">제목</th>
+                                    <th class="article-list-th">작성자</th>
+                                    <th class="article-list-th">조회수</th>
+                                    <th class="article-list-th">추천수</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="article-list-body" th:each="article, loop : ${articlePageByDate}">
+                                    <td class="article-list-subject-body">
+                                        <a class="article-list-subject" th:href="@{|/article/${article.id}|}"
+                                           th:text="${article.subject}">
+                                        </a>
+                                        <span class="article-comment" th:if="${#lists.size(article.commentList) != 0}"
+                                              th:text="|[${#lists.size(article.commentList)}]|"></span>
+                                    </td>
+                                    <td>
+                                        <a class="article-list-author" href="#"
+                                           th:text="|${article.author.membername}[${article.author.mbti.name}]|"></a>
+                                    </td>
+                                    <td style="width: 6%" th:text="${article.viewCount}"></td>
+                                    <td style="width: 6%" th:text="${#lists.size(article.likers)}|"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab"
+                         tabindex="0">
+                        <div class="article-table">
+                            <table class="article-list">
+                                <thead class="article-list-head">
+                                <tr>
+                                    <th class="article-list-subject-head">제목</th>
+                                    <th class="article-list-th">작성자</th>
+                                    <th class="article-list-th">조회수</th>
+                                    <th class="article-list-th">추천수</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="article-list-body" th:each="article, loop : ${articlePageByLike}">
+                                    <td class="article-list-subject-body">
+                                        <a class="article-list-subject" th:href="@{|/article/${article.id}|}"
+                                           th:text="${article.subject}">
+                                        </a>
+                                        <span class="article-comment" th:if="${#lists.size(article.commentList) != 0}"
+                                              th:text="|[${#lists.size(article.commentList)}]|"></span>
+                                    </td>
+                                    <td>
+                                        <a class="article-list-author" href="#"
+                                           th:text="|${article.author.membername}[${article.author.mbti.name}]|"></a>
+                                    </td>
+                                    <td style="width: 6%" th:text="${article.viewCount}"></td>
+                                    <td style="width: 6%" th:text="${#lists.size(article.likers)}|"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab"
+                         tabindex="0">
+                        <div class="article-table">
+                            <table class="article-list">
+                                <thead class="article-list-head">
+                                <tr>
+                                    <th class="article-list-subject-head">제목</th>
+                                    <th class="article-list-th">작성자</th>
+                                    <th class="article-list-th">조회수</th>
+                                    <th class="article-list-th">추천수</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="article-list-body" th:each="article, loop : ${articlePageByView}">
+                                    <td class="article-list-subject-body">
+                                        <a class="article-list-subject" th:href="@{|/article/${article.id}|}"
+                                           th:text="${article.subject}">
+                                        </a>
+                                        <span class="article-comment" th:if="${#lists.size(article.commentList) != 0}"
+                                              th:text="|[${#lists.size(article.commentList)}]|"></span>
+                                    </td>
+                                    <td>
+                                        <a class="article-list-author" href="#"
+                                           th:text="|${article.author.membername}[${article.author.mbti.name}]|"></a>
+                                    </td>
+                                    <td style="width: 6%" th:text="${article.viewCount}"></td>
+                                    <td style="width: 6%" th:text="${#lists.size(article.likers)}|"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-                <div class="article-table">
-                    <table class="article-list">
-                        <tbody>
-                        <tr class="article-list-body" th:each="article, loop : ${articleList}">
-                            <td class="article-list-subject-body">
-                                <a class="article-list-subject" th:href="@{|/article/${article.id}|}"
-                                   th:text="${article.subject}">
-                                </a>
-                                <span class="article-comment" th:if="${#lists.size(article.commentList) != 0}"
-                                      th:text="|[${#lists.size(article.commentList)}]|"></span>
-                            </td>
-                            <td>
-                                <a class="article-list-author" href="#"
-                                   th:text="|${article.author.membername}[${article.author.mbti.name}]|"></a>
-                            </td>
-                            <td th:id="|result${loop.index + 1}|"></td>
-                            <script th:src="@{/js/calculateDate.js}"></script>
-                            <script th:inline="javascript">
-                                calculateDate (/*[[${article.createDate}]]*/, 'result' + /*[[${loop.index + 1}]]*/);
-                            </script>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+
             </div>
             <div class="mm">
                 <div class="movie">영화 추천
-                    <div>
-                        <span>아이언맨, 스파이더맨</span>
+                    <div th:each="movie : ${movieList}">
+                        <span th:text="${movie.names}"></span>
+                    </div>
+                    <button onclick="movieHide()" class="btn btn-sm btn-outline-secondary">수정
+                    </button>
+                    <div id="movieHide" class="hideForm">
+                        <select name="movieId" id="movieSelect" class="form-select"
+                                aria-label="Default select example" onchange="showMovieForm()">
+                            <option value="0" style="text-center">== 장르 ==</option>
+                            <option th:each="movie : ${movieList}" th:value="${movie.genre}"
+                                    th:text="${movie.genre}"></option>
+                            <option th:value="${#lists.size(movieList)}">== 추가 ==</option>
+                        </select>
+                        <!-- 폼 -->
+                        <form id="movieForm" method="post" action="/movie/" onsubmit="setMovieFormAction()">
+                            <input type="text" id="movieGenre" name="movieGenre">
+                            <label>영화</label>
+                            <button type="button" onclick="addInputMovie()">등록</button>
+                            <div class="form-create-btn">
+                                <a href="/" class="back-btn">취소</a>
+                                <button type="submit" class="create-btn">저장</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="music">음악 추천
@@ -118,6 +231,39 @@
                         <span>댄스댄스, POP, 발라드</span>
                     </div>
                 </div>
+
+                <script>
+                    function showMovieForm() {
+                        var selectedMovieGenre = document.getElementById("movieSelect").value;
+
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("GET", "/api/movie/" + selectedMovieGenre, true);
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState === 4 && xhr.status === 200) {
+                                var selectedMovie = JSON.parse(xhr.responseText);
+
+                                // 선택한 movie에 해당하는 정보를 폼에 설정
+
+                                document.getElementById("movieGenre").value = selectedMovie.genre;
+                                selectedMovieId = selectedMovie.id;
+                            }
+                        };
+                        xhr.send();
+                    }
+
+                function setMovieFormAction() {
+                    // 폼 제출 시에 선택한 MBTI 정보를 서버로 전송하도록 설정
+                    document.getElementById("movieForm").action = "/movie/" + selectedMovieId;
+                }
+
+                function addInputMovie() {
+                    var container = document.getElementById('movieForm');
+                    var input = document.createElement('input');
+                    input.type = 'text';
+                    input.name = 'movieNames';
+                    container.appendChild(input);
+                }
+                </script>
             </div>
         </div>
         <div class="right-container">

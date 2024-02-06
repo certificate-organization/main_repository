@@ -8,6 +8,10 @@ import com.start.st.domain.mbti.service.MbtiService;
 import com.start.st.domain.member.entity.Member;
 import com.start.st.domain.member.entity.MemberSignupForm;
 import com.start.st.domain.member.service.MemberService;
+import com.start.st.domain.movie.entity.Movie;
+import com.start.st.domain.movie.service.MovieService;
+import com.start.st.domain.music.entity.Music;
+import com.start.st.domain.music.service.MusicService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -25,17 +29,19 @@ import java.util.List;
 @RequestMapping("/mbti")
 public class MbtiController {
     private final MbtiService mbtiService;
+    private final MovieService movieService;
+    private final MusicService musicService;
     private final MemberService memberService;
     private final ArticleService articleService;
 
     @GetMapping("/{id}")
-    public String mbtiDetail(@PathVariable("id") Long id, Model model, Principal principal,
+    public String mbtiDetail(@PathVariable("id") Long mbtiId, Model model, Principal principal,
                              @RequestParam(value = "page", defaultValue = "0") int page,
                              @RequestParam(value = "keyword", defaultValue = "") String keyword) {
-        Page<Article> articlePage = this.articleService.getArticlePageByMbti(keyword, id, page);
+        Page<Article> articlePage = this.articleService.getArticlePageByMbti(keyword, mbtiId, page);
         model.addAttribute("articlePage", articlePage);
         model.addAttribute("keyword", keyword);
-        Mbti mbti = this.mbtiService.getMbti(id);
+        Mbti mbti = this.mbtiService.getMbti(mbtiId);
         model.addAttribute("mbti", mbti);
         if (principal != null) {
             Member member = this.memberService.getMember(principal.getName());
@@ -45,18 +51,22 @@ public class MbtiController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/{id}/information")
-    public String mbtiInformation(@PathVariable("id") Long id, Model model, Principal principal) {
+    @GetMapping("/information")
+    public String mbtiInformation(Model model, Principal principal) {
         if (!principal.getName().equals("admin")) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "접근권한이 없습니다.");
         }
-        Mbti mbti = this.mbtiService.getMbti(id);
-        model.addAttribute("mbti", mbti);
+        List<Mbti> mbtiList = this.mbtiService.findAllMbti();
+
+        List<Music> musicList = this.musicService.findAllMusic();
+        model.addAttribute("mbtiList", mbtiList);
+
+        model.addAttribute("musicList", musicList);
         return "information_form";
     }
 
     @PreAuthorize("isAuthenticated()")
-    @PostMapping("/{id}/information")
+    @PostMapping("/information/{id}")
     public String mbtiInformation(@PathVariable("id") Long id, Model model, Principal principal,
                                   @RequestParam("love") String love, @RequestParam("relationship") String relationship,
                                   @RequestParam("celebrity") String celebrity, @RequestParam("job") String job) {
