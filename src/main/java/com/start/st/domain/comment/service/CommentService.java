@@ -24,7 +24,6 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final ReportCommentRepository reportCommentRepository;
 
-
     public Comment getcomment(Long id) {
         Optional<Comment> comment = this.commentRepository.findById(id);
         if (comment.isEmpty()) {
@@ -51,6 +50,7 @@ public class CommentService {
                 .author(author)
                 .parent(parent)
                 .build();
+
         this.commentRepository.save(comment);
     }
     public void likeComment(Comment comment, Member liker){
