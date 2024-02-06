@@ -6,6 +6,8 @@ import com.start.st.domain.member.entity.Member;
 import com.start.st.domain.member.repository.MemberRepository;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -88,5 +90,4 @@ public class MemberService {
         create(membername, "", nickname, null, null);
         return this.memberRepository.findByMembername(membername).get(); // 최초 로그인 시 딱 한번 실행
     }
-
 }
