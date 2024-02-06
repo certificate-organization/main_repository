@@ -305,6 +305,11 @@
                     return formattedTime;
                 }
 
+                // 채팅창에서 나갔을 때
+                function onClose(evt) {
+                    var str = nickname + ": 님이 방을 나가셨습니다.";
+                    websocket.send(str);
+                }
 
                 // 채팅창에 들어왔을 때
                 function onOpen(evt) {

@@ -25,6 +25,7 @@
     <title>MBTI.net</title>
 </head>
 <body>
+<div class="custom-navbar">
     <nav class="container navbar navbar-expand-lg ">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">
@@ -45,14 +46,6 @@
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="search-nav">
-                <div class="search-nav-inner">
-                    <input class="search-nav-txt" type="text" placeholder="검색어를 입력하세요.">
-                    <button class="search-nav-btn" type="submit">
-                        <i class="fa fa-search fa-magnifying-nav-glass"></i>
-                    </button>
-                </div>
-            </div>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex justify-content-end">
                     <li class="nav-item">
@@ -66,11 +59,6 @@
                             정보
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">내가 쓴글 </a></li>
-                            <li><a class="dropdown-item" href="#">내가 쓴 댓글</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
                             <li><a class="dropdown-item" href="/member/modify">나의정보 / 수정</a></li>
                         </ul>
                     </li>
@@ -81,6 +69,7 @@
             </div>
         </div>
     </nav>
-    <th:block layout:fragment="content"></th:block>
+</div>
+<th:block layout:fragment="content"></th:block>
 </body>
 </html>

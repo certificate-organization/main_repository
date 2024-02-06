@@ -1,8 +1,9 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content">
 
 <div class="m_container">
 
     <h1>로그인</h1>
-    <p>테스트1</p>
     <ul class="m_links">
         <li style="display: flex; align-items: center;">
             <i class="fa fa-user-plus"></i>
@@ -16,17 +17,17 @@
     <form class="m_form" th:action="@{/member/login}" method="post">
         <div class="first-input input__block first-input__block">
             <input type="text" name="username" id="username" class="form-control"  placeholder="아이디">
-        </div><p>테스트1</p>
+        </div>
         <div class="input__block">
             <input type="password" name="password" id="password" class="form-control"  placeholder="비밀번호">
         </div>
         <button class="signin__btn">
             로그인
-        </button><p>테스트1</p>
+        </button>
     </form>
     <div class="separator">
         <p>OR</p>
-    </div><p>테스트1</p>
+    </div>
     <button class="kakao__btn">
         <i class="fa fa-comment"></i>
         <a href="/oauth2/authorization/kakao" style="text-decoration-line: none">카카오 로그인</a>
@@ -34,12 +35,12 @@
     <button class="naver__btn">
         <i class="fa fa-n"></i>
         네이버 로그인
-    </button><p>테스트1</p>
+    </button>
     <button class="google__btn">
         <i class="fa fa-google"></i>
         구글 로그인
     </button>
-</div><p>테스트1</p>
+</div>
 <script>
     $(document).ready(function(){
         let reset = $("#reset");
