@@ -367,7 +367,7 @@
     <footer>
         <script th:inline="javascript">
             $(document).ready(function () {
-                const nickname = [[${member.nickname}]];
+                const nickname = [[${nickname}]];
 
                 $("#button-send").on("click", (e) => {
                     send();
