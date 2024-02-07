@@ -18,7 +18,7 @@ public class MovieApiController {
     private MovieService movieService;
 
     @GetMapping("/{genre}")
-    public ResponseEntity<Movie> getMovieByGenre(@PathVariable String genre) {
+    public ResponseEntity<Movie> getMovieByGenre(@PathVariable(value = "genre") String genre) {
         Movie movie = movieService.findMovieByGenre(genre);
 
         if (movie != null) {
