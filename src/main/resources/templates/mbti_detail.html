@@ -60,21 +60,22 @@
                     </button>
                 </div>
                 <div class="tab-content" id="v-pills-tabContent" style="margin-left: 50px;">
-                    <div th:if="${mbti.love != null}" class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                    <div th:if="${mbti.love != null}" class="tab-pane fade show active" id="v-pills-home"
+                         role="tabpanel"
                          aria-labelledby="v-pills-home-tab" tabindex="0"
                          th:utext="${@commonUtil.markdown(mbti.love)}">
                     </div>
                     <div th:if="${mbti.relationship != null}" class="tab-pane fade" id="v-pills-profile" role="tabpanel"
                          aria-labelledby="v-pills-profile-tab" tabindex="0"
-                         th:utext="${@commonUtil.markdown(mbti.relationship)}" >
+                         th:utext="${@commonUtil.markdown(mbti.relationship)}">
                     </div>
                     <div th:if="${mbti.celebrity != null}" class="tab-pane fade" id="v-pills-disabled" role="tabpanel"
                          aria-labelledby="v-pills-disabled-tab" tabindex="0"
-                         th:utext="${@commonUtil.markdown(mbti.celebrity)}" >
+                         th:utext="${@commonUtil.markdown(mbti.celebrity)}">
                     </div>
                     <div th:if="${mbti.job != null}" class="tab-pane fade" id="v-pills-messages" role="tabpanel"
                          aria-labelledby="v-pills-messages-tab" tabindex="0"
-                         th:utext="${@commonUtil.markdown(mbti.job)}" >
+                         th:utext="${@commonUtil.markdown(mbti.job)}">
                     </div>
                 </div>
             </div>
@@ -104,6 +105,8 @@
             <tr class="article-list-body" th:each="article, loop : ${articlePage}">
                 <th th:text="${articlePage.getTotalElements - (articlePage.number * articlePage.size) - loop.index}"></th>
                 <td class="article-list-subject-body">
+                        <i class="fa-solid fa-image" th:if="${article.articleImg != null}"></i>
+                        <i class="fa-solid fa-comment-dots" th:if="${article.articleImg == null}"></i>
                     <a class="article-list-subject" th:href="@{|/article/${article.id}|}"
                        th:text="${article.subject}">
                     </a>

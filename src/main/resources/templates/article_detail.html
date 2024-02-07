@@ -43,6 +43,9 @@
                                 </div>
                             </div>
                             <div class="card-body">
+                                <div th:if="${article.articleImg != null}">
+                                    <img  class="img-fluid" th:src="@{|/file/${article.articleImg}|}" alt="사진">
+                                </div>
                                 <p class="card-text" th:utext="${@commonUtil.markdown(article.content)}"></p>
                                 <!-- 추천 버튼 -->
                                 <a th:href="@{|/article/${article.id}/like|}" class="btn btn-sm btn-outline-secondary" th:if="${not article.likedByCurrentUser}">
