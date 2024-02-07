@@ -23,6 +23,13 @@ public class MovieService {
         this.movieRepository.save(movie);
     }
 
+    public void createTest(String genre, List<String> names) {
+        Movie movie = Movie.builder()
+                .genre(genre)
+                .names(names)
+                .build();
+        this.movieRepository.save(movie);
+    }
     public void modify(Movie movie, List<String> names, String genre) {
         Movie modifyMovie = movie.toBuilder()
                 .genre(genre)

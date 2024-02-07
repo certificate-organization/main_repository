@@ -33,127 +33,166 @@
     <!-- mbti 정보 start -->
     <div style="display: flex; align-items: center;">
         <div style="display: flex; flex-direction: column; margin-right: 15px; margin-left: 20px;">
-        <div class="mbti-elements">
-            <div class="mbti-element" th:each="element : ${mbti.elements}">
-                <span class="mbti-element-text" th:text="${element}"></span>
+            <div class="mbti-elements">
+                <div class="mbti-element" th:each="element : ${mbti.elements}">
+                    <span style="font-family: 'Poor Story', system-ui;" class="mbti-element-text"
+                          th:text="${element}"></span>
+                </div>
             </div>
-        </div>
-        <div style="display: flex; height: 200px; width: 550px; justify-content: flex-end; flex-direction: column; align-items: center;">
-            <img src="https://www.16personalities.com/static/images/personality-types/headers/sentinels_Logistician_ISTJ_personality_header.svg"
-                 alt="ISTJ" th:if="${mbti.name == 'ISTJ'}">
-            <div style="font-family: 'Poor Story', system-ui;" th:if="${mbti.name == 'ISTJ'}">현실주의자📊</div>
+            <div style="display: flex; height: 200px; width: 550px; justify-content: flex-end; flex-direction: column; align-items: center;">
+                <img src="https://www.16personalities.com/static/images/personality-types/headers/sentinels_Logistician_ISTJ_personality_header.svg"
+                     alt="ISTJ" th:if="${mbti.name == 'ISTJ'}">
+                <div style="font-family: 'Poor Story', system-ui; font-size: large;" th:if="${mbti.name == 'ISTJ'}">
+                    현실주의자📊
+                </div>
 
-            <img src="https://www.16personalities.com/static/images/personality-types/headers/explorers_Virtuoso_ISTP_personality_header.svg"
-                 alt="ISTP" th:if="${mbti.name == 'ISTP'}">
-            <div style="font-family: 'Poor Story', system-ui;" th:if="${mbti.name == 'ISTP'}">장인🛠️</div>
+                <img src="https://www.16personalities.com/static/images/personality-types/headers/explorers_Virtuoso_ISTP_personality_header.svg"
+                     alt="ISTP" th:if="${mbti.name == 'ISTP'}">
+                <div style="font-family: 'Poor Story', system-ui; font-size: large;" th:if="${mbti.name == 'ISTP'}">
+                    장인🛠️
+                </div>
 
-            <img src="https://www.16personalities.com/static/images/personality-types/headers/sentinels_Defender_ISFJ_personality_header.svg"
-                 alt="ISFJ" th:if="${mbti.name == 'ISFJ'}">
-            <div style="font-family: 'Poor Story', system-ui;" th:if="${mbti.name == 'ISFJ'}">수호자💉</div>
+                <img src="https://www.16personalities.com/static/images/personality-types/headers/sentinels_Defender_ISFJ_personality_header.svg"
+                     alt="ISFJ" th:if="${mbti.name == 'ISFJ'}">
+                <div style="font-family: 'Poor Story', system-ui; font-size: large;" th:if="${mbti.name == 'ISFJ'}">
+                    수호자💉
+                </div>
 
-            <img src="https://www.16personalities.com/static/images/personality-types/headers/explorers_Adventurer_ISFP_personality_header.svg"
-                 alt="ISFP" th:if="${mbti.name == 'ISFP'}">
-            <div style="font-family: 'Poor Story', system-ui;" th:if="${mbti.name == 'ISFP'}">모험가🎨</div>
+                <img src="https://www.16personalities.com/static/images/personality-types/headers/explorers_Adventurer_ISFP_personality_header.svg"
+                     alt="ISFP" th:if="${mbti.name == 'ISFP'}">
+                <div style="font-family: 'Poor Story', system-ui; font-size: large;" th:if="${mbti.name == 'ISFP'}">
+                    모험가🎨
+                </div>
 
-            <img src="https://www.16personalities.com/static/images/personality-types/headers/analysts_Architect_INTJ_personality_header.svg"
-                 alt="INTJ" th:if="${mbti.name == 'INTJ'}">
-            <div style="font-family: 'Poor Story', system-ui;" th:if="${mbti.name == 'INTJ'}">전략가🚩</div>
+                <img src="https://www.16personalities.com/static/images/personality-types/headers/analysts_Architect_INTJ_personality_header.svg"
+                     alt="INTJ" th:if="${mbti.name == 'INTJ'}" style="width: 520px; margin-right: 30px;">
+                <div style="font-family: 'Poor Story', system-ui; font-size: large;" th:if="${mbti.name == 'INTJ'}">
+                    전략가🚩
+                </div>
 
-            <img src="https://www.16personalities.com/static/images/personality-types/headers/analysts_Logician_INTP_personality_header.svg"
-                 alt="INTP" th:if="${mbti.name == 'INTP'}">
-            <div style="font-family: 'Poor Story', system-ui;" th:if="${mbti.name == 'INTP'}">논리술사🧪</div>
+                <img src="https://www.16personalities.com/static/images/personality-types/headers/analysts_Logician_INTP_personality_header.svg"
+                     alt="INTP" th:if="${mbti.name == 'INTP'}">
+                <div style="font-family: 'Poor Story', system-ui; font-size: large;" th:if="${mbti.name == 'INTP'}">
+                    논리술사🧪
+                </div>
 
-            <img src="https://www.16personalities.com/static/images/personality-types/headers/diplomats_Advocate_INFJ_personality_header.svg"
-                 alt="INFJ" th:if="${mbti.name == 'INFJ'}">
-            <div style="font-family: 'Poor Story', system-ui;" th:if="${mbti.name == 'INFJ'}">옹호자🌳</div>
+                <img src="https://www.16personalities.com/static/images/personality-types/headers/diplomats_Advocate_INFJ_personality_header.svg"
+                     alt="INFJ" th:if="${mbti.name == 'INFJ'}">
+                <div style="font-family: 'Poor Story', system-ui; font-size: large;" th:if="${mbti.name == 'INFJ'}">
+                    옹호자🌳
+                </div>
 
-            <img src="https://www.16personalities.com/static/images/personality-types/headers/diplomats_Mediator_INFP_personality_header.svg"
-                 alt="INFP" th:if="${mbti.name == 'INFP'}">
-            <div style="font-family: 'Poor Story', system-ui;" th:if="${mbti.name == 'INFP'}">중재자🌸</div>
+                <img src="https://www.16personalities.com/static/images/personality-types/headers/diplomats_Mediator_INFP_personality_header.svg"
+                     alt="INFP" th:if="${mbti.name == 'INFP'}">
+                <div style="font-family: 'Poor Story', system-ui; font-size: large;" th:if="${mbti.name == 'INFP'}">
+                    중재자🌸
+                </div>
 
-            <img src="https://www.16personalities.com/static/images/personality-types/headers/sentinels_Executive_ESTJ_personality_header.svg"
-                 alt="ESTJ" th:if="${mbti.name == 'ESTJ'}">
-            <div style="font-family: 'Poor Story', system-ui;" th:if="${mbti.name == 'ESTJ'}">경영자👔</div>
+                <img src="https://www.16personalities.com/static/images/personality-types/headers/sentinels_Executive_ESTJ_personality_header.svg"
+                     alt="ESTJ" th:if="${mbti.name == 'ESTJ'}">
+                <div style="font-family: 'Poor Story', system-ui; font-size: large;" th:if="${mbti.name == 'ESTJ'}">
+                    경영자👔
+                </div>
 
-            <img src="https://www.16personalities.com/static/images/personality-types/headers/explorers_Entrepreneur_ESTP_personality_header.svg"
-                 alt="ESTP" th:if="${mbti.name == 'ESTP'}">
-            <div style="font-family: 'Poor Story', system-ui;" th:if="${mbti.name == 'ESTP'}">사업가🕶️</div>
+                <img src="https://www.16personalities.com/static/images/personality-types/headers/explorers_Entrepreneur_ESTP_personality_header.svg"
+                     alt="ESTP" th:if="${mbti.name == 'ESTP'}">
+                <div style="font-family: 'Poor Story', system-ui; font-size: large;" th:if="${mbti.name == 'ESTP'}">
+                    사업가🕶️
+                </div>
 
-            <img src="https://www.16personalities.com/static/images/personality-types/headers/sentinels_Consul_ESFJ_personality_header.svg"
-                 alt="ESFJ" th:if="${mbti.name == 'ESFJ'}">
-            <div style="font-family: 'Poor Story', system-ui;" th:if="${mbti.name == 'ESFJ'}">집정관🎂</div>
+                <img src="https://www.16personalities.com/static/images/personality-types/headers/sentinels_Consul_ESFJ_personality_header.svg"
+                     alt="ESFJ" th:if="${mbti.name == 'ESFJ'}">
+                <div style="font-family: 'Poor Story', system-ui; font-size: large;" th:if="${mbti.name == 'ESFJ'}">
+                    집정관🎂
+                </div>
 
-            <img src="https://www.16personalities.com/static/images/personality-types/headers/explorers_Entertainer_ESFP_personality_header.svg"
-                 alt="ESFP" th:if="${mbti.name == 'ESFP'}">
-            <div style="font-family: 'Poor Story', system-ui;" th:if="${mbti.name == 'ESFP'}">연예인🌟</div>
+                <img src="https://www.16personalities.com/static/images/personality-types/headers/explorers_Entertainer_ESFP_personality_header.svg"
+                     alt="ESFP" th:if="${mbti.name == 'ESFP'}">
+                <div style="font-family: 'Poor Story', system-ui; font-size: large;" th:if="${mbti.name == 'ESFP'}">
+                    연예인🌟
+                </div>
 
-            <img src="https://www.16personalities.com/static/images/personality-types/headers/analysts_Commander_ENTJ_personality_header.svg"
-                 alt="ENTJ" th:if="${mbti.name == 'ENTJ'}">
-            <div style="font-family: 'Poor Story', system-ui;" th:if="${mbti.name == 'ENTJ'}">통솔자🪖</div>
+                <img src="https://www.16personalities.com/static/images/personality-types/headers/analysts_Commander_ENTJ_personality_header.svg"
+                     alt="ENTJ" th:if="${mbti.name == 'ENTJ'}">
+                <div style="font-family: 'Poor Story', system-ui; font-size: large;" th:if="${mbti.name == 'ENTJ'}">
+                    통솔자🪖
+                </div>
 
-            <img src="https://www.16personalities.com/static/images/personality-types/headers/analysts_Debater_ENTP_personality_header.svg"
-                 alt="ENTP" th:if="${mbti.name == 'ENTP'}">
-            <div style="font-family: 'Poor Story', system-ui;" th:if="${mbti.name == 'ENTP'}">변론가🗣️</div>
+                <img src="https://www.16personalities.com/static/images/personality-types/headers/analysts_Debater_ENTP_personality_header.svg"
+                     alt="ENTP" th:if="${mbti.name == 'ENTP'}">
+                <div style="font-family: 'Poor Story', system-ui; font-size: large;" th:if="${mbti.name == 'ENTP'}">
+                    변론가🗣️
+                </div>
 
-            <img src="https://www.16personalities.com/static/images/personality-types/headers/diplomats_Protagonist_ENFJ_personality_header.svg"
-                 alt="ENFJ" th:if="${mbti.name == 'ENFJ'}">
-            <div style="font-family: 'Poor Story', system-ui;" th:if="${mbti.name == 'ENFJ'}">선도자⚔️</div>
+                <img src="https://www.16personalities.com/static/images/personality-types/headers/diplomats_Protagonist_ENFJ_personality_header.svg"
+                     alt="ENFJ" th:if="${mbti.name == 'ENFJ'}">
+                <div style="font-family: 'Poor Story', system-ui; font-size: large;" th:if="${mbti.name == 'ENFJ'}">
+                    선도자⚔️
+                </div>
 
-            <img src="https://www.16personalities.com/static/images/personality-types/headers/diplomats_Campaigner_ENFP_personality_header.svg"
-                 alt="ENFP" th:if="${mbti.name == 'ENFP'}">
-            <div style="font-family: 'Poor Story', system-ui;" th:if="${mbti.name == 'ENFP'}">활동가🧗‍♀️</div>
-        </div>
+                <img src="https://www.16personalities.com/static/images/personality-types/headers/diplomats_Campaigner_ENFP_personality_header.svg"
+                     alt="ENFP" th:if="${mbti.name == 'ENFP'}">
+                <div style="font-family: 'Poor Story', system-ui; font-size: large;" th:if="${mbti.name == 'ENFP'}">
+                    활동가🧗‍♀️
+                </div>
+            </div>
         </div>
         <div class="mbti-information">
 
             <!-- tab메뉴 start -->
             <div class="tab-container" style="flex-direction: column;">
                 <div class="d-flex align-items-start" style="margin-top: 10px;">
-                    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" style="margin-left: 10px;"
-                         role="tablist"
-                         aria-orientation="vertical">
-                        <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill"
-                                data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home"
-                                aria-selected="true" style="border-radius: 20px; margin-bottom: 5px;">연애
-                            <i class="fa-solid fa-heart-pulse"></i>
-                        </button>
+                    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist"
+                         aria-orientation="vertical"
+                         style="display: flex; align-items: center; justify-content: space-around; margin-left: 10px; ">
+
                         <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill"
                                 data-bs-target="#v-pills-profile" type="button" role="tab"
-                                aria-controls="v-pills-profile"
-                                aria-selected="false" style="border-radius: 20px; margin-bottom: 5px;">관계
-                            <i class="fa-solid fa-face-smile"></i>
+                                aria-controls="v-pills-profile" aria-selected="false"
+                                style="border-radius: 20px; margin-bottom: 5px; font-family: 'Poor Story', system-ui;
+                                font-weight: bold; display: flex; align-items: center; width: 92px; justify-content: center;">성격
+                            <i class="fa-solid fa-face-smile" style="margin-left: 3px;"></i>
+                        </button>
+                        <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill"
+                                data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home"
+                                aria-selected="true" style="border-radius: 20px; margin-bottom: 5px; width: 92px; justify-content: center;
+                                 font-family: 'Poor Story', system-ui; font-weight: bold; display: flex; align-items: center;">연애
+                            <i class="fa-solid fa-heart-pulse" style="margin-left: 3px;"></i>
                         </button>
                         <button class="nav-link" id="v-pills-disabled-tab" data-bs-toggle="pill"
                                 data-bs-target="#v-pills-disabled" type="button" role="tab"
                                 aria-controls="v-pills-disabled"
-                                aria-selected="false" style="border-radius: 20px; margin-bottom: 5px;">유명인
-                            <i class="fa-solid fa-star"></i>
+                                aria-selected="false" style="border-radius: 20px; margin-bottom: 5px; width: 92px; justify-content: center;
+                                font-family: 'Poor Story', system-ui; font-weight: bold; display: flex; align-items: center;">유명인
+                            <i class="fa-solid fa-star" style="margin-left: 3px;"></i>
                         </button>
                         <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
                                 data-bs-target="#v-pills-messages" type="button" role="tab"
                                 aria-controls="v-pills-messages"
-                                aria-selected="false" style="border-radius: 20px; margin-bottom: 5px;">직업
-                            <i class="fa-solid fa-briefcase"></i>
+                                aria-selected="false" style="border-radius: 20px; margin-bottom: 5px; width: 92px; justify-content: center;
+                                font-family: 'Poor Story', system-ui; font-weight: bold; display: flex; align-items: center;">직업
+                            <i class="fa-solid fa-briefcase" style="margin-left: 3px;"></i>
                         </button>
                     </div>
                     <div class="tab-content" id="v-pills-tabContent" style="margin-left: 20px;">
-                        <div th:if="${mbti.love != null}" class="tab-pane fade show active" id="v-pills-home"
-                             role="tabpanel"
-                             aria-labelledby="v-pills-home-tab" tabindex="0"
-                             th:utext="${@commonUtil.markdown(mbti.love)}">
-                        </div>
                         <div th:if="${mbti.relationship != null}" class="tab-pane fade" id="v-pills-profile"
-                             role="tabpanel"
+                             role="tabpanel" style="max-height: 200px; overflow-y: auto;"
                              aria-labelledby="v-pills-profile-tab" tabindex="0"
                              th:utext="${@commonUtil.markdown(mbti.relationship)}">
                         </div>
+                        <div th:if="${mbti.love != null}" class="tab-pane fade show active" id="v-pills-home"
+                             role="tabpanel" style="max-height: 200px; overflow-y: auto;"
+                             aria-labelledby="v-pills-home-tab" tabindex="0"
+                             th:utext="${@commonUtil.markdown(mbti.love)}">
+                        </div>
+
                         <div th:if="${mbti.celebrity != null}" class="tab-pane fade" id="v-pills-disabled"
-                             role="tabpanel"
+                             role="tabpanel" style="max-height: 200px; overflow-y: auto;"
                              aria-labelledby="v-pills-disabled-tab" tabindex="0"
                              th:utext="${@commonUtil.markdown(mbti.celebrity)}">
                         </div>
                         <div th:if="${mbti.job != null}" class="tab-pane fade" id="v-pills-messages" role="tabpanel"
-                             aria-labelledby="v-pills-messages-tab" tabindex="0"
+                             aria-labelledby="v-pills-messages-tab" tabindex="0" style="max-height: 200px; overflow-y: auto;"
                              th:utext="${@commonUtil.markdown(mbti.job)}">
                         </div>
                     </div>
