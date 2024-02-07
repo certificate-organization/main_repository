@@ -77,16 +77,16 @@
 </div>
     <script>
         $(document).ready(function(){
-            let resetButton = $("#reset");
+        let reset = $("#reset");
 
-            resetButton.on("click", function(e){
-                e.preventDefault();
-                $("#membername").val("");
-                $("#password1").val("");
-                $("#password2").val("");
-                $("#nickname").val("");
-                $("#email").val("");
-                $("#mbtiId").val("0");
+            reset.on("click", function(e){
+            e.preventDefault();
+            $("#membername").val("");
+            $("#password1").val("");
+            $("#password2").val("");
+            $("#nickname").val("");
+            $("#email").val("");
+            $("#mbtiId").val("0");
             });
         });
     </script>
