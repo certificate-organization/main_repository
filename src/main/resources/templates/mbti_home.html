@@ -365,7 +365,7 @@
         </div>
     </main>
     <footer>
-        <script th:inline="javascript">
+        <script th:inline="javascript" th:if="${member != null}">
             $(document).ready(function () {
                 const nickname = [[${member.nickname}]];
 
