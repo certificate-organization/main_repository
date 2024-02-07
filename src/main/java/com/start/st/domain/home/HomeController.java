@@ -45,12 +45,11 @@ public class HomeController {
         model.addAttribute("articlePageByDate", articlePageByDate);
         model.addAttribute("articlePageByLike", articlePageByLike);
         model.addAttribute("articlePageByView", articlePageByView);
-        if (principal.getName() != null) {
+        if (principal != null) {
             Member member = memberService.getMember(principal.getName());
             Page<Article> articleList = this.articleService.getArticlePageByDate(page);
             model.addAttribute("articleList", articleList);
             model.addAttribute("member", member);
-
             Movie movie = new Movie();
             Music music = new Music();
             movie = this.getRandomMovie(member.getMbti().getMovieList());
