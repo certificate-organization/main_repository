@@ -285,7 +285,6 @@
 }
 
 .article-form-img {
-    margin-top: 40px;
     flex-direction: column;
     display:flex;
     justify-content: right;
