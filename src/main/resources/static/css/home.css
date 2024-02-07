@@ -515,7 +515,7 @@ div.left-container {
 .article-list-author {
     color: black;
     font-weight: normal;
-    text-decoration: none
+    text-decoration: none;
 }
 
 .article-list-author:hover {

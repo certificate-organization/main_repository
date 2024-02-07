@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,5 +32,29 @@ public class MusicController {
         Music music = this.musicService.findMusicById(id);
         this.musicService.modify(music, music.getNames(), music.getGenre());
         return "redirect:/";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/genre/music/register")
+    public String registerMusicGenre(Principal principal, @RequestParam("musicGenre") String musicGenre) {
+        this.musicService.create(musicGenre);
+        return "redirect:/genre";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/genre/music/delete")
+    public String deleteMusicGenre(@RequestParam("musicId") Long genreId, Principal principal) {
+        Music music = this.musicService.findMusicById(genreId);
+        this.musicService.deleteMusicGenre(music);
+        return "redirect:/genre";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/name/music")
+    public String registerMovieName(@RequestParam("musicId") Long genreId, Model model, Principal principal,
+                                    @RequestParam("musicNames") List<String> names) {
+        Music music = this.musicService.findMusicById(genreId);
+        this.musicService.modify(music, names, music.getGenre());
+        return "redirect:/genre";
     }
 }

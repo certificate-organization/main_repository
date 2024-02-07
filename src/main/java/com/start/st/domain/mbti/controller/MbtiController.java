@@ -23,6 +23,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequiredArgsConstructor
@@ -57,10 +58,10 @@ public class MbtiController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "접근권한이 없습니다.");
         }
         List<Mbti> mbtiList = this.mbtiService.findAllMbti();
-
+        List<Movie> movieList = this.movieService.findAllMovie();
         List<Music> musicList = this.musicService.findAllMusic();
         model.addAttribute("mbtiList", mbtiList);
-
+        model.addAttribute("movieList", movieList);
         model.addAttribute("musicList", musicList);
         return "information_form";
     }
@@ -69,12 +70,15 @@ public class MbtiController {
     @PostMapping("/information/{id}")
     public String mbtiInformation(@PathVariable("id") Long id, Model model, Principal principal,
                                   @RequestParam("love") String love, @RequestParam("relationship") String relationship,
-                                  @RequestParam("celebrity") String celebrity, @RequestParam("job") String job) {
+                                  @RequestParam("celebrity") String celebrity, @RequestParam("job") String job,
+                                  @RequestParam("movieId") List<Long> movieIds, @RequestParam("musicId") List<Long> musicIds) {
         if (!principal.getName().equals("admin")) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "접근권한이 없습니다.");
         }
         Mbti mbti = this.mbtiService.getMbti(id);
-        this.mbtiService.modify(mbti, love, relationship, celebrity, job);
+        Set<Movie> movieList = this.movieService.getMovieSet(movieIds);
+        Set<Music> musicList = this.musicService.getMusicSet(musicIds);
+        this.mbtiService.modify(mbti, love, relationship, celebrity, job, movieList, musicList);
         return String.format("redirect:/mbti/%s", id);
     }
 }
