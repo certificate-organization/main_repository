@@ -43,4 +43,11 @@ public class Article extends BaseEntity {
 
     @Column
     private String radioButtonValue;
+
+    private boolean likedByCurrentUser;
+
+    public void setLikedByCurrentUser(boolean likedByCurrentUser) {
+        this.likedByCurrentUser = likedByCurrentUser;
+    }
+
 }

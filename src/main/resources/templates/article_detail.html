@@ -44,11 +44,18 @@
                             </div>
                             <div class="card-body">
                                 <p class="card-text" th:utext="${@commonUtil.markdown(article.content)}"></p>
-                                <a th:href="@{|/article/${article.id}/like|}" class="btn btn-sm btn-outline-secondary">
-                                    추천<i style="padding-left:5px;" class="fa-solid fa-thumbs-up"></i>
-                                    <span class="badge rounded-pill bg-success"
-                                          th:text="${#lists.size(article.likers)}"></span>
+                                <!-- 추천 버튼 -->
+                                <a th:href="@{|/article/${article.id}/like|}" class="btn btn-sm btn-outline-secondary" th:if="${not article.likedByCurrentUser}">
+                                    추천 <i style="padding-left:5px;" class="fa-solid fa-thumbs-up"></i>
+                                    <span class="badge rounded-pill bg-success" th:text="${#lists.size(article.likers)}"></span>
                                 </a>
+
+                                <!-- 추천 취소 버튼 -->
+                                <a th:href="@{|/article/${article.id}/like|}" class="btn btn-sm btn-outline-secondary" th:if="${article.likedByCurrentUser}">
+                                    취소 <i style="padding-left:5px;" class="fa-solid fa-thumbs-down"></i>
+                                    <span class="badge rounded-pill bg-success" th:text="${#lists.size(article.likers)}"></span>
+                                </a>
+
                                 <a th:href="@{|/article/${article.id}/modify|}"
                                    class="btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
                                    th:if="${article.author != null and #authentication.getPrincipal().getUsername() == article.author.membername}"
@@ -107,6 +114,12 @@
                             <a th:href="@{|/comment/like/${comment.id}|}" class="btn btn-sm btn-outline-secondary"
                                th:if="${not comment.likedByCurrentUser}">
                                 좋아요<i style="padding-left:5px;" class="fa-solid fa-heart"></i>
+                                <span class="badge rounded-pill bg-success"
+                                      th:text="${#lists.size(comment.likers)}"></span>
+                            </a>
+                            <a th:href="@{|/comment/like/${comment.id}|}" class="btn btn-sm btn-outline-secondary"
+                               th:if="${comment.likedByCurrentUser}">
+                                좋아요 취소 <i style="padding-left:5px;" class="fa-solid fa-heart-broken"></i>
                                 <span class="badge rounded-pill bg-success"
                                       th:text="${#lists.size(comment.likers)}"></span>
                             </a>
