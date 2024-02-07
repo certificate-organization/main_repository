@@ -2,6 +2,9 @@ spring:
   profiles:
     active: dev  # 기본적으로는 application-dev.yml 이 로딩된다는 의미
     include: secret # active 되는 설정파일 (application-dev.yml) 다음에 application-secret.yml 이 로딩된다는 의미
+  thymeleaf:
+    servlet:
+      produce-partial-output-while-processing: false
   security:
     oauth2:
       client:
