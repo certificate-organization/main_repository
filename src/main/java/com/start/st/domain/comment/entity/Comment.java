@@ -2,7 +2,8 @@ package com.start.st.domain.comment.entity;
 
 import com.start.st.domain.article.entity.Article;
 import com.start.st.domain.member.entity.Member;
-import com.start.st.domain.reportComment.entity.ReportComment;
+import com.start.st.domain.reportComment.ReportComment;
+
 import com.start.st.global.jpa.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;

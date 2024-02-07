@@ -1,6 +1,5 @@
-package com.start.st.domain.reportArticle.entity;
+package com.start.st.domain.reportComment;
 
-import com.start.st.domain.article.entity.Article;
 import com.start.st.domain.comment.entity.Comment;
 import com.start.st.domain.member.entity.Member;
 import com.start.st.global.jpa.BaseEntity;
@@ -19,23 +18,23 @@ import java.time.LocalDateTime;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReportArticle extends BaseEntity {
+public class ReportComment extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     @ManyToOne
     private Member author;
     @ManyToOne
-    private Article article;
+    private Comment comment;
     private String subject;
     private String content;
     private String radioButtonValue;
-
     private String reportType;
 
-//    @CreatedDate
-//    private LocalDateTime createDate;
+    @CreatedDate
+   private LocalDateTime createDate;
 //    @LastModifiedDate
 //    private LocalDateTime modifyDate;
 }

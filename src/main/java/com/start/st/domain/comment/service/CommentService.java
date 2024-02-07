@@ -6,7 +6,8 @@ import com.start.st.domain.comment.Repository.CommentRepository;
 import com.start.st.domain.comment.Repository.ReportCommentRepository;
 import com.start.st.domain.comment.entity.Comment;
 import com.start.st.domain.member.entity.Member;
-import com.start.st.domain.reportComment.entity.ReportComment;
+
+import com.start.st.domain.reportComment.ReportComment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
