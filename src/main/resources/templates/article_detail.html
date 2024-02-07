@@ -1,76 +1,79 @@
 <html layout:decorate="~{layout}">
-<div layout:fragment="content" class="container my-3" style="width: 1000px;">
-    <div class="col-6">
-        <div class="wrap">
-            <div class="dark_mode">
-                <div class="inner">
-                    <input type="radio" name="toggle" id="toggle_light" checked><label for="toggle_light"
-                                                                                       class="light_icon"><i
-                        class="fas fa-sun light_icon"></i></label>
-                    <input type="radio" name="toggle" id="toggle_dark"><label for="toggle_dark" class="dark_icon"><i
-                        class="fas fa-moon dark_icon"></i></label>
-                    <div class="dark_mode-bg"></div>
+    <div layout:fragment="content" class="container my-3" style="width: 1000px;">
+        <div class="col-6">
+            <div class="wrap">
+                <div class="dark_mode">
+                    <div class="inner">
+                        <input type="radio" name="toggle" id="toggle_light" checked><label for="toggle_light" class="light_icon"><i class="fas fa-sun light_icon"></i></label>
+                        <input type="radio" name="toggle" id="toggle_dark"><label for="toggle_dark" class="dark_icon"><i class="fas fa-moon dark_icon"></i></label>
+                        <div class="dark_mode-bg"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="TOP">
+                <div class="logo">
+                    <a class="article-logo" th:href="@{|/mbti/${article.mbti.id}|}"
+                       th:text="|${article.mbti.name} 게시판|"></a>
                 </div>
             </div>
         </div>
-        <div class="TOP">
-            <div class="logo">
-                <a class="article-logo" th:href="@{|/mbti/${article.mbti.id}|}"
-                   th:text="|${article.mbti.name} 게시판|"></a>
-            </div>
-        </div>
-    </div>
-    <table style="table-layout:fixed; word-wrap:break-word;clear:both;">
-        <tbody>
-        <tr>
-            <td>
-                <div class="article-detail" style="width: 1000px;">
-                    <div class="card-header" style="width: 1000px;">
-                        <div class="article-subject">
-                            <span th:text="${article.subject}"></span>
-                        </div>
-                        <div class="article-information">
-                            <div class="article-author-date">
-                                <a class="article-author" href="#"
-                                   th:text="|${article.author.membername}[${article.author.mbti.name}]|"></a>
-                                <span class="article-between-line"
-                                      th:text="${#temporals.format(article.createDate, 'yyyy-MM-dd HH:mm')}"></span>
+        <table style="table-layout:fixed; word-wrap:break-word;clear:both;">
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="article-detail" style="width: 1000px;">
+                            <div class="card-header" style="width: 1000px;">
+                                <div class="article-subject">
+                                    <span th:text="${article.subject}"></span>
+                                </div>
+                                <div class="article-information">
+                                    <div class="article-author-date">
+                                        <a class="article-author" href="#"
+                                           th:text="|${article.author.membername}[${article.author.mbti.name}]|"></a>
+                                        <span class="article-between-line"
+                                              th:text="${#temporals.format(article.createDate, 'yyyy-MM-dd HH:mm')}"></span>
+                                    </div>
+                                    <div class="article-like">
+                                        <span th:text="|조회 : ${article.viewCount}|"></span>
+                                        <span class="article-between-line"
+                                              th:text="|추천 : ${#lists.size(article.likers)}|"></span>
+                                        <span class="article-between-line"
+                                              th:text="|댓글 : ${#lists.size(article.commentList)}"></span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="article-like">
-                                <span th:text="|조회 : ${article.viewCount}|"></span>
-                                <span class="article-between-line"
-                                      th:text="|추천 : ${#lists.size(article.likers)}|"></span>
-                                <span class="article-between-line"
-                                      th:text="|댓글 : ${#lists.size(article.commentList)}"></span>
+                            <div class="card-body">
+                                <p class="card-text" th:utext="${@commonUtil.markdown(article.content)}"></p>
+                                <!-- 추천 버튼 -->
+                                <a th:href="@{|/article/${article.id}/like|}" class="btn btn-sm btn-outline-secondary" th:if="${not article.likedByCurrentUser}">
+                                    추천 <i style="padding-left:5px;" class="fa-solid fa-thumbs-up"></i>
+                                    <span class="badge rounded-pill bg-success" th:text="${#lists.size(article.likers)}"></span>
+                                </a>
+
+                                <!-- 추천 취소 버튼 -->
+                                <a th:href="@{|/article/${article.id}/like|}" class="btn btn-sm btn-outline-secondary" th:if="${article.likedByCurrentUser}">
+                                    취소 <i style="padding-left:5px;" class="fa-solid fa-thumbs-down"></i>
+                                    <span class="badge rounded-pill bg-success" th:text="${#lists.size(article.likers)}"></span>
+                                </a>
+
+                                <a th:href="@{|/article/${article.id}/modify|}"
+                                   class="btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
+                                   th:if="${article.author != null and #authentication.getPrincipal().getUsername() == article.author.membername}"
+                                   th:text="수정"></a>
+                                <a th:href="@{|/article/${article.id}/delete|}"
+                                   class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
+                                   th:if="${article.author != null and #authentication.getPrincipal().getUsername() == article.author.membername}"
+                                   th:text="삭제"></a>
+                                <!-- 게시글 모달 버튼 -->
+                                <button class="btn btn-sm btn-outline-secondary" data-bs-target="#reportArticleModal" data-bs-toggle="modal"
+                                        type="button">신고
+                                </button>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text" th:utext="${@commonUtil.markdown(article.content)}"></p>
-                        <a th:href="@{|/article/${article.id}/like|}" class="btn btn-sm btn-outline-secondary">
-                            추천<i style="padding-left:5px;" class="fa-solid fa-thumbs-up"></i>
-                            <span class="badge rounded-pill bg-success"
-                                  th:text="${#lists.size(article.likers)}"></span>
-                        </a>
-                        <a th:href="@{|/article/${article.id}/modify|}"
-                           class="btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
-                           th:if="${article.author != null and #authentication.getPrincipal().getUsername() == article.author.membername}"
-                           th:text="수정"></a>
-                        <a th:href="@{|/article/${article.id}/delete|}"
-                           class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
-                           th:if="${article.author != null and #authentication.getPrincipal().getUsername() == article.author.membername}"
-                           th:text="삭제"></a>
-                        <!-- 게시글 모달 버튼 -->
-                        <button class="btn btn-sm btn-outline-secondary" data-bs-target="#reportArticleModal"
-                                data-bs-toggle="modal"
-                                type="button">신고
-                        </button>
-                    </div>
-                </div>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
     <!-- 최상위 댓글 추가 폼 -->
     <div class="card-header">
@@ -115,6 +118,12 @@
                                 <span class="badge rounded-pill bg-success"
                                       th:text="${#lists.size(comment.likers)}"></span>
                             </a>
+                            <a th:href="@{|/comment/like/${comment.id}|}" class="btn btn-sm btn-outline-secondary"
+                               th:if="${comment.likedByCurrentUser}">
+                                좋아요 취소 <i style="padding-left:5px;" class="fa-solid fa-heart-broken"></i>
+                                <span class="badge rounded-pill bg-success"
+                                      th:text="${#lists.size(comment.likers)}"></span>
+                            </a>
                             <!-- 댓글 모달 버튼 -->
                             <button type="button" class="btn btn-sm btn-outline-secondary reportComment"
                                     data-bs-toggle="modal"
@@ -122,6 +131,7 @@
                                     th:data-comment-id="${comment.id}"
                                     id="reportCommentButton">신고
                             </button>
+                            <!-- <button class="btn btn-sm btn-outline-secondary" id="rec_btn">댓글 달기</button>-->
                             <span th:if="${comment.likedByCurrentUser}">
                                 <span class="badge rounded-pill bg-success"
                                       th:text="${#lists.size(comment.likers)}"></span>

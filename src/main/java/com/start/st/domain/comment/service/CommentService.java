@@ -58,8 +58,8 @@ public class CommentService {
         this.commentRepository.save(comment);
     }
 
-    public void unlikeComment(Comment comment, Member unLiker){
-        comment.getLikers().remove(unLiker);
+    public void unlikeComment(Comment comment, Member liker){
+        comment.getLikers().remove(liker);
         this.commentRepository.save(comment);
     }
     public void report(Comment comment, String reportContent, Member member, String reportType) {

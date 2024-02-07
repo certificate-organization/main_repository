@@ -8,18 +8,22 @@ import com.start.st.domain.member.entity.Member;
 import com.start.st.domain.member.service.MemberService;
 import com.start.st.domain.movie.entity.Movie;
 import com.start.st.domain.movie.service.MovieService;
+import com.start.st.domain.music.entity.Music;
+import com.start.st.domain.music.service.MusicService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 @Controller
 @RequiredArgsConstructor
@@ -27,38 +31,74 @@ public class HomeController {
     private final MbtiService mbtiService;
     private final ArticleService articleService;
     private final MovieService movieService;
+    private final MusicService musicService;
     private final MemberService memberService;
 
     @GetMapping("/")
     public String root(Model model, Principal principal, @RequestParam(value = "page", defaultValue = "0") int page) {
         List<Mbti> mbtiList = this.mbtiService.findAllMbti();
-        List<Movie> movieList = this.movieService.findAllMovie();
+
         Page<Article> articlePageByDate = this.articleService.getArticlePageByDate(page);
         Page<Article> articlePageByLike = this.articleService.getArticlePageByLike(page);
         Page<Article> articlePageByView = this.articleService.getArticlePageByView(page);
         model.addAttribute("mbtiList", mbtiList);
-        model.addAttribute("movieList", movieList);
         model.addAttribute("articlePageByDate", articlePageByDate);
         model.addAttribute("articlePageByLike", articlePageByLike);
         model.addAttribute("articlePageByView", articlePageByView);
         if (principal != null) {
-            String username = principal.getName();
             Member member = memberService.getMember(principal.getName());
+            Movie movie = this.getRandomMovie(member.getMbti().getMovieList());
+            Music music = this.getRandomMusic(member.getMbti().getMusicList());
+            model.addAttribute("movie", movie);
+            model.addAttribute("music", music);
             Page<Article> articleList = this.articleService.getArticlePageByDate(page);
             model.addAttribute("articleList", articleList);
-            model.addAttribute("nickname", member.getNickname());
+            model.addAttribute("member", member);
             return "mbti_home";
         } else {
             return "mbti_home";
         }
     }
 
-
-    @GetMapping("/test")
-    public String test () {
-
-        return "test";
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/genre")
+    public String modifyGenre(Model model, Principal principal) {
+        if (!principal.getName().equals("admin")) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "접근권한이 없습니다.");
+        }
+        List<Movie> movieList = this.movieService.findAllMovie();
+        List<Music> musicList = this.musicService.findAllMusic();
+        model.addAttribute("movieList", movieList);
+        model.addAttribute("musicList", musicList);
+        return "genre_form";
     }
 
-
+    public Movie getRandomMovie(Set<Movie> movieSet) {
+        if (movieSet.isEmpty()) {
+            return null;
+        }
+        int randomIndex = new Random().nextInt(movieSet.size());
+        int currentIndex = 0;
+        for (Movie movie : movieSet) {
+            if (currentIndex == randomIndex) {
+                return movie;
+            }
+            currentIndex++;
+        }
+        return null;
+    }
+    public Music getRandomMusic(Set<Music> musicSet) {
+        if (musicSet.isEmpty()) {
+            return null;
+        }
+        int randomIndex = new Random().nextInt(musicSet.size());
+        int currentIndex = 0;
+        for (Music music : musicSet) {
+            if (currentIndex == randomIndex) {
+                return music;
+            }
+            currentIndex++;
+        }
+        return null;
+    }
 }
