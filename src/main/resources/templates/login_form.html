@@ -1,13 +1,12 @@
-<!--<html layout:decorate="~{layout}">-->
-<!--<div layout:fragment="content">-->
+<html layout:decorate="~{layout}">
+<div layout:fragment="content">
 
 <div class="m_container">
 
     <h1>로그인</h1>
     <ul class="m_links">
         <li style="display: flex; align-items: center;">
-            <i class="fa fa-user-plus"></i>
-            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/member/signup}" style="text-decoration-line: none" >회원가입</a>
+            <a th:href="@{/member/signup}"> <i class="fa fa-user-plus"></i>회원가입</a>
         </li>
         <li>
             <a href="#" id="reset">초기화</a>
@@ -52,5 +51,5 @@
         });
     });
 </script>
-<!--</div>-->
-<!--</html>-->
+</div>
+</html>
