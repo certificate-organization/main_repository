@@ -109,7 +109,8 @@
             <li th:if="${comment.parent == null}" th:each="comment : ${article.commentList}">
                 <div class="a_comment">
                     <div class="a_comment_top">
-                        <span th:text="|${comment.author.nickname}[${comment.author.mbti.name}]|"></span>
+                        <span class="comment-author" th:text="|${comment.author.nickname}[${comment.author.mbti.name}]|"></span>
+                        <span class="comment-time" th:text="${comment.createDate}"></span>
                         <div class="a_comment_part">
                             <a th:if="${comment.author != null and #authentication.getPrincipal().getUsername() == comment.author.membername}"
                                th:href="@{|/comment/modify/${comment.id}|}" class="btn btn-sm btn-outline-secondary"
@@ -140,7 +141,6 @@
                                     th:data-comment-id="${comment.id}"
                                     id="reportCommentButton">신고
                             </button>
-                            <!-- <button class="btn btn-sm btn-outline-secondary" id="rec_btn">댓글 달기</button>-->
                             <span th:if="${comment.likedByCurrentUser}">
                                 <span class="badge rounded-pill bg-success"
                                       th:text="${#lists.size(comment.likers)}"></span>
@@ -176,7 +176,8 @@
                     <li th:each="childrenComment : ${comment.childrenCommentList}">
                         <div class="a_re-comment">
                             <div class="a_re-comment_top">
-                                <span th:text="|${childrenComment.author.nickname}[${childrenComment.author.mbti.name}]|"></span>
+                                <span class="comment-author" th:text="|${childrenComment.author.nickname}[${childrenComment.author.mbti.name}]|"></span>
+                                <span class="comment-time" th:text="${childrenComment.createDate}"></span>
                                 <div class="a_re-comment_part">
                                     <a th:if="${childrenComment.author != null and #authentication.getPrincipal().getUsername() == childrenComment.author.membername}"
                                        th:href="@{|/comment/modify/${childrenComment.id}|}"
@@ -309,6 +310,39 @@
             </div>
         </div>
     </div>
+    <script th:inline="javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            var commentTimeElements = document.querySelectorAll('.comment-time');
+
+            commentTimeElements.forEach(function(element) {
+                var commentTimestamp = new Date(element.innerText);
+                var currentTime = new Date();
+                var timeDifference = Math.floor((currentTime - commentTimestamp) / 1000);
+
+                var timeString;
+
+                if (timeDifference < 60) {
+                    timeString = timeDifference + '초 전';
+                } else if (timeDifference < 3600) {
+                    var minutes = Math.floor(timeDifference / 60);
+                    timeString = minutes + '분 전';
+                } else if (timeDifference < 86400) {
+                    var hours = Math.floor(timeDifference / 3600);
+                    timeString = hours + '시간 전';
+                } else if (timeDifference < 2592000) { // 30일(30 * 24 * 60 * 60 초)
+                    var days = Math.floor(timeDifference / 86400);
+                    timeString = days + '일 전';
+                } else {
+                    // 30일 이상 경과한 경우 년-월-일 형식으로 표현 ex) 2024-02-08
+                    timeString = commentTimestamp.getFullYear() + '-' +
+                                 ('0' + (commentTimestamp.getMonth() + 1)).slice(-2) + '-' +
+                                 ('0' + commentTimestamp.getDate()).slice(-2);
+                }
+
+                element.innerText = timeString;
+            });
+        });
+    </script>
     <script>
         function toggleCommentForm(button) {
             var commentId = button.getAttribute("data-comment-id");
