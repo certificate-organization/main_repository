@@ -1,5 +1,6 @@
 package com.start.st.domain.member.controller;
 
+import com.start.st.domain.email.service.EmailService;
 import com.start.st.domain.mbti.entity.Mbti;
 import com.start.st.domain.mbti.service.MbtiService;
 import com.start.st.domain.member.entity.Member;
@@ -29,6 +30,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final MbtiService mbtiService;
+    private final EmailService emailService;
 
     @GetMapping("/signup")
     public String memberSignup(Model model, MemberSignupForm memberSignupForm) {
@@ -65,6 +67,7 @@ public class MemberController {
         Mbti mbti = this.mbtiService.getMbti(memberSignupForm.getMbtiId());
         this.memberService.create(memberSignupForm.getMembername(), memberSignupForm.getPassword1(),
                 memberSignupForm.getNickname(), memberSignupForm.getEmail(), mbti, memberImg);
+        emailService.send(memberSignupForm.getEmail(), "서비스 가입을 환영합니다!", "회원가입 환영 메일");
         return "redirect:/member/login";
     }
 
