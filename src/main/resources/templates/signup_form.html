@@ -1,80 +1,90 @@
 <html layout:decorate="~{layout}">
 <div layout:fragment="content">
 
-<div class="m_container">
-    <h1>회원가입</h1>
+    <div class="m_container">
+        <h1>회원가입</h1>
 
-    <ul class="m_links">
-        <li>
-            <a href="/" id="home">홈으로 돌아가기</a>
-        </li>
-        <li>
-            <a href="#" id="reset">다시 입력하기</a>
-        </li>
-    </ul>
+        <ul class="m_links">
+            <li>
+                <a href="/" id="home">홈으로 돌아가기</a>
+            </li>
+            <li>
+                <a href="#" id="reset">다시 입력하기</a>
+            </li>
+        </ul>
 
-    <form class="m_form" th:action="@{/member/signup}" th:object="${memberSignupForm}" method="post">
-        <div th:replace="~{form_errors :: formErrorsFragment}"></div>
-    <form th:action="@{/member/signup}" th:object="${memberSignupForm}" method="post">
+        <form class="m_form" th:action="@{/member/signup}" th:object="${memberSignupForm}" method="post"
+              enctype="multipart/form-data">
+            <div th:replace="~{form_errors :: formErrorsFragment}"></div>
+            <div class="separator">
+                <p>가입</p>
+            </div>
+            <div class="title__p">
+                <p>아이디</p>
+            </div>
+            <div class="first-input input__block first-input__block">
+                <input type="text" name="membername" th:field="*{membername}" class="form-control"
+                       placeholder="아이디를 입력하세요">
+                <div th:if="${#fields.hasErrors('membername')}" th:errors="*{membername}" class="form-error"></div>
+            </div>
+            <div class="title__p">
+                <p>비밀번호</p>
+            </div>
+            <div class="input__block">
+                <input type="password" name="password1" th:field="*{password1}" class="form-control"
+                       placeholder="비밀번호를 입력하세요">
+                <div th:if="${#fields.hasErrors('password1')}" th:errors="*{password1}" class="form-error"></div>
+            </div>
+            <div class="title__p">
+                <p>비밀번호 재확인</p>
+            </div>
+            <div class="input__block">
+                <input type="password" name="password2" th:field="*{password2}" class="form-control"
+                       placeholder="비밀번호 재확인 입니다.">
+                <div th:if="${#fields.hasErrors('password2')}" th:errors="*{password2}" class="form-error"></div>
+            </div>
+            <div class="title__p">
+                <p>닉네임</p>
+            </div>
+            <div class="input__block">
+                <input type="text" name="nickname" th:field="*{nickname}" class="form-control" placeholder="닉네임을 입력하세요">
+                <div th:if="${#fields.hasErrors('nickname')}" th:errors="*{nickname}" class="form-error"></div>
+            </div>
+            <div class="title__p">
+                <p>이메일</p>
+            </div>
+            <div class="input__block">
+                <input type="email" name="email" th:field="*{email}" class="form-control" placeholder="이메일을 입력하세요">
+                <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="form-error"></div>
+            </div>
+            <div class="title__p">
+                <p>MBTI</p>
+                <select name="mbtiId" id="mbtiId" class="form-select" aria-label="Default select example">
+                    <option value="0" style="text-center">== 선택 ==</option>
+                    <option th:each="mbti : ${mbtiList}" th:value="${mbti.id}" th:text="${mbti.name}"></option>
+                </select>
+            </div>
+            <div th:if="${#fields.hasErrors('mbtiId')}" th:errors="*{mbtiId}" class="form-error"></div>
+            <br>
+            <div class="title__p">
+                <p>프로필</p>
+                <div class="article-form-img">
+                    <input type="file" name="memberImg"
+                           accept="image/png, image/gif, image/jpeg" class="form-control">
+                </div>
+            </div>
+            <button class="signin__btn">
+                회원가입
+            </button>
+        </form>
         <div class="separator">
-            <p>가입</p>
+            <p>OR</p>
         </div>
-        <div class="title__p">
-            <p>아이디</p>
-        </div>
-        <div class="first-input input__block first-input__block">
-            <input type="text" name="membername" th:field="*{membername}" class="form-control" placeholder="아이디를 입력하세요">
-            <div th:if="${#fields.hasErrors('membername')}" th:errors="*{membername}" class="form-error"></div>
-        </div>
-        <div class="title__p">
-            <p>비밀번호</p>
-        </div>
-        <div class="input__block">
-            <input type="password" name="password1" th:field="*{password1}" class="form-control" placeholder="비밀번호를 입력하세요">
-            <div th:if="${#fields.hasErrors('password1')}" th:errors="*{password1}" class="form-error"></div>
-        </div>
-        <div class="title__p">
-            <p>비밀번호 재확인</p>
-        </div>
-        <div class="input__block">
-            <input type="password" name="password2" th:field="*{password2}" class="form-control" placeholder="비밀번호 재확인 입니다.">
-            <div th:if="${#fields.hasErrors('password2')}" th:errors="*{password2}" class="form-error"></div>
-        </div>
-        <div class="title__p">
-            <p>닉네임</p>
-        </div>
-        <div class="input__block">
-            <input type="text" name="nickname" th:field="*{nickname}" class="form-control" placeholder="닉네임을 입력하세요">
-            <div th:if="${#fields.hasErrors('nickname')}" th:errors="*{nickname}" class="form-error"></div>
-        </div>
-        <div class="title__p">
-            <p>이메일</p>
-        </div>
-        <div class="input__block">
-            <input type="email" name="email" th:field="*{email}" class="form-control" placeholder="이메일을 입력하세요">
-            <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="form-error"></div>
-        </div>
-        <div class="title__p">
-            <p>MBTI</p>
-            <select name="mbtiId" id="mbtiId" class="form-select" aria-label="Default select example">
-                <option value="0" style="text-center">== 선택 ==</option>
-                <option th:each="mbti : ${mbtiList}" th:value="${mbti.id}" th:text="${mbti.name}"></option>
-            </select>
-        </div>
-        <div th:if="${#fields.hasErrors('mbtiId')}" th:errors="*{mbtiId}" class="form-error"></div>
-        <br>
-        <button class="signin__btn">
-            회원가입
+        <button class="kakao__btn">
+            <i class="fa fa-comment"></i>
+            <a href="/oauth2/authorization/kakao" style="text-decoration-line: none">카카오 로그인</a>
         </button>
-    </form>
-    <div class="separator">
-        <p>OR</p>
     </div>
-    <button class="kakao__btn">
-        <i class="fa fa-comment"></i>
-        <a href="/oauth2/authorization/kakao" style="text-decoration-line: none">카카오 로그인</a>
-    </button>
-</div>
     <script>
         $(document).ready(function(){
         let reset = $("#reset");

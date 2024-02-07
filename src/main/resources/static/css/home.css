@@ -571,3 +571,15 @@ div.left-container {
 .hideForm {
     display: none;
 }
+
+.article-author {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.article-author:hover {
+  color: #47BBEC;
+  font-weight: bold;
+  text-decoration: none;
+}

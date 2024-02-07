@@ -14,6 +14,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.util.List;
@@ -37,7 +39,8 @@ public class MemberController {
 
     @PostMapping("/signup")
     public String memberSignup(@Valid MemberSignupForm memberSignupForm,
-                               BindingResult bindingResult, Model model) {
+                               BindingResult bindingResult, Model model,
+                               @RequestParam("memberImg") MultipartFile memberImg) {
         List<Mbti> mbtiList = this.mbtiService.findAllMbti();
         if (this.memberService.getMember(memberSignupForm.getMembername()) != null) {
             bindingResult.rejectValue("membername", "duplicateMembernameError",
@@ -61,7 +64,7 @@ public class MemberController {
         }
         Mbti mbti = this.mbtiService.getMbti(memberSignupForm.getMbtiId());
         this.memberService.create(memberSignupForm.getMembername(), memberSignupForm.getPassword1(),
-                memberSignupForm.getNickname(), memberSignupForm.getEmail(), mbti);
+                memberSignupForm.getNickname(), memberSignupForm.getEmail(), mbti, memberImg);
         return "redirect:/member/login";
     }
 
@@ -82,7 +85,8 @@ public class MemberController {
 
     @PostMapping("/modify")
     public String memberModify(@Valid MemberModifyForm memberModifyForm, BindingResult bindingResult,
-                               Model model, Principal principal) {
+                               Model model, Principal principal,
+                               @RequestParam("memberImg") MultipartFile memberImg) {
         Member member = this.memberService.getMember(principal.getName());
         List<Mbti> mbtiList = this.mbtiService.findAllMbti();
         mbtiList.remove(member.getMbti());
@@ -118,7 +122,7 @@ public class MemberController {
         }
         Mbti mbti = this.mbtiService.getMbti(memberModifyForm.getMbtiId());
         this.memberService.modify(memberModifyForm.getMembername(), memberModifyForm.getNickname(),
-                memberModifyForm.getEmail(), mbti, memberModifyForm.getPassword1());
+                memberModifyForm.getEmail(), mbti, memberModifyForm.getPassword1(), memberImg);
         return "redirect:/member/modify";
     }
 }
