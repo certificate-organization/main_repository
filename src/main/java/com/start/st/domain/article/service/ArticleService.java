@@ -91,8 +91,16 @@ public class ArticleService {
 
     public void like(Article article, Member member) {
         article.getLikers().add(member);
+        article.setLikedByCurrentUser(true);
         this.articleRepository.save(article);
     }
+
+    public void unlike(Article article, Member member) {
+        article.getLikers().remove(member);
+        article.setLikedByCurrentUser(false);
+        this.articleRepository.save(article);
+    }
+
 
     public void view(Article article, Long viewCount) {
         Article viewArticle = article.toBuilder()
@@ -112,4 +120,6 @@ public class ArticleService {
         this.reportArticleRepository.save(reportArticle);
     }
 
+    public void saveArticle(Article article) {
+    }
 }
