@@ -75,20 +75,21 @@
         <a href="/oauth2/authorization/kakao" style="text-decoration-line: none">카카오 로그인</a>
     </button>
 </div>
-<script>
-    $(document).ready(function(){
-        let reset = $("#reset");
+    <script>
+        $(document).ready(function(){
+            let resetButton = $("#reset");
 
-        reset.on("click", function(e){
-            e.preventDefault();
-            $("#membername").val("");
-            $("#password1").val("");
-            $("#password2").val("");
-            $("#nickname").val("");
-            $("#email").val("");
-            $("#mbtiId").val("0");
+            resetButton.on("click", function(e){
+                e.preventDefault();
+                $("#membername").val("");
+                $("#password1").val("");
+                $("#password2").val("");
+                $("#nickname").val("");
+                $("#email").val("");
+                $("#mbtiId").val("0");
+            });
         });
-    });
-</script>
+    </script>
+
 </div>
 </html>
