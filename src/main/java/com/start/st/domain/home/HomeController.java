@@ -50,6 +50,7 @@ public class HomeController {
             Page<Article> articleList = this.articleService.getArticlePageByDate(page);
             model.addAttribute("articleList", articleList);
             model.addAttribute("member", member);
+
             Movie movie = new Movie();
             Music music = new Music();
             movie = this.getRandomMovie(member.getMbti().getMovieList());
