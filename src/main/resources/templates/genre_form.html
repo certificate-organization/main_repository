@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko" layout:decorate="~{layout}">
+
+<body>
+<div layout:fragment="content" class="article-container">
+    <div class="col-6">
+        <div class="TOP">
+            <div class="logo">
+                <a class="article-logo" th:text="|수정페이지|"></a>
+            </div>
+        </div>
+    </div>
+    <div class="genre-container">
+        <div class="genre-section">
+            <span class="genre-title">영화 장르</span>
+            <div class="section-container">
+                <div class="genre-btn">
+                    <form th:action="@{/genre/movie/register}" method="post">
+                        <input type="text" name="movieGenre">
+                        <button type="submit" class="create-btn">등록</button>
+                    </form>
+                </div>
+                <form th:action="@{/genre/movie/delete}">
+                    <div class="scrollable-container">
+                        <div th:each="movie : ${movieList}">
+                            <input class="form-check-input" name="movieId" th:id="'genre-' + ${movie.id}" type="radio"
+                                   th:value="${movie.id}">
+                            <label class="form-check-label" th:for="'genre-' + ${movie.id}"
+                                   th:text="${movie.genre}"></label>
+                        </div>
+                    </div>
+                    <div class="genre-btn">
+                        <button type="submit" class="back-btn">삭제</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="genre-section">
+            <span class="genre-title">음악 장르</span>
+            <div class="section-container">
+                <div class="genre-btn">
+                    <form th:action="@{/genre/music/register}" method="post">
+                        <input type="text" name="musicGenre">
+                        <button type="submit" class="genre-create-btn">등록</button>
+                    </form>
+                </div>
+                <form th:action="@{/genre/music/delete}">
+                    <div class="scrollable-container">
+                        <div th:each="music : ${musicList}">
+                            <input class="form-check-input" name="musicId" th:id="'genre-' + ${music.id}" type="radio"
+                                   th:value="${music.id}">
+                            <label class="form-check-label" th:for="'genre-' + ${music.id}"
+                                   th:text="${music.genre}"></label>
+                        </div>
+                    </div>
+                    <div class="genre-btn">
+                        <button type="submit" class="genre-delete-btn">삭제</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="genre-container">
+        <div class="genre-section">
+            <form th:action="@{/name/movie}" method="post" class="section-container">
+                <p class="genre-title">장르 선택</p>
+                <select name="movieId" id="movieId" class="form-select" aria-label="Default select example">
+                    <option value="0" style="text-center">== 선택 ==</option>
+                    <option th:each="movie : ${movieList}" th:value="${movie.id}" th:text="${movie.genre}"></option>
+                </select>
+                <div class="add-name-section">
+                <div id="movieForm" class="name-section"></div>
+                </div>
+                <div class="genre-btn">
+                    <button type="button" onclick="addInputMovie()" class="genre-delete-btn">추가</button>
+                    <button type="submit" class="create-btn">저장</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="genre-section">
+            <form th:action="@{/name/music}" method="post" class="section-container">
+                <p class="genre-title">장르 선택</p>
+                <select name="musicId" id="musicId" class="form-select" aria-label="Default select example">
+                    <option value="0" style="text-center">== 선택 ==</option>
+                    <option th:each="music : ${musicList}" th:value="${music.id}" th:text="${music.genre}"></option>
+                </select>
+                <div class="add-name-section">
+                <div id="musicForm" class="name-section"></div>
+                </div>
+                <div class="genre-btn">
+                    <button type="button" onclick="addInputMusic()" class="genre-delete-btn">추가</button>
+                    <button type="submit" class="create-btn">저장</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function addInputMovie() {
+            var container = document.getElementById('movieForm');
+            var input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'movieNames';
+            container.appendChild(input);
+        }
+    </script>
+
+    <script>
+        function addInputMusic() {
+            var container = document.getElementById('musicForm');
+            var input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'musicNames';
+            container.appendChild(input);
+        }
+    </script>
+</body>
+</html>
+
+
