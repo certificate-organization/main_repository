@@ -136,7 +136,7 @@
                                     </td>
                                     <td>
                                         <a class="article-list-author" href="#"
-                                           th:text="|${article.author.membername}[${article.author.mbti.name}]|"></a>
+                                           th:text="|${article.author.nickname}[${article.author.mbti.name}]|"></a>
                                     </td>
                                     <td style="width: 6%" th:text="${article.viewCount}"></td>
                                     <td style="width: 6%" th:text="${#lists.size(article.likers)}|"></td>
@@ -168,7 +168,7 @@
                                     </td>
                                     <td>
                                         <a class="article-list-author" href="#"
-                                           th:text="|${article.author.membername}[${article.author.mbti.name}]|"></a>
+                                           th:text="|${article.author.nickname}[${article.author.mbti.name}]|"></a>
                                     </td>
                                     <td style="width: 6%" th:text="${article.viewCount}"></td>
                                     <td style="width: 6%" th:text="${#lists.size(article.likers)}|"></td>
@@ -200,7 +200,7 @@
                                     </td>
                                     <td>
                                         <a class="article-list-author" href="#"
-                                           th:text="|${article.author.membername}[${article.author.mbti.name}]|"></a>
+                                           th:text="|${article.author.nickname}[${article.author.mbti.name}]|"></a>
                                     </td>
                                     <td style="width: 6%" th:text="${article.viewCount}"></td>
                                     <td style="width: 6%" th:text="${#lists.size(article.likers)}|"></td>
@@ -215,13 +215,13 @@
             <div class="mm">
                 <div th:if="${member != null}" class="movie">
                     <span style="font-size: large;">영화 추천</span>
-                    <div>
+                    <div th:if="${movie != null}">
                         <span th:text="${movie.names}"></span>
                     </div>
                 </div>
                 <div th:if="${member != null}" class="music">
                     <span style="font-size: large;">음악 추천</span>
-                    <div>
+                    <div th:if="${music != null}">
                         <span th:text="${music.names}"></span>
                     </div>
                 </div>
@@ -367,7 +367,7 @@
     <footer>
         <script th:inline="javascript">
             $(document).ready(function () {
-                const nickname = [[${nickname}]];
+                const nickname = [[${member.nickname}]];
 
                 $("#button-send").on("click", (e) => {
                     send();
