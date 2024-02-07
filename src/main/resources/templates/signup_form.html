@@ -66,8 +66,8 @@
             </div>
             <div th:if="${#fields.hasErrors('mbtiId')}" th:errors="*{mbtiId}" class="form-error"></div>
             <br>
-            <div class="title__p">
-                <p>프로필</p>
+            <div class="title__p" style="padding-left:33px; padding-right: 31px; margin-top: -7px">
+                <p style="margin-left:6px">프로필 사진</p>
                 <div class="article-form-img">
                     <input type="file" name="memberImg"
                            accept="image/png, image/gif, image/jpeg" class="form-control">
@@ -84,6 +84,9 @@
             <i class="fa fa-comment"></i>
             <a href="/oauth2/authorization/kakao" style="text-decoration-line: none">카카오 로그인</a>
         </button>
+        <br>
+        <br>
+        <br>
     </div>
     <script>
         $(document).ready(function(){
