@@ -4,7 +4,7 @@ import com.start.st.domain.comment.entity.Comment;
 import com.start.st.domain.mbti.entity.Mbti;
 import com.start.st.domain.member.entity.Member;
 import com.start.st.domain.reportArticle.entity.ReportArticle;
-import com.start.st.domain.reportComment.entity.ReportComment;
+
 import com.start.st.global.jpa.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -34,8 +34,8 @@ public class ReportArticle extends BaseEntity {
 
     private String reportType;
 
-    @CreatedDate
-    private LocalDateTime createDate;
-    @LastModifiedDate
-    private LocalDateTime modifyDate;
+//    @CreatedDate
+//    private LocalDateTime createDate;
+//    @LastModifiedDate
+//    private LocalDateTime modifyDate;
 }

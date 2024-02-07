@@ -100,17 +100,7 @@ public class CommentController {
 
     }
 
-//    @PreAuthorize("isAuthenticated()")
-//    @GetMapping("/like/{id}")
-//    public String likeComment(@PathVariable("id") Long id, Principal principal) {
-//        Comment comment = this.commentService.getcomment(id);
-//        Member liker = this.memberService.getMember(principal.getName());
-//
-//        if (comment != null && liker != null) {
-//            this.commentService.likeComment(comment, liker);
-//        }
-//        return String.format("redirect:/article/%s", comment.getArticle().getId());
-//    }
+
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/like/{id}")
     public String likeOrUnlikeComment(@PathVariable("id") Long id, Principal principal) {
