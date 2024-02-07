@@ -75,11 +75,11 @@
         <a href="/oauth2/authorization/kakao" style="text-decoration-line: none">카카오 로그인</a>
     </button>
 </div>
-<script>
-    $(document).ready(function(){
+    <script>
+        $(document).ready(function(){
         let reset = $("#reset");
 
-        reset.on("click", function(e){
+            reset.on("click", function(e){
             e.preventDefault();
             $("#membername").val("");
             $("#password1").val("");
@@ -87,8 +87,9 @@
             $("#nickname").val("");
             $("#email").val("");
             $("#mbtiId").val("0");
+            });
         });
-    });
-</script>
+    </script>
+
 </div>
 </html>

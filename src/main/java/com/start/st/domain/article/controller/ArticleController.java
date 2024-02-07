@@ -109,12 +109,23 @@ public class ArticleController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/article/{id}/like")
-    public String likeArticle(@PathVariable("id") Long id, Principal principal) {
+    public String likeOrUnlikeArticle(@PathVariable("id") Long id, Principal principal) {
         Member member = this.memberService.getMember(principal.getName());
         Article article = this.articleService.getArticle(id);
-        this.articleService.like(article, member);
+
+        if (article != null && member != null) {
+            if (article.getLikers().contains(member)) {
+                this.articleService.unlike(article, member);
+                article.setLikedByCurrentUser(false);
+            } else {
+                this.articleService.like(article, member);
+                article.setLikedByCurrentUser(true);
+            }
+            this.articleService.saveArticle(article);
+        }
         return String.format("redirect:/article/%s", id);
     }
+
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/article/report/{id}")
