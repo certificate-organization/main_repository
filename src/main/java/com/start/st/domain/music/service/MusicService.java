@@ -22,7 +22,13 @@ public class MusicService {
                 .build();
         this.musicRepository.save(music);
     }
-
+    public void createTest(String genre, List<String> names) {
+        Music music = Music.builder()
+                .genre(genre)
+                .names(names)
+                .build();
+        this.musicRepository.save(music);
+    }
     public void modify(Music music, List<String> names, String genre) {
         Music modifyMusic = music.toBuilder()
                 .genre(genre)
