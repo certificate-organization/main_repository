@@ -367,7 +367,7 @@
     <footer>
         <script th:inline="javascript">
             $(document).ready(function () {
-                const nickname = [[${member.nickname}]];
+                const nickname = [[${nickname}]];
 
                 $("#disconnerct").on("click", (e) => {
                     disconnect();
