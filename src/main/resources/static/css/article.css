@@ -102,7 +102,9 @@
     font-size: 25px;
     font-weight: bold;
 }
-
+#f_comment {
+    width: 1000px;
+}
 .article-information {
     width: 100%;
     justify-content: space-between;
@@ -283,7 +285,6 @@
 }
 
 .article-form-img {
-    margin-top: 40px;
     flex-direction: column;
     display:flex;
     justify-content: right;

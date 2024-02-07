@@ -60,14 +60,6 @@
                     </svg>
                 </a>
             </div>
-            <div class="search-box">
-                <div class="search-box-inner">
-                    <input class="search-txt" type="text" placeholder="검색어를 입력하세요.">
-                    <button class="search-btn" type="submit">
-                        <i class="fa fa-search fa-magnifying-glass"></i>
-                    </button>
-                </div>
-            </div>
         </div>
         <!--mbti리스트 출력-->
         <div class="back color-10">
@@ -160,8 +152,6 @@
                                 <tbody>
                                 <tr class="article-list-body" th:each="article, loop : ${articlePageByLike}">
                                     <td class="article-list-subject-body">
-                                        <i class="fa-solid fa-image" th:if="${article.articleImg != null}"></i>
-                                        <i class="fa-solid fa-comment-dots" th:if="${article.articleImg == null}"></i>
                                         <a class="article-list-subject" th:href="@{|/article/${article.id}|}"
                                            th:text="${article.subject}">
                                         </a>
@@ -194,8 +184,6 @@
                                 <tbody>
                                 <tr class="article-list-body" th:each="article, loop : ${articlePageByView}">
                                     <td class="article-list-subject-body">
-                                        <i class="fa-solid fa-image" th:if="${article.articleImg != null}"></i>
-                                        <i class="fa-solid fa-comment-dots" th:if="${article.articleImg == null}"></i>
                                         <a class="article-list-subject" th:href="@{|/article/${article.id}|}"
                                            th:text="${article.subject}">
                                         </a>
@@ -367,10 +355,6 @@
                         <div style="display: flex; width: 48%; height: 100px; border: 0.5px solid rgba(128, 128, 128, 0.4);"
                              th:if="${member.memberImg != null}">
                             <img class="img-fluid" th:src="@{|/file/${member.memberImg}|}" alt="사진">
-                        </div>
-                        <div style="display: flex; width: 48%; height: 100px; align-items: center; justify-content: center;"
-                             th:if="${member.memberImg == null}">
-                            <i style="font-size: 70px;" class="fa-solid fa-circle-user"></i>
                         </div>
                         <div style="width: 48%; display: flex; align-items: center; flex-wrap: wrap;">
                             <div style="width: 100%;">

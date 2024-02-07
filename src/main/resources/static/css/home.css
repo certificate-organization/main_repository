@@ -44,18 +44,18 @@ footer {
 /*-------------------- 로고 , 검색폼  start ------------------*/
 .wrap {
     position: absolute;
-    right: 10%;
+    margin-top: 5%;
+    right: 25%;
 }
 
 .Main_TOP {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
     padding-top: 30px;
     padding-bottom: 10px;
 }
 .Main_TOP .Main_logo {
     width: 70%;
+    margin-left: 25%;
+    margin-right: auto;
 }
 .search-box {
     border: 2px solid #47BBEC;
