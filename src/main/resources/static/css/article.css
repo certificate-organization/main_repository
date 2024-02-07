@@ -442,6 +442,19 @@
     display:flex;
     justify-content: flex-end;
 }
+.comment-author {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.comment-time {
+    text-decoration: none;
+    margin-right: auto;
+    padding-top: 14px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    font-size: 14px;
+    color: #969696;
+}
 
 /*---------------------- 댓글 end ---------------------- */
 
