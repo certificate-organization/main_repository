@@ -27,5 +27,6 @@ public class Member extends BaseEntity {
     private String email;
     @ManyToOne
     private Mbti mbti;
+    private String memberImg;
 }
 
