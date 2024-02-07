@@ -1,60 +1,56 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MBTI 게시판</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <!-- 추가적인 CSS 파일 -->
-    <link type="text/css" th:href="@{/css/member.css}" rel="stylesheet">
-</head>
-<body>
-<div layout:fragment="content" class="container my-3">
-    <h4>나의정보 / 수정</h4>
-    <form th:action="@{/member/modify}" th:object="${memberModifyForm}" method="post"
-          enctype="multipart/form-data">
-        <div th:replace="~{form_errors :: formErrorsFragment}"></div>
-        <div class="mb-3">
-            <label for="membername" class="form-label">사용자ID</label>
-            <input readonly type="text" th:value="${member.membername}" name="membername" class="form-control">
-        </div>
-        <div class="mb-3">
-            <label for="nickname" class="form-label">닉네임</label>
-            <input type="text" th:value="${member.nickname}" name="nickname" class="form-control">
-        </div>
-        <div class="mb-3">
-            <label for="email" class="form-label">이메일</label>
-            <input type="email" th:value="${member.email}" name="email" class="form-control">
-        </div>
-        MBTI
-        <select name="mbtiId" id="mbtiId" class="form-select" aria-label="Default select example">
-            <option th:value="${member.mbti.id}" th:text="${member.mbti.name}"></option>
-            <option th:each="mbti : ${mbtiList}" th:value="${mbti.id}" th:text="${mbti.name}"></option>
-        </select>
-        <br>
-        <div class="mb-3">
-            <label for="password" class="form-label">현재 비밀번호</label>
-            <input type="password" name="password" class="form-control">
-        </div>
-        <div class="mb-3">
-            <label for="password1" class="form-label">변경할 비밀번호</label>
-            <input type="password" name="password1" class="form-control">
-        </div>
-        <div class="mb-3">
-            <label for="password2" class="form-label">변경할 비밀번호 확인</label>
-            <input type="password" name="password2" class="form-control">
-        </div>
-        <div class="title__p">
-            <p>프로필</p>
-            <div class="article-form-img">
-                <input type="file" name="memberImg"
-                       accept="image/png, image/gif, image/jpeg" class="form-control">
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class="container my-3" style="width: 52%;">
+        <h4>나의정보 / 수정</h4>
+        <form th:action="@{/member/modify}" th:object="${memberModifyForm}" method="post"
+              enctype="multipart/form-data">
+            <div th:replace="~{form_errors :: formErrorsFragment}"></div>
+            <div class="mb-3">
+                <label for="membername" class="form-label">사용자ID</label>
+                <input readonly type="text" th:value="${member.membername}" name="membername" class="form-control">
             </div>
-        </div>
-        <button type="submit" class="btn btn-primary">정보 수정하기</button>
-    </form>
-    <a href="/">홈으로 돌아가기</a>
+            <div class="mb-3">
+                <label for="nickname" class="form-label">닉네임</label>
+                <input type="text" th:value="${member.nickname}" name="nickname" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">이메일</label>
+                <input type="email" th:value="${member.email}" name="email" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="mbtiId" class="form-label">MBTI 유형</label>
+                <select name="mbtiId" id="mbtiId" class="form-select" aria-label="Default select example"
+                        style="margin-left:0px; margin-bottom:-23px; width:100%">
+                    <option th:value="${member.mbti.id}" th:text="${member.mbti.name}"></option>
+                    <option th:each="mbti : ${mbtiList}" th:value="${mbti.id}" th:text="${mbti.name}"></option>
+                </select>
+            </div>
+            <br>
+            <div class="mb-3">
+                <label for="password" class="form-label">현재 비밀번호</label>
+                <input type="password" name="password" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="password1" class="form-label">변경할 비밀번호</label>
+                <input type="password" name="password1" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="password2" class="form-label">변경할 비밀번호 확인</label>
+                <input type="password" name="password2" class="form-control">
+            </div>
+            <div class="title__p" style="padding:0px">
+                <p>프로필 사진</p>
+                <div class="article-form-img">
+                    <input type="file" name="memberImg"
+                           accept="image/png, image/gif, image/jpeg" class="form-control">
+                </div>
+            </div>
+            <div style="display:flex; justify-content: space-between;">
+            <button type="submit" class="btn btn-primary">정보 수정하기</button>
+            <a href="/">홈으로 돌아가기</a>
+            </div>
+        </form>
+    <br>
+    <br>
+    <br>
 </div>
-</body>
 </html>
