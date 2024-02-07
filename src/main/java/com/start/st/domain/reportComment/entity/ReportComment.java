@@ -22,8 +22,6 @@ public class ReportComment extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-
     @ManyToOne
     private Member author;
     @ManyToOne
