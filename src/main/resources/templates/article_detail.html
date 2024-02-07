@@ -167,20 +167,6 @@
                         <div class="a_re-comment">
                             <div class="a_re-comment_top">
                                 <span th:text="|${childrenComment.author.nickname}[${childrenComment.author.mbti.name}]|"></span>
-                        <textarea style="margin-top: 10px;" sec:authorize="isAuthenticated()" name="content"
-                                  class="form-control" rows="3"
-                                  placeholder="건전한 커뮤니티를 위해 비방 및 욕설은 자제 부탁드립니다"></textarea>
-                        <input type="hidden" name="parentCommentId" th:value="${comment.id}">
-                        <button style="margin-top: 10px;" type="submit" class="btn btn-sm btn-outline-secondary">답글
-                            등록
-                        </button>
-                    </form>
-                </div>
-                <ul style="list-style-type: none;">
-                    <li th:each="childrenComment : ${comment.childrenCommentList}">
-                        <div class="a_re-comment">
-                            <div class="a_re-comment_top">
-                                <span th:text="|${comment.author.nickname}[${comment.author.mbti.name}]|"></span>
                                 <div class="a_re-comment_part">
                                     <a th:if="${childrenComment.author != null and #authentication.getPrincipal().getUsername() == childrenComment.author.membername}"
                                        th:href="@{|/comment/modify/${childrenComment.id}|}"
@@ -207,101 +193,94 @@
                                             id="reportCommentButton">신고
                                     </button>
                                 </div>
+                                <div class="a_re-comment_body">
+                                    <p th:text="${childrenComment.content}"></p>
+                                </div>
                             </div>
-                            <div class="a_re-comment_body">
-                                <p th:text="${childrenComment.content}"></p>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-    <!-- 게시글 모달 부트스트랩 시작 -->
-    <div aria-hidden="true" aria-labelledby="reportModalArticle" class="modal fade" id="reportArticleModal"
-         tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="reportModalArticle">신고내용</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form class="was-validated" method="post" th:action="@{|/article/report/${article.id}|}">
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label class="col-form-label" for="validationTextareaArticle">내용</label>
-                            <textarea class="form-control" id="validationTextareaArticle" name="reportContent"
-                                      placeholder="내용을 입력해주세요." required></textarea>
-                        </div>
-
-                        <!-- 라디오 버튼에 이벤트 리스너 추가 -->
-                        <div class="form-check">
-                            <input class="form-check-input" id="flexRadioDefault1" name="reportType"
-                                   onchange="handleRadioSelection()"
-                                   type="radio" value="욕설">
-                            <label class="form-check-label" for="flexRadioDefault1">욕설</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" id="flexRadioDefault2" name="reportType"
-                                   onchange="handleRadioSelection()"
-                                   type="radio" value="스팸 및 광고">
-                            <label class="form-check-label" for="flexRadioDefault2">스팸 및 광고</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" id="flexRadioDefault3" name="reportType"
-                                   onchange="handleRadioSelection()"
-                                   type="radio" value="불법적인 콘텐츠">
-                            <label class="form-check-label" for="flexRadioDefault3">불법적인 콘텐츠</label>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
-                            <button class="btn btn-primary" onclick="handleRadioSelection()" type="submit">신고 보내기
-                            </button>
-                        </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!-- 게시글 모달 부트스트랩 시작 -->
+        <div aria-hidden="true" aria-labelledby="reportModalArticle" class="modal fade" id="reportArticleModal"
+             tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="reportModalArticle">신고내용</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                </form>
+                    <form class="was-validated" method="post" th:action="@{|/article/report/${article.id}|}">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label class="col-form-label" for="validationTextareaArticle">내용</label>
+                                <textarea class="form-control" id="validationTextareaArticle" name="reportContent"
+                                          placeholder="내용을 입력해주세요." required></textarea>
+                            </div>
+
+                            <!-- 라디오 버튼에 이벤트 리스너 추가 -->
+                            <div class="form-check">
+                                <input class="form-check-input" id="flexRadioDefault1" name="reportType" onchange="handleRadioSelection()"
+                                       type="radio" value="욕설">
+                                <label class="form-check-label" for="flexRadioDefault1">욕설</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" id="flexRadioDefault2" name="reportType" onchange="handleRadioSelection()"
+                                       type="radio" value="스팸 및 광고">
+                                <label class="form-check-label" for="flexRadioDefault2">스팸 및 광고</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" id="flexRadioDefault3" name="reportType" onchange="handleRadioSelection()"
+                                       type="radio" value="불법적인 콘텐츠">
+                                <label class="form-check-label" for="flexRadioDefault3">불법적인 콘텐츠</label>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
+                                <button class="btn btn-primary" onclick="handleRadioSelection()" type="submit">신고 보내기
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- 댓글 모달 부트스트랩 시작 -->
-    <div aria-hidden="true" aria-labelledby="reportModalComment" class="modal" id="reportCommentModal"
-         tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="reportModalComment">신고내용</h1>
-                    <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
-                </div>
-                <form class="was-validated" method="post" th:action="@{|/comment/report/${article.id}|}">
-                    <div class="modal-body">
-                        <input type="hidden" id="commentId" name="commentId">
-                        <div class="mb-3">
-                            <label class="col-form-label" for="validationTextareaComment">내용</label>
-                            <textarea class="form-control" id="validationTextareaComment" name="reportContent"
-                                      placeholder="내용을 입력해주세요." required></textarea>
-                        </div>
+        <!-- 댓글 모달 부트스트랩 시작 -->
+        <div aria-hidden="true" aria-labelledby="reportModalComment" class="modal" id="reportCommentModal"
+             tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="reportModalComment">신고내용</h1>
+                        <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                    </div>
+                    <form class="was-validated" method="post" th:action="@{|/comment/report/${article.id}|}">
+                        <div class="modal-body">
+                            <input type="hidden" id="commentId" name="commentId">
+                            <div class="mb-3">
+                                <label class="col-form-label" for="validationTextareaComment">내용</label>
+                                <textarea class="form-control" id="validationTextareaComment" name="reportContent"
+                                          placeholder="내용을 입력해주세요." required></textarea>
+                            </div>
 
-                        <!-- 라디오 버튼에 이벤트 리스너 추가 -->
-                        <div class="form-check">
-                            <input class="form-check-input" id="flexRadioComment1" name="reportType"
-                                   onchange="handleRadioSelection()"
-                                   type="radio" value="욕설">
-                            <label class="form-check-label" for="flexRadioComment1">욕설</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" id="flexRadioComment2" name="reportType"
-                                   onchange="handleRadioSelection()"
-                                   type="radio" value="스팸 및 광고">
-                            <label class="form-check-label" for="flexRadioComment2">스팸 및 광고</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" id="flexRadioComment3" name="reportType"
-                                   onchange="handleRadioSelection()"
-                                   type="radio" value="불법적인 콘텐츠">
-                            <label class="form-check-label" for="flexRadioComment3">불법적인 콘텐츠</label>
-                        </div>
+                            <!-- 라디오 버튼에 이벤트 리스너 추가 -->
+                            <div class="form-check">
+                                <input class="form-check-input" id="flexRadioComment1" name="reportType" onchange="handleRadioSelection()"
+                                       type="radio" value="욕설">
+                                <label class="form-check-label" for="flexRadioComment1">욕설</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" id="flexRadioComment2" name="reportType" onchange="handleRadioSelection()"
+                                       type="radio" value="스팸 및 광고">
+                                <label class="form-check-label" for="flexRadioComment2">스팸 및 광고</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" id="flexRadioComment3" name="reportType" onchange="handleRadioSelection()"
+                                       type="radio" value="불법적인 콘텐츠">
+                                <label class="form-check-label" for="flexRadioComment3">불법적인 콘텐츠</label>
+                            </div>
 
                         <div class="modal-footer">
                             <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
