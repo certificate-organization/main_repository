@@ -76,7 +76,7 @@
         </table>
 
     <!-- 최상위 댓글 추가 폼 -->
-    <div class="card-header">
+    <div class="card-header" id="f_comment">
         <form th:action="@{|/comment/create/${article.id}|}" th:object="${commentForm}" method="post">
             <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
                 <div th:each="err : ${#fields.allErrors()}" th:text="${err}"></div>
@@ -98,7 +98,7 @@
     <div class="comment_List">
         <ul style="list-style-type: none;">
             <li th:if="${comment.parent == null}" th:each="comment : ${article.commentList}">
-                <div class="a_comment">
+                <div class="a_comment" data-comment-id="${comment.id}">
                     <div class="a_comment_top">
                         <span th:text="|${comment.author.nickname}[${comment.author.mbti.name}]|"></span>
                         <div class="a_comment_part">
@@ -131,7 +131,6 @@
                                     th:data-comment-id="${comment.id}"
                                     id="reportCommentButton">신고
                             </button>
-                            <!-- <button class="btn btn-sm btn-outline-secondary" id="rec_btn">댓글 달기</button>-->
                             <span th:if="${comment.likedByCurrentUser}">
                                 <span class="badge rounded-pill bg-success"
                                       th:text="${#lists.size(comment.likers)}"></span>
@@ -143,7 +142,7 @@
                         <p th:text="${comment.content}"></p>
                     </div>
                     <div class="a_comment_bottom">
-                        <button id="toggleCommentForm" class="btn btn-sm btn-outline-secondary">답글</button>
+                        <button class="btn btn-sm btn-outline-secondary toggleCommentForm">답글</button>
                     </div>
                 </div>
                 <div class="card-header" id="commentForm" style="display: none;">
@@ -163,7 +162,7 @@
                     <li th:each="childrenComment : ${comment.childrenCommentList}">
                         <div class="a_re-comment">
                             <div class="a_re-comment_top">
-                                <span th:text="|${comment.author.nickname}[${comment.author.mbti.name}]|"></span>
+                                <span th:text="|${childrenComment.author.nickname}[${childrenComment.author.mbti.name}]|"></span>
                                 <div class="a_re-comment_part">
                                     <a th:if="${childrenComment.author != null and #authentication.getPrincipal().getUsername() == childrenComment.author.membername}"
                                        th:href="@{|/comment/modify/${childrenComment.id}|}"
@@ -296,20 +295,22 @@
             </div>
         </div>
     </div>
-    <script th:inline="javascript">
-        function toggleCommentForm() {
-         var commentForm = document.getElementById("commentForm");
+        <script th:inline="javascript">
+            var commentButtons = document.querySelectorAll(".toggleCommentForm");
 
-         if (commentForm.style.display === "none") {
-             commentForm.style.display = "block";
-         } else {
-             commentForm.style.display = "none";
-         }
-     }
+            commentButtons.forEach(function(button) {
+                button.addEventListener("click", function() {
+                    var commentId = button.closest(".a_comment").dataset.commentId;
+                    var commentForm = document.getElementById("commentForm" + commentId);
 
-
-     document.getElementById("toggleCommentForm").addEventListener("click", toggleCommentForm);
-    </script>
+                    if (commentForm.style.display === "none") {
+                        commentForm.style.display = "block";
+                    } else {
+                        commentForm.style.display = "none";
+                    }
+                });
+            });
+        </script>
     <!-- 댓글 모달 부트스트랩 종료 -->
     <script>
         $(".reportComment").on('click', function() {
