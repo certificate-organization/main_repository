@@ -6,8 +6,10 @@ import com.start.st.domain.music.repository.MusicRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -47,5 +49,17 @@ public class MusicService {
             return null;
         }
         return music.get();
+    }
+
+    public void deleteMusicGenre(Music music) {
+        this.musicRepository.delete(music);
+    }
+
+    public Set<Music> getMusicSet(List<Long> musicIds) {
+        Set<Music> musicSet = new HashSet<>();
+        for (Long id : musicIds) {
+            musicSet.add(this.findMusicById(id));
+        }
+        return musicSet;
     }
 }
