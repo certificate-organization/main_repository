@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
@@ -41,14 +42,15 @@ public class ArticleController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/mbti/{id}/article/create")
     public String createArticle(@PathVariable("id") Long id, Model model, Principal principal,
-                                @Valid ArticleForm articleForm, BindingResult bindingResult) {
+                                @Valid ArticleForm articleForm, BindingResult bindingResult,
+                                @RequestParam("articleImg") MultipartFile articleImg) {
         Member member = this.memberService.getMember(principal.getName());
         Mbti mbti = member.getMbti();
         if (bindingResult.hasErrors()) {
             model.addAttribute("mbti", mbti);
             return "article_form";
         }
-        articleService.create(articleForm.getSubject(), articleForm.getContent(), member.getMbti(), member);
+        articleService.create(articleForm.getSubject(), articleForm.getContent(), member.getMbti(), member, articleImg);
         return String.format("redirect:/mbti/%s", id);
     }
 
@@ -72,13 +74,15 @@ public class ArticleController {
         }
         articleForm.setSubject(article.getSubject());
         articleForm.setContent(article.getContent());
+        model.addAttribute("article",article);
         return "article_form";
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/article/{id}/modify")
     public String modifyArticle(@PathVariable("id") Long id, Model model, Principal principal,
-                                @Valid ArticleForm articleForm, BindingResult bindingResult) {
+                                @Valid ArticleForm articleForm, BindingResult bindingResult,
+                                @RequestParam("articleImg") MultipartFile articleImg) {
         Member member = this.memberService.getMember(principal.getName());
         Mbti mbti = member.getMbti();
         if (bindingResult.hasErrors()) {
@@ -89,7 +93,7 @@ public class ArticleController {
         if (!article.getAuthor().getMembername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
-        this.articleService.modify(article, articleForm.getSubject(), articleForm.getContent());
+        this.articleService.modify(article, articleForm.getSubject(), articleForm.getContent(), articleImg);
         return String.format("redirect:/article/%s", id);
     }
 

@@ -35,11 +35,6 @@ footer {
     top: 0;
     z-index: 999;
 }
-#navbar_ml {
-    padding-left: 20%;
-    padding-right: 18%;
-
-}
 
 .search-nav {
     border: 2px solid #47BBEC;
