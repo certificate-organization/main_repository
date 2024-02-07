@@ -21,14 +21,14 @@
     <form id="mbtiForm" method="post" action="/mbti/information/" onsubmit="setFormAction()">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
         <div class="genre-container">
+            <div class="genre-section" style="margin-right: 10px;">
+                <label for="relationship">성격</label>
+                <textarea id="relationship" name="relationship" class="form-control"
+                          style="resize: none; height: 280px; margin-top: 8px;"></textarea>
+            </div>
             <div class="genre-section" style="margin-right: 20px;">
                 <label for="love">연애</label>
                 <textarea id="love" name="love" class="form-control"
-                          style="resize: none; height: 280px; margin-top: 8px;"></textarea>
-            </div>
-            <div class="genre-section" style="margin-right: 10px;">
-                <label for="relationship">관계</label>
-                <textarea id="relationship" name="relationship" class="form-control"
                           style="resize: none; height: 280px; margin-top: 8px;"></textarea>
             </div>
             <div class="genre-section" style="margin-left: 10px;">

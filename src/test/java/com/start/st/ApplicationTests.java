@@ -8,12 +8,16 @@ import com.start.st.domain.mbti.service.MbtiService;
 import com.start.st.domain.member.entity.Member;
 import com.start.st.domain.member.repository.MemberRepository;
 import com.start.st.domain.member.service.MemberService;
+import com.start.st.domain.movie.entity.Movie;
+import com.start.st.domain.movie.service.MovieService;
+import com.start.st.domain.music.entity.Music;
+import com.start.st.domain.music.service.MusicService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.Random;
+import java.util.*;
 
 @SpringBootTest
 class ApplicationTests {
@@ -99,5 +103,105 @@ class ApplicationTests {
 //            commentService.create(article, "2번 댓글 입니다.", member, null);
 //        }
 //    }
-//
+
+    @Autowired
+    MovieService movieService;
+
+    @Test
+    void registerMovieGenre() {
+        List<String> names1 = new ArrayList<>();
+        names1.add("매드 맥스");
+        names1.add("존 윅");
+        names1.add("다크 나이트");
+        movieService.createTest("액션", names1);
+
+        List<String> names2 = new ArrayList<>();
+        names2.add("타짜");
+        names2.add("히트");
+        names2.add("범죄도시");
+        movieService.createTest("범죄", names2);
+
+        List<String> names3 = new ArrayList<>();
+        names3.add("인터스텔라");
+        names3.add("매트릭스");
+        names3.add("인셉션");
+        movieService.createTest("SF", names3);
+
+        List<String> names4 = new ArrayList<>();
+        names4.add("청년경찰");
+        names4.add("극한 직업");
+        movieService.createTest("코미디", names4);
+    }
+
+    @Autowired
+    MusicService musicService;
+
+    @Test
+    void registerMusicGenre() {
+        List<String> names1 = new ArrayList<>();
+        names1.add("너에게로 또 다시 - 정승환");
+        names1.add("밤편지 - IU");
+        names1.add("소주 한 잔 - 임창정");
+        musicService.createTest("발라드", names1);
+
+        List<String> names2 = new ArrayList<>();
+        names2.add("Black Swan - BTS");
+        names2.add("아무노래 - ZICO");
+        names2.add("HIP - Mamamoo");
+        musicService.createTest("댄스", names2);
+
+        List<String> names3 = new ArrayList<>();
+        names3.add("Overdrive - Post Malone");
+        names3.add("Players - Coi Leray");
+        names3.add("Say So - Doja Cat");
+        musicService.createTest("힙합", names3);
+
+        List<String> names4 = new ArrayList<>();
+        names4.add("Tiny Riot - Sam Ryder");
+        names4.add("Demons - Imagine Dragons");
+        names4.add("Bones - Imagine Dragons");
+        musicService.createTest("락", names4);
+    }
+
+    @Test
+    void registerMbtiInfo() {
+        Mbti mbti = mbtiService.getMbti(1L);
+        Set<Movie> movieSet = new HashSet<>();
+        Set<Music> musicSet = new HashSet<>();
+        List<Long> ids = new ArrayList<>();
+        ids.add(1L);
+        ids.add(2L);
+        movieSet = movieService.getMovieSet(ids);
+        musicSet = musicService.getMusicSet(ids);
+        mbtiService.modify(mbti,
+                "##### **연애스타일\uD83D\uDE0D**\n" +
+                        "1. 이성에게 잘 다가가서 연애\n" +
+                        "2. 남들 잘 꼬시고 썸 잘타는 유형\n" +
+                        "3. 자유분방하고 자존심 강함\n" +
+                        "4. 서로의 사생활을 존중하는 연애를 원함\n" +
+                        "5. 통제하고 억압하는 것 정말 싫어함\n" +
+                        "6. 은근 특이한 사람에게 끌림\n" +
+                        "7. 지적이라서 본인이 좋아하는 분야에 토론해 주는 사람 선호함",
+                "##### **성격\uD83D\uDE36**\n" +
+                        "조용하고 개인주의 성향이 강한 MBTI 유형입니다.\n" +
+                        "호불호가 확실하고 자기 주관이 뚜렷하며 타인에게 대체로 관심이 적은 성격 입니다.",
+                "##### **유명인\uD83D\uDE0E**\n" +
+                        "1. 제시\n" +
+                        "2. 한예슬\n" +
+                        "3. 고민시\n" +
+                        "4. YGX 리정\n" +
+                        "5. 브레이브걸스 유정\n" +
+                        "6. 블락비 박경\n" +
+                        "7. 악동뮤지션 이찬혁\n" +
+                        "8. 육성재\n" +
+                        "9. 자이언티\n" +
+                        "10. 로버트 다우니 주니어\n" +
+                        "11. 조니 뎁\n" +
+                        "12. 에밀리 블런트\n" +
+                        "13. 크리스 프랫",
+                "##### **직업\uD83E\uDDD0**\n" +
+                        "파일럿, 카레이서, 범죄학자, 사진 작가, 판매원, 운동선수, 항공기 정비사, 네트워크 관리자",
+                movieSet, musicSet
+        );
+    }
 }
