@@ -45,15 +45,18 @@ public class HomeController {
         model.addAttribute("articlePageByDate", articlePageByDate);
         model.addAttribute("articlePageByLike", articlePageByLike);
         model.addAttribute("articlePageByView", articlePageByView);
-        if (principal != null) {
+        if (principal.getName() != null) {
             Member member = memberService.getMember(principal.getName());
-            Movie movie = this.getRandomMovie(member.getMbti().getMovieList());
-            Music music = this.getRandomMusic(member.getMbti().getMusicList());
-            model.addAttribute("movie", movie);
-            model.addAttribute("music", music);
             Page<Article> articleList = this.articleService.getArticlePageByDate(page);
             model.addAttribute("articleList", articleList);
             model.addAttribute("member", member);
+
+            Movie movie = new Movie();
+            Music music = new Music();
+            movie = this.getRandomMovie(member.getMbti().getMovieList());
+            music = this.getRandomMusic(member.getMbti().getMusicList());
+            model.addAttribute("movie", movie);
+            model.addAttribute("music", music);
             return "mbti_home";
         } else {
             return "mbti_home";
