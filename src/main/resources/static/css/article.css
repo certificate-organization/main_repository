@@ -102,7 +102,9 @@
     font-size: 25px;
     font-weight: bold;
 }
-
+#f_comment {
+    width: 1000px;
+}
 .article-information {
     width: 100%;
     justify-content: space-between;
