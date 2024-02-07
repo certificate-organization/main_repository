@@ -98,7 +98,7 @@
     <div class="comment_List">
         <ul style="list-style-type: none;">
             <li th:if="${comment.parent == null}" th:each="comment : ${article.commentList}">
-                <div class="a_comment" data-comment-id="${comment.id}">
+                <div class="a_comment">
                     <div class="a_comment_top">
                         <span th:text="|${comment.author.nickname}[${comment.author.mbti.name}]|"></span>
                         <div class="a_comment_part">
@@ -296,17 +296,18 @@
         </div>
     </div>
         <script th:inline="javascript">
-            var commentButtons = document.querySelectorAll(".toggleCommentForm");
+            document.addEventListener("DOMContentLoaded", function() {
+                // 이벤트 위임을 사용하여 모든 답글 버튼에 이벤트 리스너 추가
+                document.body.addEventListener("click", function(event) {
+                    if (event.target.matches(".toggleCommentForm")) {
+                        var commentForm = event.target.closest(".comment_List").querySelector(".card-header");
 
-            commentButtons.forEach(function(button) {
-                button.addEventListener("click", function() {
-                    var commentId = button.closest(".a_comment").dataset.commentId;
-                    var commentForm = document.getElementById("commentForm" + commentId);
-
-                    if (commentForm.style.display === "none") {
-                        commentForm.style.display = "block";
-                    } else {
-                        commentForm.style.display = "none";
+                        // 답글 폼 토글
+                        if (commentForm.style.display === "none") {
+                            commentForm.style.display = "block";
+                        } else {
+                            commentForm.style.display = "none";
+                        }
                     }
                 });
             });
