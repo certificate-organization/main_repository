@@ -402,10 +402,6 @@
             $(document).ready(function () {
                 const nickname = [[${nickname}]];
 
-                $("#disconnerct").on("click", (e) => {
-                    disconnect();
-                });
-
                 $("#button-send").on("click", (e) => {
                     send();
                 });
@@ -414,7 +410,6 @@
 
                 websocket.onmessage = onMessage;
                 websocket.onopen = onOpen;
-                websocket.onclose = onClose;
 
                 function send() {
                     let msg = document.getElementById("msg");
@@ -442,17 +437,8 @@
                     return formattedTime;
                 }
 
-                // 채팅창에서 나갔을 때
-                function onClose(evt) {
-                    var str = nickname + ": 님이 방을 나가셨습니다.";
-                    websocket.send(str);
-                }
-
-                // 채팅창에 들어왔을 때
                 function onOpen(evt) {
-                    displayDate(); // 입장 전에 오늘 날짜 표시
-                    var str = nickname + ": 님이 입장하셨습니다.";
-                    websocket.send(str);
+                    displayDate();
                 }
 
                 function onMessage(msg) {
@@ -474,12 +460,8 @@
                         str += "<b>" + sessionId + " : " + message + " <span class='chat_time'>" + displayTime() + "</span></b>";
                     } else {
                         str += "<div class='chat_you_bg'>";
-                        if (message.indexOf('입장하셨습니다.') !== -1) {
-                            str += "<b>" + sessionId + " : " + message + "</b>";
-                        } else {
-                            str += "<b>" + sessionId + " : " + message;
-                            str += " <span class='chat_time'>" + displayTime() + "</span></b>";
-                        }
+                        str += "<b>" + sessionId + " : " + message;
+                        str += " <span class='chat_time'>" + displayTime() + "</span></b>";
                     }
 
                     str += "</div></div>";
@@ -487,7 +469,6 @@
                     $("#chatroom").scrollTop($("#chatroom")[0].scrollHeight);
                 }
 
-                // 엔터 키로 메시지 전송
                 $("#msg").keyup(function (event) {
                     if (event.which === 13) {
                         send();

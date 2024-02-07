@@ -12,10 +12,6 @@ body {
    margin: 0;
 }
 
-header {
-    padding: 30px 0;
-    position : sticky;
-}
 
 main {
     padding: 20px 0 50px;
@@ -38,6 +34,11 @@ footer {
     position: sticky;
     top: 0;
     z-index: 999;
+}
+#navbar_ml {
+    padding-left: 15%;
+    padding-right: 15%;
+
 }
 
 .search-nav {

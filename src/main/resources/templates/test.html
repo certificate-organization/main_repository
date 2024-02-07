@@ -14,99 +14,29 @@
         color: #fff; /* 원하는 텍스트 색 */
     }
 </style>
-<body>
-<div class="container">
-    <div class="col-6">
-        <label><b>채팅방</b></label>
-    </div>
-    <div>
-        <div id="msgArea" class="col"></div>
-        <div class="col-6">
-            <div class="input-group mb-3">
-                <input type="text" id="msg" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
-                <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button" id="button-send">전송</button>
-                </div>
-            </div>
-        </div>
-    </div>
+<button id="toggleCommentForm">댓글 달기</button>
+
+<div id="commentForm" style="display: none;">
+    <!-- 댓글 작성 폼이나 내용을 포함하는 부분 -->
+    <textarea id="commentContent"></textarea>
+    <button id="submitComment">댓글 등록</button>
 </div>
 
 
-
 <script th:inline="javascript">
-    $(document).ready(function(){
+    function toggleCommentForm() {
+     var commentForm = document.getElementById("commentForm");
 
-    const username = [[${#authentication.principal}]];
+     if (commentForm.style.display === "none") {
+         commentForm.style.display = "block";
+     } else {
+         commentForm.style.display = "none";
+     }
+ }
 
-    $("#button-send").on("click", (e) => {
-        send();
-    });
-
-    const websocket = new WebSocket("ws://localhost:8010/ws/chat");
-
-    websocket.onmessage = onMessage;
-    websocket.onopen = onOpen;
-    websocket.onclose = onClose;
-
-    function send(){
-
-        let msg = document.getElementById("msg");
-
-        console.log(username + ":" + msg.value);
-        websocket.send(username + ":" + msg.value);
-        msg.value = '';
-    }
-
-
-
-    function onMessage(msg) {
-        var data = msg.data;
-        var sessionId = null;
-        //데이터를 보낸 사람
-        var message = null;
-        var arr = data.split(":");
-
-        for(var i=0; i<arr.length; i++){
-            console.log('arr[' + i + ']: ' + arr[i]);
-        }
-
-        var cur_session = username;
-
-        //현재 세션에 로그인 한 사람
-        console.log("cur_session : " + cur_session);
-        sessionId = arr[0];
-        message = arr[1];
-
-        console.log("sessionID : " + sessionId);
-        console.log("cur_session : " + cur_session);
-
-        //로그인 한 클라이언트와 타 클라이언트를 분류하기 위함
-        if(sessionId == cur_session){
-            var str = "<div class='col-6'>";
-            str += "<div class='alert alert-secondary'>";
-            str += "<b>" + sessionId + " : " + message + "</b>";
-            str += "</div></div>";
-            $("#msgArea").append(str);
-        }
-        else{
-            var str = "<div class='col-6'>";
-            str += "<div class='alert alert-warning'>";
-            str += "<b>" + sessionId + " : " + message + "</b>";
-            str += "</div></div>";
-             $("#msgArea").append(str);
-                $("#msgArea").scrollTop($("#msgArea")[0].scrollHeight);
-                $("#msg").focus();
-            }
-              $("#msg").keypress(function(event) {
-                if (event.which === 13) {
-                    send();
-                }
-            });
-    }
-    })
+ // 버튼 클릭 시 토글 함수 호출
+ document.getElementById("toggleCommentForm").addEventListener("click", toggleCommentForm);
 </script>
 
 
-</body>
 </html>

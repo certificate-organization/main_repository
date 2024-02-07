@@ -52,4 +52,13 @@ public class HomeController {
             return "mbti_home";
         }
     }
+
+
+    @GetMapping("/test")
+    public String test () {
+
+        return "test";
+    }
+
+
 }
