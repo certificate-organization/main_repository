@@ -57,21 +57,73 @@
 
 ## 🔥 트러블 슈팅
 
-@wintersky2
 ### 🚨 Issue 1
-### 🚧 리팩토링 이슈
+### 🚧 비밀번호 검증
 
 A. 이슈 내역
-- <br>
+- 비밀 번호 일치 확인 실패<br>
 
-문제점 설명
-- <br>
+B. 문제점 설명
+- 비밀번호가 일치하는지 검증하는 메서드에서 비밀번호를 맞게 입력했는데도 일치하지 않는다고 뜨는 문제.<br>
 ## 🛑 원인
-- 
+전제로, 회원가입을 할 때에 입력한 비밀번호 평문은 PasswordEncoder에 의해서 인코딩 되어 난수로 DB에 저장이 된다.
+
+```java
+public void create(... , String password, ...) {
+        Member member = Member.builder()
+
+                (생략)
+
+                .password(passwordEncoder.encode(password))
+
+                (생략)
+
+                .build();
+
+        this.memberRepository.save(member);
+    }
+```
+
+- 실제 저장값
+
+```
+예시)
+
+$2a$10$kIZDs4KJQfGZHS8yL9M4b.mBCkg6zceRFtXaPQlKm6Ry47FyBg6eS
+```
+
+따라서,
+
+```java
+
+passwordConfirm 메서드)
+
+public boolean passwordConfirm(String password,Member member) {
+        if(password.equals(member.getPassword())){
+            return true;
+        }
+        return false;
+}
+```
+
+실제 DB에 있는 Member타입의 member객체 내에있는 member.getPassword()는 위와같은 난수임.
+
+로그인과 같은 비밀번호 검증을 할 시에 입력받는 비밀번호 평문인
+passwordConfirm메서드의 String 타입 매개변수 password는 다른 값임.
 
 ## 🚥 해결
-- 
+PasswordEncoder의 matches 메서드를 사용하면
+매개변수로 받은 password 변수를 메서드 내에서 인코딩해서 비교해 boolean값으로 리턴한다.
+
+passwordEncoder.matchs(입력받은 평문 비밀번호 , 실제 DB내에 있는 인코딩된 비밀번호)으로 사용할 수 있다.
+
+```java
+public boolean passwordConfirm(String password, Member member) {
+    return passwordEncoder.matches(password, member.getPassword());
+}
+```
 <br>
+
 
 @5binn
 ### 🚨 Issue 2
