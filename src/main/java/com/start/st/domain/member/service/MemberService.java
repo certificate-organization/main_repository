@@ -1,15 +1,13 @@
 package com.start.st.domain.member.service;
 
+import com.start.st.domain.email.service.EmailService;
 import com.start.st.domain.mbti.entity.Mbti;
-import com.start.st.domain.mbti.repository.MbtiRepository;
+import com.start.st.domain.mbti.service.MbtiService;
 import com.start.st.domain.member.entity.Member;
 import com.start.st.domain.member.repository.MemberRepository;
-import lombok.Builder;
+import com.start.st.global.markdown.CommonUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -26,6 +25,9 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final EmailService emailService;
+    private final MbtiService mbtiService;
+    private final CommonUtil commonUtil;
 
     @Value("${custom.fileDirPath}")
     private String fileDirPath;
@@ -33,7 +35,7 @@ public class MemberService {
     public void create(String membername, String password, String nickname, String email,
                        Mbti mbti, MultipartFile memberImg) {
         String thumbnailRelPath = "";
-        if (memberImg.isEmpty()) {
+        if (memberImg==null) {
             thumbnailRelPath = null;
         } else {
             thumbnailRelPath = "member/" + UUID.randomUUID().toString() + ".jpg";
@@ -131,13 +133,37 @@ public class MemberService {
     }
 
     @Transactional
-    public Member whenSocialLogin(String providerTypeCode, String membername, String nickname) {
+    public Member whenSocialLogin(String providerTypeCode, String membername, String nickname,MultipartFile memberimg) {
         Member member = getMember(membername);
+        Mbti mbti = this.mbtiService.getMbti(1L);
         if (member != null) {
             return member;
         }
 
-        create(membername, "", nickname, null, null, null);
+        create(membername, "", nickname, "", mbti, memberimg);
         return this.memberRepository.findByMembername(membername).get(); // 최초 로그인 시 딱 한번 실행
     }
+    @Transactional
+    public void modifyPassword(String email) throws EmailService.EmailException {
+        SecureRandom random = new SecureRandom();
+        String tempPassword = generateRandomPassword(random, 8);
+        Member member = this.memberRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("해당 이메일의 유저가 없습니다."));
+        Member newMember = member.toBuilder()
+                .password(passwordEncoder.encode(tempPassword))
+                .build();
+        this.memberRepository.save(newMember);
+        emailService.sendSimpleMessage(email, tempPassword);
+    }
+
+    public static String generateRandomPassword(SecureRandom random, int length) {
+        final String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+";
+
+        StringBuilder password = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            password.append(chars.charAt(random.nextInt(chars.length())));
+        }
+        return password.toString();
+    }
+
 }

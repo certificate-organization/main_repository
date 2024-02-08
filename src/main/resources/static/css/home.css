@@ -479,12 +479,19 @@ div.left-container {
     align-items: center;
     height: 35px;
 }
+.article-list-subject-head{
+    vertical-align: middle;
+        color: black;
+        text-decoration: none;
+        width: 10%;
+        text-align: center;
+}
 
 .article-list-subject-body {
     vertical-align: middle;
     color: black;
     text-decoration: none;
-    width: 40%;
+    width: 10%;
     text-align: left;
 }
 

@@ -112,6 +112,7 @@
                                 <thead class="article-list-head">
                                 <tr>
                                     <th class="article-list-subject-head">제목</th>
+                                    <th class="article-list-th">게시판명</th>
                                     <th class="article-list-th">작성자</th>
                                     <th class="article-list-th">조회수</th>
                                     <th class="article-list-th">추천수</th>
@@ -126,12 +127,13 @@
                                         <span class="article-comment" th:if="${#lists.size(article.commentList) != 0}"
                                               th:text="|[${#lists.size(article.commentList)}]|"></span>
                                     </td>
+                                    <td th:text="${article.mbti.name}"></td>
                                     <td>
-                                        <a class="article-list-author" href="#"
-                                           th:text="|${article.author.nickname}[${article.author.mbti.name}]|"></a>
+                                        <a class="article-list-author" th:href="@{|/member/info/${article.author.nickname}|}"
+                                           th:text="${article.author.nickname}"></a>
                                     </td>
-                                    <td style="width: 6%" th:text="${article.viewCount}"></td>
-                                    <td style="width: 6%" th:text="${#lists.size(article.likers)}|"></td>
+                                    <td th:text="${article.viewCount}"></td>
+                                    <td th:text="${#lists.size(article.likers)}|"></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -144,6 +146,7 @@
                                 <thead class="article-list-head">
                                 <tr>
                                     <th class="article-list-subject-head">제목</th>
+                                    <th class="article-list-th">게시판명</th>
                                     <th class="article-list-th">작성자</th>
                                     <th class="article-list-th">조회수</th>
                                     <th class="article-list-th">추천수</th>
@@ -158,12 +161,13 @@
                                         <span class="article-comment" th:if="${#lists.size(article.commentList) != 0}"
                                               th:text="|[${#lists.size(article.commentList)}]|"></span>
                                     </td>
+                                    <td th:text="${article.mbti.name}"></td>
                                     <td>
-                                        <a class="article-list-author" href="#"
-                                           th:text="|${article.author.nickname}[${article.author.mbti.name}]|"></a>
+                                        <a class="article-list-author" th:href="@{|/member/info/${article.author.nickname}|}"
+                                           th:text="${article.author.nickname}"></a>
                                     </td>
-                                    <td style="width: 6%" th:text="${article.viewCount}"></td>
-                                    <td style="width: 6%" th:text="${#lists.size(article.likers)}|"></td>
+                                    <td th:text="${article.viewCount}"></td>
+                                    <td th:text="${#lists.size(article.likers)}|"></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -176,6 +180,7 @@
                                 <thead class="article-list-head">
                                 <tr>
                                     <th class="article-list-subject-head">제목</th>
+                                    <th class="article-list-th">게시판명</th>
                                     <th class="article-list-th">작성자</th>
                                     <th class="article-list-th">조회수</th>
                                     <th class="article-list-th">추천수</th>
@@ -190,12 +195,13 @@
                                         <span class="article-comment" th:if="${#lists.size(article.commentList) != 0}"
                                               th:text="|[${#lists.size(article.commentList)}]|"></span>
                                     </td>
+                                    <td th:text="${article.mbti.name}"></td>
                                     <td>
-                                        <a class="article-list-author" href="#"
-                                           th:text="|${article.author.nickname}[${article.author.mbti.name}]|"></a>
+                                        <a class="article-list-author" th:href="@{|/member/info/${article.author.nickname}|}"
+                                           th:text="${article.author.nickname}"></a>
                                     </td>
-                                    <td style="width: 6%" th:text="${article.viewCount}"></td>
-                                    <td style="width: 6%" th:text="${#lists.size(article.likers)}|"></td>
+                                    <td th:text="${article.viewCount}"></td>
+                                    <td th:text="${#lists.size(article.likers)}|"></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -337,7 +343,7 @@
                     </div>
                     <div class="links">
                         <div class="lock">
-                            <a href="#">
+                            <a th:href="@{/member/tempPassword}">
                                 <i class="fa-solid fa-lock"></i>
                                 아이디/비밀번호 찾기
                             </a>
@@ -354,14 +360,19 @@
                     <div style="display: flex; justify-content: space-between;">
                         <div style="display: flex; width: 48%; height: 100px; border: 0.5px solid rgba(128, 128, 128, 0.4);"
                              th:if="${member.memberImg != null}">
-                            <img class="img-fluid" th:src="@{|/file/${member.memberImg}|}" alt="사진">
+                            <img style="width:100%; height:100%;" class="img-fluid" th:src="@{|/file/${member.memberImg}|}" alt="사진">
+                        </div>
+                        <div style="display: flex; width: 48%; height: 100px; align-items: center; justify-content: center;"
+                             th:if="${member.memberImg == null}">
+                            <i style="font-size: 86px;" class="fa-solid fa-circle-user"></i>
+
                         </div>
                         <div style="width: 48%; display: flex; align-items: center; flex-wrap: wrap;">
                             <div style="width: 100%;">
                             <span th:text="|${member.nickname}[${member.mbti.name}] 님|"></span>
                             </div>
                             <div style="width: 100%;">
-                                <a class="article-author" href="#">내 정보 보기</a>
+                                <a class="article-author" th:href="@{|/member/info/${member.nickname}|}">[내 정보 보기]</a>
                             </div>
                         </div>
                     </div>
@@ -400,7 +411,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="chat" sec:authorize="isAnonymous()">채팅방(예정)
+                <div class="chat" sec:authorize="isAnonymous()">채팅방
                     <div class="logout_chat">
                         <div class="close_chat">
                             <i class="fa-solid fa-circle-exclamation"></i>

@@ -15,7 +15,6 @@
 
         <form class="m_form" th:action="@{/member/signup}" th:object="${memberSignupForm}" method="post"
               enctype="multipart/form-data">
-            <div th:replace="~{form_errors :: formErrorsFragment}"></div>
             <div class="separator">
                 <p>가입</p>
             </div>

@@ -20,7 +20,9 @@
     padding-bottom: 3px;
     height: 100px;
 }
-
+a {
+    text-decoration: none;
+}
 .article-logo {
     font-size: 40px;
     color: black;
@@ -441,6 +443,19 @@
 .a_comment_bottom {
     display:flex;
     justify-content: flex-end;
+}
+.comment-author {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.comment-time {
+    text-decoration: none;
+    margin-right: auto;
+    padding-top: 3px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    font-size: 14px;
+    color: #969696;
 }
 
 /*---------------------- 댓글 end ---------------------- */

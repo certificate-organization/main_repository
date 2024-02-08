@@ -31,7 +31,7 @@
                         </div>
                         <div class="article-information">
                             <div class="article-author-date">
-                                <a class="article-author" href="#"
+                                <a class="article-author"  th:href="@{|/member/info/${article.author.nickname}|}"
                                    th:text="|${article.author.membername}[${article.author.mbti.name}]|"></a>
                                 <span class="article-between-line"
                                       th:text="${#temporals.format(article.createDate, 'yyyy-MM-dd HH:mm')}"></span>
@@ -52,14 +52,14 @@
                         <p class="card-text" th:utext="${@commonUtil.markdown(article.content)}"></p>
                         <!-- 추천 버튼 -->
                         <a th:href="@{|/article/${article.id}/like|}" class="btn btn-sm btn-outline-secondary"
-                           th:if="${not article.likedByCurrentUser}">
+                           th:if="${not article.likedByCurrentUser}" sec:authorize="isAuthenticated()">
                             추천 <i style="padding-left:5px;" class="fa-solid fa-thumbs-up"></i>
                             <span class="badge rounded-pill bg-success" th:text="${#lists.size(article.likers)}"></span>
                         </a>
 
                         <!-- 추천 취소 버튼 -->
                         <a th:href="@{|/article/${article.id}/like|}" class="btn btn-sm btn-outline-secondary"
-                           th:if="${article.likedByCurrentUser}">
+                           th:if="${article.likedByCurrentUser}" sec:authorize="isAuthenticated()">
                             취소 <i style="padding-left:5px;" class="fa-solid fa-thumbs-down"></i>
                             <span class="badge rounded-pill bg-success" th:text="${#lists.size(article.likers)}"></span>
                         </a>
@@ -74,7 +74,7 @@
                            th:text="삭제"></a>
                         <!-- 게시글 모달 버튼 -->
                         <button class="btn btn-sm btn-outline-secondary" data-bs-target="#reportArticleModal"
-                                data-bs-toggle="modal"
+                                data-bs-toggle="modal" sec:authorize="isAuthenticated()"
                                 type="button">신고
                         </button>
                     </div>
@@ -94,7 +94,7 @@
                       class="form-control" rows="3" placeholder="로그인 후 이용 가능 합니다"></textarea>
             <textarea style="margin-top: 10px;" sec:authorize="isAuthenticated()" th:field="*{content}"
                       class="form-control" rows="3" placeholder="건전한 커뮤니티를 위해 비방 및 욕설은 자제 부탁드립니다"></textarea>
-            <button style="margin-top: 10px;" type="submit" class="btn btn-sm btn-outline-secondary">댓글 등록</button>
+            <button style="margin-top: 10px;" type="submit" class="btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()">댓글 등록</button>
         </form>
     </div>
 
@@ -109,7 +109,8 @@
             <li th:if="${comment.parent == null}" th:each="comment : ${article.commentList}">
                 <div class="a_comment">
                     <div class="a_comment_top">
-                        <span th:text="|${comment.author.nickname}[${comment.author.mbti.name}]|"></span>
+                        <a  th:href="@{|/member/info/${comment.author.nickname}|}" th:text="|${comment.author.nickname}[${comment.author.mbti.name}]|"></a>
+                        <span class="comment-time" th:text="${comment.createDate}"></span>
                         <div class="a_comment_part">
                             <a th:if="${comment.author != null and #authentication.getPrincipal().getUsername() == comment.author.membername}"
                                th:href="@{|/comment/modify/${comment.id}|}" class="btn btn-sm btn-outline-secondary"
@@ -122,25 +123,24 @@
                                sec:authorize="isAuthenticated()" th:text="삭제">
                             </a>
                             <a th:href="@{|/comment/like/${comment.id}|}" class="btn btn-sm btn-outline-secondary"
-                               th:if="${not comment.likedByCurrentUser}">
+                               th:if="${not comment.likedByCurrentUser}" sec:authorize="isAuthenticated()">
                                 좋아요<i style="padding-left:5px;" class="fa-solid fa-heart"></i>
                                 <span class="badge rounded-pill bg-success"
                                       th:text="${#lists.size(comment.likers)}"></span>
                             </a>
                             <a th:href="@{|/comment/like/${comment.id}|}" class="btn btn-sm btn-outline-secondary"
-                               th:if="${comment.likedByCurrentUser}">
+                               th:if="${comment.likedByCurrentUser}" sec:authorize="isAuthenticated()">
                                 좋아요 취소 <i style="padding-left:5px;" class="fa-solid fa-heart-broken"></i>
                                 <span class="badge rounded-pill bg-success"
                                       th:text="${#lists.size(comment.likers)}"></span>
                             </a>
                             <!-- 댓글 모달 버튼 -->
-                            <button type="button" class="btn btn-sm btn-outline-secondary reportComment"
+                            <button sec:authorize="isAuthenticated()" type="button" class="btn btn-sm btn-outline-secondary reportComment"
                                     data-bs-toggle="modal"
                                     data-bs-target="#reportCommentModal"
                                     th:data-comment-id="${comment.id}"
                                     id="reportCommentButton">신고
                             </button>
-                            <!-- <button class="btn btn-sm btn-outline-secondary" id="rec_btn">댓글 달기</button>-->
                             <span th:if="${comment.likedByCurrentUser}">
                                 <span class="badge rounded-pill bg-success"
                                       th:text="${#lists.size(comment.likers)}"></span>
@@ -152,7 +152,7 @@
                         <p th:text="${comment.content}"></p>
                     </div>
                     <div class="a_comment_bottom">
-                        <button class="btn btn-sm btn-outline-secondary toggleCommentForm"
+                        <button sec:authorize="isAuthenticated()" class="btn btn-sm btn-outline-secondary toggleCommentForm"
                                 th:data-comment-id="${comment.id}"
                                 onclick="toggleCommentForm(this)">
                             답글
@@ -176,7 +176,8 @@
                     <li th:each="childrenComment : ${comment.childrenCommentList}">
                         <div class="a_re-comment">
                             <div class="a_re-comment_top">
-                                <span th:text="|${childrenComment.author.nickname}[${childrenComment.author.mbti.name}]|"></span>
+                                <a  th:href="@{|/member/info/${comment.author.nickname}|}" th:text="|${comment.author.nickname}[${comment.author.mbti.name}]|"></a>
+                                <span class="comment-time" th:text="${childrenComment.createDate}"></span>
                                 <div class="a_re-comment_part">
                                     <a th:if="${childrenComment.author != null and #authentication.getPrincipal().getUsername() == childrenComment.author.membername}"
                                        th:href="@{|/comment/modify/${childrenComment.id}|}"
@@ -191,12 +192,12 @@
                                     </a>
                                     <a th:href="@{|/comment/like/${childrenComment.id}|}"
                                        class="btn btn-sm btn-outline-secondary"
-                                       th:if="${not childrenComment.likedByCurrentUser}">
+                                       th:if="${not childrenComment.likedByCurrentUser}" sec:authorize="isAuthenticated()">
                                         좋아요<i style="padding-left:5px;" class="fa-solid fa-heart"></i>
                                         <span class="badge rounded-pill bg-success"
                                               th:text="${#lists.size(childrenComment.likers)}"></span>
                                     </a>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary reportComment"
+                                    <button sec:authorize="isAuthenticated()" type="button" class="btn btn-sm btn-outline-secondary reportComment"
                                             data-bs-toggle="modal"
                                             data-bs-target="#reportCommentModal"
                                             th:data-comment-id="${childrenComment.id}"
@@ -309,6 +310,39 @@
             </div>
         </div>
     </div>
+    <script th:inline="javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            var commentTimeElements = document.querySelectorAll('.comment-time');
+
+            commentTimeElements.forEach(function(element) {
+                var commentTimestamp = new Date(element.innerText);
+                var currentTime = new Date();
+                var timeDifference = Math.floor((currentTime - commentTimestamp) / 1000);
+
+                var timeString;
+
+                if (timeDifference < 60) {
+                    timeString = timeDifference + '초 전';
+                } else if (timeDifference < 3600) {
+                    var minutes = Math.floor(timeDifference / 60);
+                    timeString = minutes + '분 전';
+                } else if (timeDifference < 86400) {
+                    var hours = Math.floor(timeDifference / 3600);
+                    timeString = hours + '시간 전';
+                } else if (timeDifference < 2592000) { // 30일(30 * 24 * 60 * 60 초)
+                    var days = Math.floor(timeDifference / 86400);
+                    timeString = days + '일 전';
+                } else {
+                    // 30일 이상 경과한 경우 년-월-일 형식으로 표현 ex) 2024-02-08
+                    timeString = commentTimestamp.getFullYear() + '-' +
+                                 ('0' + (commentTimestamp.getMonth() + 1)).slice(-2) + '-' +
+                                 ('0' + commentTimestamp.getDate()).slice(-2);
+                }
+
+                element.innerText = timeString;
+            });
+        });
+    </script>
     <script>
         function toggleCommentForm(button) {
             var commentId = button.getAttribute("data-comment-id");
