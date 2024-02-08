@@ -20,7 +20,9 @@
     padding-bottom: 3px;
     height: 100px;
 }
-
+a {
+    text-decoration: none;
+}
 .article-logo {
     font-size: 40px;
     color: black;
@@ -449,7 +451,7 @@
 .comment-time {
     text-decoration: none;
     margin-right: auto;
-    padding-top: 14px;
+    padding-top: 3px;
     padding-bottom: 5px;
     padding-left: 10px;
     font-size: 14px;
