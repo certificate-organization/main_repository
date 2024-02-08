@@ -9,7 +9,7 @@
             <a th:href="@{/member/signup}"> <i class="fa fa-user-plus"></i>회원가입</a>
         </li>
         <li>
-            <a href="#" id="reset">초기화</a>
+            <a th:href="@{/member/tempPassword}" id="tempPassword">아이디/비밀번호 찾기</a>
         </li>
     </ul>
 
@@ -37,16 +37,5 @@
         <a href="/oauth2/authorization/kakao" style="text-decoration-line: none">카카오 로그인</a>
     </button>
 </div>
-<script>
-    $(document).ready(function(){
-        let reset = $("#reset");
-
-        reset.on("click", function(e){
-            e.preventDefault();
-            $("#username").val("");
-            $("#password").val("");
-        });
-    });
-</script>
 </div>
 </html>

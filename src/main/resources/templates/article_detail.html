@@ -31,7 +31,7 @@
                         </div>
                         <div class="article-information">
                             <div class="article-author-date">
-                                <a class="article-author" href="#"
+                                <a class="article-author"  th:href="@{|/member/info/${article.author.nickname}|}"
                                    th:text="|${article.author.membername}[${article.author.mbti.name}]|"></a>
                                 <span class="article-between-line"
                                       th:text="${#temporals.format(article.createDate, 'yyyy-MM-dd HH:mm')}"></span>
@@ -109,7 +109,7 @@
             <li th:if="${comment.parent == null}" th:each="comment : ${article.commentList}">
                 <div class="a_comment">
                     <div class="a_comment_top">
-                        <span class="comment-author" th:text="|${comment.author.nickname}[${comment.author.mbti.name}]|"></span>
+                        <a  th:href="@{|/member/info/${comment.author.nickname}|}" th:text="|${comment.author.nickname}[${comment.author.mbti.name}]|"></a>
                         <span class="comment-time" th:text="${comment.createDate}"></span>
                         <div class="a_comment_part">
                             <a th:if="${comment.author != null and #authentication.getPrincipal().getUsername() == comment.author.membername}"
@@ -176,7 +176,7 @@
                     <li th:each="childrenComment : ${comment.childrenCommentList}">
                         <div class="a_re-comment">
                             <div class="a_re-comment_top">
-                                <span class="comment-author" th:text="|${childrenComment.author.nickname}[${childrenComment.author.mbti.name}]|"></span>
+                                <a  th:href="@{|/member/info/${comment.author.nickname}|}" th:text="|${comment.author.nickname}[${comment.author.mbti.name}]|"></a>
                                 <span class="comment-time" th:text="${childrenComment.createDate}"></span>
                                 <div class="a_re-comment_part">
                                     <a th:if="${childrenComment.author != null and #authentication.getPrincipal().getUsername() == childrenComment.author.membername}"

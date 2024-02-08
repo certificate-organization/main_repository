@@ -14,6 +14,7 @@ import java.util.List;
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     List<Article> findByMbtiId(Long mbtiId);
+    List<Article> findByAuthorId(Long AuthorId);
 
     Page<Article> findByMbtiId(Long mbtiId, Pageable pageable);
 
