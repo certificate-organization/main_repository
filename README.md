@@ -230,47 +230,22 @@ A. 이슈 내역
 ### 🚧 합계 이슈
 
 A. 이슈 내역
-- html에 공통적으로 사용 하기 위해 navbar를 `navbar.html` 새로 만들고 `layout.html`에 `th:replace`속성으로포함시켜서 사용을 하던 도중에 팀원들과 PR을 한 이후에  로그인,회원가입 페이지에서`net::ERR_INCOMPLETE_CHUNKED_ENCODING 200 (OK)` 라는 오류와 함께 페이지가 일부만 로딩 되거나 아예 로딩이 되지 않는 현상이 발생 하였다.
+
+-특정 페이지에서 net::ERR_INCOMPLETE_CHUNKED_ENCODING 200 (OK)
+오류가 발생, 페이지가 로딩이 덜되거나 아예 되지않음.
+
 <br>
+
+문제점 설명
+
+-메인 홈페이지에서 로그인 페이지로 이동하거나 회원가입 페이지로 이동
+을 하면 해당 페이지가 CHUNKED_ENCODING 200 으로 로드 안됌.
+
+-Thymeleaf 문법을 사용한 회원가입/로그인 페이지에서 th:action @{}를 사용하면 해당 템플릿이 pasing 오류로 자주 발생함
+-오류 메세지에 세션 생성 시점 이나 응답 후 커밋을 확인하라는 메세지가 자주 나오고 spring security 및 csrf 토큰에 대한 오류 메세지가 자주 출력 되었음
 
 ## 🛑 원인
-
-### 다크모드를 위해 Img 대신 svg
-  
-  ### 1. SVG
-  `(Scalable Vector Graphics)는 XML 기반의 파일 형식`
-  
-  다크모드를 구현하기 위해 Img 대신 Svg 파일을 넣은 이후 PR을 하였기 때문에
-  SVG가 로딩 되면서 에러를 일으켰을거라고 생각을 하였음 .
-  
-  실제로 navbar에서 svg 파일을 주석처리하거나 img파일로 대체 하였을때
-  `net::ERR_INCOMPLETE_CHUNKED_ENCODING 200 (OK)`가 발생하지 않았음.
-  
-  하지만 프로젝트를 진행하면서 이것도 일시적 현상 이였다는걸 확인하였음.
-  
-  ### 2. Spring Security 및 CSRF 토큰 확인
-  
- 주로 로그인 / 회원가입 페이지에서 확정적으로 발생을 하였고, 에러 메세지를 확인한 결과  
- form에서 th:action="@{} 를 사용하면 해당 오류가 발생하는것을 확인 하였음. 또한 `net::ERR_INCOMPLETE_CHUNKED_ENCODING 200 (OK)`이 확정적으로 발생하는 지점을 확인 하였는데 로그인 이후 -> 로그아웃 -> 회원 가입 으로 페이지를 가면 무조건 CHUNKED 에러가 발생하고 로그인 상태에서 회원가입 페이지로 계속 넘어가도 CHUNKED 에러는 발생하지 않는 현상을 발견하였음.
- ```
- An error happened during template parsing
- [dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] 
- in context with path [] threw exception [Request processing failed: 
- org.thymeleaf.exceptions.TemplateInputException: An error happened during template parsing
- Cannot render error page for request [/member/signup] and exception 
- [An error happened during template parsing
- as the response has already been committed.
- As a result, the response may have the wrong status code.
- ```
-1.세션 생성 시점 확인: 세션을 생성하는 코드가 응답이 이미 커밋된 후에 실행되지 않도록 확인
-2.응답 커밋 확인: 응답이 커밋되기 전에 세션을 생성하도록 코드를 구성 응답이 커밋된 후에는 세션을 생성할 수 없습니다.
-3.Spring Security 및 CSRF 토큰 확인: 스프링 시큐리티와 관련이 있는 것으로 보이는데, CSRF 토큰과 관련된 코드를 살펴보고 세션을 올바르게 관리하는지 확인
-<br>
- 
- # ❗ 주 원인
-
-`net::ERR_INCOMPLETE_CHUNKED_ENCODING 200 (OK)` 오류의 주된 원인은 Thymeleaf가 콘텐츠를 생성하자마자 즉시 출력하기 때문. 프로세서가 갑자기 양식에 도달하면 Spring Security가 시작되고 양식에 CSRF 토큰을 삽입하기 위해 새 세션을 생성하려고 합니다
-
+-Thymeleaf가 콘텐츠를 생성하자마자 즉시 출력하기 때문. 프로세서가 갑자기 양식에 도달하면 Spring Security가 시작되고 양식에 CSRF 토큰을 삽입하기 위해 새 세션을 생성하려고 하기 때문에 발생
 
 ## 🚥 해결
 
@@ -287,17 +262,19 @@ A. 이슈 내역
     }
       
   ```
-  Spring Security 세션 정책을 기본값에서 항상 세션을 생성 하는 방법으로 변경을 하면 해결할 수 있습니다.
-  하지만 항상 세션을 생성 하는게 기본값이 되면 서버측 리소스를 사용 하므로 불필요한 자원의 낭비와 보안에 대해 취약성을 가질 수 있으므로 이 방법은 권장하지 않습니다. 
+  Spring Security 세션 정책을 기본값인 IF_REQUIRED 에서 ALWAYS 로 변경하여
+시큐리티가 항상 세션을 생성하도록 변경. 이 방법은 보안에 대한 취약성이나 기본값이 되면 
+서버측 리소스를 사용 하므로 불필요한 자원의 낭비로 추천하지는 않음.
   <br>
 ## 👍 해결 방안 2. Meta tag (메타 태그) 사용법
 ### Meta tag란 ?
 
-메타 태그는 검색 엔진 최적화(SEO)와 같은 목적으로 사용되며, 브라우저가 페이지를 렌더링하는 방식을 제어하는 데도 사용됩니다. 페이지의 내용을 설명하고 브라우저가 페이지를 적절하게 렌더링하도록 돕는 중요한 역할
+메타 태그 페이지의 내용을 설명하고 브라우저가 페이지를 적절하게 렌더링하도록 돕는 중요한 역할
   
  ### 1. Meta 태그를 사용하여 csrf 토큰 값 전달하는 방법
  
-  layout.html  또는 필요한 html `head` 부분에 
+  layout.html  또는 로그인 / 회원가입 같이 csrf토큰 처리해주는
+  뷰에 다음과 같은 스크립트를 사용 html `head` 부분에 
  ` <meta name="_csrf" th:content="${_csrf.token}"/>`
  `<meta name="_csrf_header" th:content="${_csrf.headerName}"/>`
  meta 태그로 csrf 값을 넣어주고
@@ -311,10 +288,6 @@ A. 이슈 내역
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
   </head>
   ```
-
- 
-로그인 / 회원가입 같이 csrf토큰 처리해주는 뷰에 다음과 같은 스크립트를 사용한다
- 
  ``` javascript
 <script th:inline="javascript">
     $(function () {
@@ -362,3 +335,4 @@ AJAX(Asynchronous JavaScript and XML) 기술에서 사용되며 데이터 요청
       produce-partial-output-while-processing: false
   ```
 해당 설정은 Thymeleaf가 템플릿을 처리하는 방식을 제어하여 출력의 생성 시점을 조정하는 데 사용하는데 false로 설정을하여 Thymeleaf가 템플릿을 완전히 처리한 후에야 출력을 생성하도록 합니다. 즉, 전체 템플릿이 처리된 후에야 클라이언트에게 결과를 전송하도록 합니다.
+
