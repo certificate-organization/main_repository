@@ -123,19 +123,19 @@
                                sec:authorize="isAuthenticated()" th:text="삭제">
                             </a>
                             <a th:href="@{|/comment/like/${comment.id}|}" class="btn btn-sm btn-outline-secondary"
-                               th:if="${not comment.likedByCurrentUser}">
+                               th:if="${not comment.likedByCurrentUser}" sec:authorize="isAuthenticated()">
                                 좋아요<i style="padding-left:5px;" class="fa-solid fa-heart"></i>
                                 <span class="badge rounded-pill bg-success"
                                       th:text="${#lists.size(comment.likers)}"></span>
                             </a>
                             <a th:href="@{|/comment/like/${comment.id}|}" class="btn btn-sm btn-outline-secondary"
-                               th:if="${comment.likedByCurrentUser}">
+                               th:if="${comment.likedByCurrentUser}" sec:authorize="isAuthenticated()">
                                 좋아요 취소 <i style="padding-left:5px;" class="fa-solid fa-heart-broken"></i>
                                 <span class="badge rounded-pill bg-success"
                                       th:text="${#lists.size(comment.likers)}"></span>
                             </a>
                             <!-- 댓글 모달 버튼 -->
-                            <button type="button" class="btn btn-sm btn-outline-secondary reportComment"
+                            <button sec:authorize="isAuthenticated()" type="button" class="btn btn-sm btn-outline-secondary reportComment"
                                     data-bs-toggle="modal"
                                     data-bs-target="#reportCommentModal"
                                     th:data-comment-id="${comment.id}"
@@ -152,7 +152,7 @@
                         <p th:text="${comment.content}"></p>
                     </div>
                     <div class="a_comment_bottom">
-                        <button class="btn btn-sm btn-outline-secondary toggleCommentForm"
+                        <button sec:authorize="isAuthenticated()" class="btn btn-sm btn-outline-secondary toggleCommentForm"
                                 th:data-comment-id="${comment.id}"
                                 onclick="toggleCommentForm(this)">
                             답글
@@ -192,12 +192,12 @@
                                     </a>
                                     <a th:href="@{|/comment/like/${childrenComment.id}|}"
                                        class="btn btn-sm btn-outline-secondary"
-                                       th:if="${not childrenComment.likedByCurrentUser}">
+                                       th:if="${not childrenComment.likedByCurrentUser}" sec:authorize="isAuthenticated()">
                                         좋아요<i style="padding-left:5px;" class="fa-solid fa-heart"></i>
                                         <span class="badge rounded-pill bg-success"
                                               th:text="${#lists.size(childrenComment.likers)}"></span>
                                     </a>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary reportComment"
+                                    <button sec:authorize="isAuthenticated()" type="button" class="btn btn-sm btn-outline-secondary reportComment"
                                             data-bs-toggle="modal"
                                             data-bs-target="#reportCommentModal"
                                             th:data-comment-id="${childrenComment.id}"
