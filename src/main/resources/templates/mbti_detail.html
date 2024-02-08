@@ -231,7 +231,7 @@
                           class="article-comment" th:text="|[${#lists.size(article.commentList)}]|"></span>
                 </td>
                 <td>
-                    <a class="article-list-author" href="#"
+                    <a class="article-list-author" th:href="@{|/member/info/${article.author.nickname}|}"
                        th:text="|${article.author.nickname}[${article.author.mbti.name}]|"></a>
                 </td>
                 <td style="width: 8%" th:id="|result${loop.index + 1}|"></td>

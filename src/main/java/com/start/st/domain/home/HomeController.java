@@ -5,6 +5,7 @@ import com.start.st.domain.article.service.ArticleService;
 import com.start.st.domain.mbti.entity.Mbti;
 import com.start.st.domain.mbti.service.MbtiService;
 import com.start.st.domain.member.entity.Member;
+import com.start.st.domain.member.entity.MemberModifyForm;
 import com.start.st.domain.member.service.MemberService;
 import com.start.st.domain.movie.entity.Movie;
 import com.start.st.domain.movie.service.MovieService;
@@ -35,7 +36,7 @@ public class HomeController {
     private final MemberService memberService;
 
     @GetMapping("/")
-    public String root(Model model, Principal principal, @RequestParam(value = "page", defaultValue = "0") int page) {
+    public String root(Model model, Principal principal, @RequestParam(value = "page", defaultValue = "0") int page, MemberModifyForm memberModifyForm) {
         List<Mbti> mbtiList = this.mbtiService.findAllMbti();
 
         Page<Article> articlePageByDate = this.articleService.getArticlePageByDate(page);
@@ -57,6 +58,15 @@ public class HomeController {
             music = this.getRandomMusic(member.getMbti().getMusicList());
             model.addAttribute("movie", movie);
             model.addAttribute("music", music);
+            if (memberService.getMember(principal.getName()).getEmail() == null||
+                    memberService.getMember(principal.getName()).getEmail().equals("")) {
+                List<Mbti> _mbtiList = this.mbtiService.findAllMbti();
+                mbtiList.remove(member.getMbti());
+
+                model.addAttribute("member", member);
+                model.addAttribute("mbtiList", _mbtiList);
+                return "member_modify_form";
+            }
             return "mbti_home";
         } else {
             return "mbti_home";
@@ -90,6 +100,7 @@ public class HomeController {
         }
         return null;
     }
+
     public Music getRandomMusic(Set<Music> musicSet) {
         if (musicSet.isEmpty()) {
             return null;

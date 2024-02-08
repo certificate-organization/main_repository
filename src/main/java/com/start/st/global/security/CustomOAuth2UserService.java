@@ -11,6 +11,7 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,7 +29,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     @Transactional
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User oAuth2User = super.loadUser(userRequest);
-
         String oauthId = oAuth2User.getName();
         Map<String, Object> attributes = oAuth2User.getAttributes();
 
@@ -39,7 +39,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         String username = providerTypeCode + "__%s".formatted(oauthId);
 
-        Member member = memberService.whenSocialLogin(providerTypeCode, username, nickname);
+        Member member = memberService.whenSocialLogin(providerTypeCode, username, nickname,null);
 
         List<GrantedAuthority> authorityList = new ArrayList<>();
 
