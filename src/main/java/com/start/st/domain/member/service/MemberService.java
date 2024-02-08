@@ -2,6 +2,7 @@ package com.start.st.domain.member.service;
 
 import com.start.st.domain.email.service.EmailService;
 import com.start.st.domain.mbti.entity.Mbti;
+import com.start.st.domain.mbti.service.MbtiService;
 import com.start.st.domain.member.entity.Member;
 import com.start.st.domain.member.repository.MemberRepository;
 import com.start.st.global.markdown.CommonUtil;
@@ -25,6 +26,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
+    private final MbtiService mbtiService;
     private final CommonUtil commonUtil;
 
     @Value("${custom.fileDirPath}")
@@ -33,7 +35,7 @@ public class MemberService {
     public void create(String membername, String password, String nickname, String email,
                        Mbti mbti, MultipartFile memberImg) {
         String thumbnailRelPath = "";
-        if (memberImg.isEmpty()) {
+        if (memberImg==null) {
             thumbnailRelPath = null;
         } else {
             thumbnailRelPath = "member/" + UUID.randomUUID().toString() + ".jpg";
@@ -131,13 +133,14 @@ public class MemberService {
     }
 
     @Transactional
-    public Member whenSocialLogin(String providerTypeCode, String membername, String nickname) {
+    public Member whenSocialLogin(String providerTypeCode, String membername, String nickname,MultipartFile memberimg) {
         Member member = getMember(membername);
+        Mbti mbti = this.mbtiService.getMbti(1L);
         if (member != null) {
             return member;
         }
 
-        create(membername, "", nickname, null, null, null);
+        create(membername, "", nickname, "", mbti, memberimg);
         return this.memberRepository.findByMembername(membername).get(); // 최초 로그인 시 딱 한번 실행
     }
     @Transactional

@@ -77,6 +77,7 @@ public class MemberController {
         Member member = this.memberService.getMember(principal.getName());
         List<Mbti> mbtiList = this.mbtiService.findAllMbti();
         mbtiList.remove(member.getMbti());
+
         model.addAttribute("member", member);
         model.addAttribute("mbtiList", mbtiList);
         return "member_modify_form";

@@ -52,14 +52,14 @@
                         <p class="card-text" th:utext="${@commonUtil.markdown(article.content)}"></p>
                         <!-- 추천 버튼 -->
                         <a th:href="@{|/article/${article.id}/like|}" class="btn btn-sm btn-outline-secondary"
-                           th:if="${not article.likedByCurrentUser}">
+                           th:if="${not article.likedByCurrentUser}" sec:authorize="isAuthenticated()">
                             추천 <i style="padding-left:5px;" class="fa-solid fa-thumbs-up"></i>
                             <span class="badge rounded-pill bg-success" th:text="${#lists.size(article.likers)}"></span>
                         </a>
 
                         <!-- 추천 취소 버튼 -->
                         <a th:href="@{|/article/${article.id}/like|}" class="btn btn-sm btn-outline-secondary"
-                           th:if="${article.likedByCurrentUser}">
+                           th:if="${article.likedByCurrentUser}" sec:authorize="isAuthenticated()">
                             취소 <i style="padding-left:5px;" class="fa-solid fa-thumbs-down"></i>
                             <span class="badge rounded-pill bg-success" th:text="${#lists.size(article.likers)}"></span>
                         </a>
@@ -74,7 +74,7 @@
                            th:text="삭제"></a>
                         <!-- 게시글 모달 버튼 -->
                         <button class="btn btn-sm btn-outline-secondary" data-bs-target="#reportArticleModal"
-                                data-bs-toggle="modal"
+                                data-bs-toggle="modal" sec:authorize="isAuthenticated()"
                                 type="button">신고
                         </button>
                     </div>
@@ -94,7 +94,7 @@
                       class="form-control" rows="3" placeholder="로그인 후 이용 가능 합니다"></textarea>
             <textarea style="margin-top: 10px;" sec:authorize="isAuthenticated()" th:field="*{content}"
                       class="form-control" rows="3" placeholder="건전한 커뮤니티를 위해 비방 및 욕설은 자제 부탁드립니다"></textarea>
-            <button style="margin-top: 10px;" type="submit" class="btn btn-sm btn-outline-secondary">댓글 등록</button>
+            <button style="margin-top: 10px;" type="submit" class="btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()">댓글 등록</button>
         </form>
     </div>
 
