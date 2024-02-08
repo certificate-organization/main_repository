@@ -1,0 +1,63 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content">
+    <div class="m_container" style="margin-top:50px">
+        <h2 th:text="@{|${member.nickname}님|}"></h2>
+        <div class="info_separator">
+            <p>정보</p>
+        </div>
+        <div class="title__p">
+            <p>아이디</p>
+        </div>
+        <div class="input__block">
+            <div th:text="@{|${member.membername}|}" class="form-control"></div>
+        </div>
+        <div class="title__p">
+            <p>닉네임</p>
+        </div>
+        <div class="input__block">
+            <div th:text="@{|${member.nickname}|}" class="form-control"></div>
+        </div>
+        <div class="title__p">
+            <p>MBTI 유형</p>
+        </div>
+        <div class="input__block">
+            <div th:text="@{|${member.mbti.name}|}" class="form-control"></div>
+        </div>
+        <div class="info_separator">
+            <p>작성한 게시글</p>
+        </div>
+        <div class="article-table" style="width:103%; margin:-20px">
+            <table class="article-list">
+                <thead class="article-list-head">
+                <tr>
+                    <th>번호</th>
+                    <th class="article-list-subject-head">제목</th>
+                    <th>게시판명</th>
+                    <th>작성일</th>
+                    <th>조회수</th>
+                    <th>추천수</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="article-list-body" th:each="article, loop : ${articleList}">
+                    <th style="width: 10%" th:text="${article.id}"></th>
+                    <td class="article-list-subject-body">
+                        <a class="article-list-subject" th:href="@{|/article/${article.id}|}"
+                           th:text="${article.subject}">
+                        </a>
+                    </td>
+                    <td style="width: 8%" th:text="${article.mbti.name}"></td>
+                    <td style="width: 8%" th:id="|result${loop.index + 1}|"></td>
+                    <td style="width: 6%" th:text="${article.viewCount}"></td>
+                    <td style="width: 6%" th:text="${#lists.size(article.likers)}"></td>
+                    <script th:src="@{/js/calculateDate.js}"></script>
+                    <script th:inline="javascript">
+                        calculateDate (/*[[${article.createDate}]]*/, 'result' + /*[[${loop.index + 1}]]*/);
+                    </script>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</html>

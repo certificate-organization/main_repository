@@ -67,6 +67,9 @@ public class ArticleService {
         Pageable pageable = PageRequest.of(page, 10, Sort.by(list));  //한 번에 볼 사이즈 수정
         return this.articleRepository.findAllByKeywordAndMbtiId(keyword, mbtiId, pageable);
     }
+    public List<Article> getArticleListByMemberId(Long id){
+        return this.articleRepository.findByAuthorId(id);
+    }
 
     public List<Article> getArticleByMbti(Long mbtiId) {
         return this.articleRepository.findByMbtiId(mbtiId);

@@ -1,5 +1,7 @@
 package com.start.st.domain.member.controller;
 
+import com.start.st.domain.article.entity.Article;
+import com.start.st.domain.article.service.ArticleService;
 import com.start.st.domain.email.service.EmailService;
 import com.start.st.domain.mbti.entity.Mbti;
 import com.start.st.domain.mbti.service.MbtiService;
@@ -24,6 +26,7 @@ public class MemberController {
     private final MemberService memberService;
     private final MbtiService mbtiService;
     private final EmailService emailService;
+    private final ArticleService articleService;
 
     @GetMapping("/signup")
     public String memberSignup(Model model, MemberSignupForm memberSignupForm) {
@@ -155,5 +158,15 @@ public class MemberController {
             return "temp_password_form";
         }
         return "redirect:/";
+    }
+
+    @GetMapping("/info/{nickname}")
+    public String memberInfo(Model model, @PathVariable(value = "nickname") String nickname) {
+        Member member = this.memberService.findByNickname(nickname);
+        List<Article> articleList = this.articleService.getArticleListByMemberId(member.getId());
+        model.addAttribute("member",member);
+        model.addAttribute("articleList",articleList);
+
+        return "member_info";
     }
 }
