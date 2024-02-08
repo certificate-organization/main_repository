@@ -126,19 +126,43 @@ public boolean passwordConfirm(String password, Member member) {
 
 
 @5binn
+
 ### 🚨 Issue 2
 ### 🚧 출력 이슈
 
 A. 이슈 내역
-- <br>
+- List<String>타입으로 DB에 데이터를 저장하려함<br>
 
 문제점 설명
-- <br>
+![Image](https://github.com/mbti-organization/main_repository/assets/149226397/f7b490e9-d6c7-4ef9-a505-357136528702)
+- MBTI엔티티에서 요소들을 List<String> elements 로 선언하고 저장하려 했으나 다른 타입으로 저장이 됨<br>
 ## 🛑 원인
-- 
+- JPA에서 따로 설정을 하지 않으면 List<String>타입을 인식하지 못하고 매핑을 시도하지 않습니다.
 
 
 ## 🚥 해결
+- 컨버터를 사용하여 데이터를 변환하도록 하였습니다.
+```java
+//칼럼이 List<String> 타입일 때, 변환하여 DB에 저장/사용
+@Converter(autoApply = true)
+public class StringListConverter implements AttributeConverter<List<String>, String> {
+
+    private static final String DELIMITER = ",";
+	
+    //String형태로 변환
+    @Override
+    public String convertToDatabaseColumn(List<String> attribute) {
+        return attribute != null ? String.join(DELIMITER, attribute) : null;
+    }
+    
+	//다시 List형태로 변환
+    @Override
+    public List<String> convertToEntityAttribute(String dbData) {
+        return dbData != null ? Arrays.asList(dbData.split(DELIMITER)) : null;
+    }
+}
+```
+<br>
 - 
 
 <br>
