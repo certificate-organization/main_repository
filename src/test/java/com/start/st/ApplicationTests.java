@@ -1,6 +1,7 @@
 package com.start.st;
 
 import com.start.st.domain.article.entity.Article;
+import com.start.st.domain.article.repository.ArticleRepository;
 import com.start.st.domain.article.service.ArticleService;
 import com.start.st.domain.comment.service.CommentService;
 import com.start.st.domain.mbti.entity.Mbti;
@@ -16,7 +17,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 
 @SpringBootTest
@@ -24,13 +29,35 @@ class ApplicationTests {
 
     @Autowired
     ArticleService articleService;
-
-
+    @Autowired
+    ArticleRepository articleRepository;
     @Autowired
     MbtiService mbtiService;
+    @Autowired
+    MovieService movieService;
+    @Autowired
+    MusicService musicService;
+    @Autowired
+    MemberService memberService;
+    @Autowired
+    MemberRepository memberRepository;
+    @Autowired
+    CommentService commentService;
 
     @Test
-    void registerMbti() { //mbti등록 ID
+    void activeAll(){ //모든 데이터 한번에 생성
+        registerMbti();
+        registerMember();
+        makeMember();
+        makeArticle();
+        makeViewCount();
+        makeComment();
+        registerMovieGenre();
+        registerMusicGenre();
+        registerMbtiInfo();
+    }
+    @Test
+    void registerMbti() { // mbti 등록
         mbtiService.create("ISTJ"); //1
         mbtiService.create("ISTP"); //2
         mbtiService.create("ISFJ"); //3
@@ -49,66 +76,84 @@ class ApplicationTests {
         mbtiService.create("ENFP"); //16
     }
 
-    @Autowired
-    MemberService memberService;
-
-//    @Test
-//    void registerMember() { // 어드민 계정 생성
-//        Mbti mbti = mbtiService.getMbti(1L);
-//        memberService.create("admin", "1234", "관리자",
-//                "admin@email.com", mbti);
-//
-//    }
-//
-//    @Test
-//    void makeMember() { // 더미 계정 9개 생성  아이디 비번 각각 111, 222 , ... , 999 mbti는 ISTJ로 통일
-//        Mbti mbti = mbtiService.getMbti(1L);
-//        for (int i = 1; i < 10; i++) {
-//            memberService.create("" + i + i + i, "" + i + i + i, "" + i + i + i, "" + i + i + i + "@email.com", mbti);
-//        }
-//    }
-//
-//    @Test
-//    void makeArticle() { // 더미 계정으로 랜덤한 작성자를 갖는 게시글 199개 생성
-//        Mbti mbti = mbtiService.getMbti(1L);
-//        Random random = new Random();
-//        for (int i = 1; i < 200; i++) {
-//            Long randomNumber = (long) (random.nextDouble() * (10 - 2 + 1)) + 2;
-//            Member member = memberService.findByMemberId(randomNumber);
-//            articleService.create(i + "번 게시글 제목", i + "번 게시글 내용 입니다.", mbti, member);
-//        }
-//    }
-//
-//    @Test
-//    void makeViewCount() { // 게시글 들에 5000까지 랜덤한 조회수 부여
-//        Random random = new Random();
-//        for (int i = 1; i < 200; i++) {
-//            Long randomNumber = (long) (random.nextDouble() * 5001);
-//            Long id = (long) i;
-//            Article article = articleService.getArticle(id);
-//            articleService.view(article, randomNumber);
-//        }
-//    }
-//
-//    @Autowired
-//    CommentService commentService;
-//
-//    @Test
-//    void makeComment() { // 게시글 마다 2개의 댓글 생성
-//        for (int i = 1; i < 200; i++) {
-//            Long id = (long) i;
-//            Article article = articleService.getArticle(id);
-//            Member member = memberService.getMember("admin");
-//            commentService.create(article, "1번 댓글 입니다.", member, null);
-//            commentService.create(article, "2번 댓글 입니다.", member, null);
-//        }
-//    }
-
-    @Autowired
-    MovieService movieService;
 
     @Test
-    void registerMovieGenre() {
+    void registerMember() { // 어드민 계정 생성
+        Mbti mbti = mbtiService.getMbti(1L);
+        Member member = Member.builder()
+                .membername("admin")
+                .password("1234")
+                .nickname("관리자")
+                .email("admin@email.com")
+                .mbti(mbti)
+                .memberImg(null)
+                .build();
+        memberRepository.save(member);
+    }
+
+    @Test
+    void makeMember() { // 더미 계정 9개 생성  아이디 비번 각각 111, 222 , ... , 999 mbti는 ISTJ로 통일
+        Mbti mbti = mbtiService.getMbti(1L);
+        for (int i = 1; i < 10; i++) {
+            Member member = Member.builder()
+                    .membername("" + i + i + i)
+                    .password("" + i + i + i)
+                    .nickname("" + i + i + i)
+                    .email("" + i + i + i + "@email.com")
+                    .mbti(mbti)
+                    .memberImg(null)
+                    .build();
+            memberRepository.save(member);
+        }
+    }
+
+    @Test
+    void makeArticle() { // 더미 계정으로 랜덤한 작성자를 갖는 게시글 199개 생성
+        Mbti mbti = mbtiService.getMbti(1L);
+        Random random = new Random();
+        for (int i = 1; i < 200; i++) {
+            Long randomNumber = (long) (random.nextDouble() * (10 - 2 + 1)) + 2;
+            Member member = memberService.findByMemberId(randomNumber);
+            Article article = Article.builder()
+                    .subject(i + "번 게시글 제목")
+                    .content(i + "번 게시글 내용 입니다.")
+                    .mbti(mbti)
+                    .author(member)
+                    .articleImg(null)
+                    .build();
+            articleRepository.save(article);
+        }
+    }
+
+    @Test
+    void makeViewCount() { // 게시글 들에 5000까지 랜덤한 조회수 부여
+        Random random = new Random();
+        for (int i = 1; i < 200; i++) {
+            Long randomNumber = (long) (random.nextDouble() * 5001);
+            Long id = (long) i;
+            Article article = articleService.getArticle(id);
+            Article newArticle = article.toBuilder()
+                    .viewCount(randomNumber)
+                    .build();
+            articleRepository.save(newArticle);
+        }
+    }
+
+
+    @Test
+    void makeComment() { // 게시글 마다 2개의 댓글 생성
+        for (int i = 1; i < 200; i++) {
+            Long id = (long) i;
+            Article article = articleService.getArticle(id);
+            Member member = memberService.getMember("admin");
+            commentService.create(article, "1번 댓글 입니다.", member, null);
+            commentService.create(article, "2번 댓글 입니다.", member, null);
+        }
+    }
+
+
+    @Test
+    void registerMovieGenre() { // 영화 장르와 장르에 맞는 영화 삽입
         List<String> names1 = new ArrayList<>();
         names1.add("매드 맥스");
         names1.add("존 윅");
@@ -133,11 +178,8 @@ class ApplicationTests {
         movieService.createTest("코미디", names4);
     }
 
-    @Autowired
-    MusicService musicService;
-
     @Test
-    void registerMusicGenre() {
+    void registerMusicGenre() { // 음악 장르와 장르에 맞는 음악 삽입
         List<String> names1 = new ArrayList<>();
         names1.add("너에게로 또 다시 - 정승환");
         names1.add("밤편지 - IU");
@@ -164,7 +206,7 @@ class ApplicationTests {
     }
 
     @Test
-    void registerMbtiInfo() {
+    void registerMbtiInfo() { // 각 MBTI 정보 삽입
         Mbti mbti = mbtiService.getMbti(1L);
         Set<Movie> movieSet = new HashSet<>();
         Set<Music> musicSet = new HashSet<>();
