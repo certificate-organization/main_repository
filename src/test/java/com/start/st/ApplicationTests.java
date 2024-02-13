@@ -43,6 +43,8 @@ class ApplicationTests {
     MemberRepository memberRepository;
     @Autowired
     CommentService commentService;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Test
     void activeAll(){ //모든 데이터 한번에 생성
@@ -82,7 +84,7 @@ class ApplicationTests {
         Mbti mbti = mbtiService.getMbti(1L);
         Member member = Member.builder()
                 .membername("admin")
-                .password("1234")
+                .password(passwordEncoder.encode("1234"))
                 .nickname("관리자")
                 .email("admin@email.com")
                 .mbti(mbti)
