@@ -2,8 +2,9 @@ package com.start.st.domain.reportArticle.entity.ReportArticleController;
 
 import com.start.st.domain.reportArticle.entity.ReportArticle;
 import com.start.st.domain.reportArticle.entity.ReportArticleService.ReportArticleService;
-import com.start.st.domain.reportComment.ReportComment;
+
 import com.start.st.domain.reportComment.ReportCommentService.ReportCommentService;
+import com.start.st.domain.reportComment.entity.ReportComment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
