@@ -35,7 +35,7 @@ public class Article extends BaseEntity {
     private Long viewCount;
     @OneToMany(mappedBy = "article", cascade=CascadeType.REMOVE)
     private List<Comment> commentList;
-    @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE)//여기가 수정한 부분(게시글 신고하고 삭제가 안됬던 부분)
     private List<ReportArticle> reportComments;
     private String reportType;
     @Column
