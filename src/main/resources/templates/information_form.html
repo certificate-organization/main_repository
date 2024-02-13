@@ -43,8 +43,10 @@
             </div>
         </div>
         <div class="genre-container">
-            <div class="genre-section" style="height: 180px;">
-                <p>영화</p>
+            <div class="genre-section" style="height: 220px;">
+                <label for="movieList">영화</label>
+                <textarea id="movieList" name="movieList" class="form-control"
+                          style="resize: none; height: 25px; margin-top: 8px;"></textarea>
                 <div class="scrollable-container" style="height: 110px">
                     <div class="form-check" th:each="movie : ${movieList}">
                         <input class="form-check-input" name="movieId" type="checkbox" th:value="${movie.id}"
@@ -55,8 +57,10 @@
                 </div>
             </div>
 
-            <div class="genre-section" style="height: 180px;">
-                <p>음악</p>
+            <div class="genre-section" style="height: 220px;">
+                <label for="musicList">음악</label>
+                <textarea id="musicList" name="musicList" class="form-control"
+                          style="resize: none; height: 25px; margin-top: 8px;"></textarea>
                 <div class="scrollable-container" style="height: 110px">
                     <div class="form-check" th:each="music : ${musicList}">
                         <input class="form-check-input" name="musicId" type="checkbox" th:value="${music.id}"
@@ -88,6 +92,8 @@
                     document.getElementById("relationship").value = selectedMbti.relationship;
                     document.getElementById("celebrity").value = selectedMbti.celebrity;
                     document.getElementById("job").value = selectedMbti.job;
+                    document.getElementById("movieList").value = Array.from(selectedMbti.movieList, movie => movie.genre).join(', ');
+                    document.getElementById("musicList").value = Array.from(selectedMbti.musicList, music => music.genre).join(', ');
 
                     selectedMbtiId = selectedMbti.id;
                 }
