@@ -213,14 +213,14 @@
             <div class="mm">
                 <div th:if="${member != null}" class="movie">
                     <span style="font-size: large;">영화 추천</span>
-                    <div th:if="${movie != null}">
-                        <span th:text="${movie.names}"></span>
+                    <div th:if="${movie != null}" th:each="name :  ${movie.names}">
+                        <span th:text="${name}"></span>
                     </div>
                 </div>
                 <div th:if="${member != null}" class="music">
                     <span style="font-size: large;">음악 추천</span>
-                    <div th:if="${music != null}">
-                        <span th:text="${music.names}"></span>
+                    <div th:if="${music != null}" th:each="name :  ${music.names}">
+                        <span th:text="${name}"></span>
                     </div>
                 </div>
             </div>
