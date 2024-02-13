@@ -98,3 +98,7 @@ footer {
      padding-top: 3%;
      right: 10%;
  }
+
+#repot_list {
+   flex-direction: column;
+}
