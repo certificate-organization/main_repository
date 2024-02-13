@@ -167,11 +167,41 @@ public class StringListConverter implements AttributeConverter<List<String>, Str
 ### 🚨 Issue 3
 ### 🚧 합계 이슈
 
+🚨 Issue 
+🚧 합계 이슈
 A. 이슈 내역
+
+처음 댓글 신고에 대한 모달 라디오 버튼을 구현하여 잘 작동 되었지만 게시글에 대한 신고 모달 라디오 버튼을 구현하였을 때는 먼저 구현한 댓글신고 라디오버튼이 작동 되지 않았다.
+
 - 처음 댓글 신고에 대한 모달 라디오 버튼을 구현하여 잘 작동 되었지만
 게시글에 대한 신고 모달 라디오 버튼을 구현하였을 때는 먼저 구현한 댓글신고 라디오버튼이 작동 되지 않았다.
 <br>
 ## 🛑 원인
+<div aria-hidden="true" aria-labelledby="reportModalArticle" class="modal fade" id="reportArticleModal"tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+                	<div class="modal-header">
+                    		<h1 class="modal-title fs-5" id="reportModalArticle">신고내용</h1>
+                    			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+		</div>
+	</div>
+</div>
+<div aria-hidden="true" aria-labelledby="reportModalComment" class="modal" id="reportCommentModal"tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title fs-5" id="reportModalComment">신고내용</h1>
+					<button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+			</div>
+		</div>
+	</div>
+</div>
+<button class="btn btn-sm btn-outline-secondary" data-bs-target="#reportArticleModal"
+	data-bs-toggle="modal" sec:authorize="isAuthenticated()"
+	type="button">신고
+</button>
+처음에는 id값만 다르게 해줘서 정상 작동되게 해주려 했지만 게시글은 하나인데 댓글은 여러개가 달릴수도 있다는 사실을 간과 하였다. 그래서 따로 댓글을 반복해줘야 하는데 그걸 구현을 안했었다.
 
 ```html
 
@@ -229,6 +259,8 @@ A. 이슈 내역
 ### 🚨 Issue 4
 ### 🚧 합계 이슈
 
+🚥 해결
+그래서 구현을 해주려 했지만 그 과정보다는 자바스크립트를 이용하는 방법이 더 간결하고 가독성이 좋아서 자바스크립트를 사용하였다.
 A. 이슈 내역
 
 - 특정 페이지에서 net::ERR_INCOMPLETE_CHUNKED_ENCODING 200 (OK)
@@ -236,6 +268,12 @@ A. 이슈 내역
 
 <br>
 
+    <script>
+        $(".reportComment").on('click', function() {
+              var commentId = $(this).attr('data-comment-id');
+              $("input[name=commentId]").val(commentId)
+        })
+    </script>
 문제점 설명
 
 - 메인 홈페이지에서 로그인 페이지로 이동하거나 회원가입 페이지로 이동

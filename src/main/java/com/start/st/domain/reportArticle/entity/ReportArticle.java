@@ -33,9 +33,4 @@ public class ReportArticle extends BaseEntity {
     private String radioButtonValue;
 
     private String reportType;
-
-//    @CreatedDate
-//    private LocalDateTime createDate;
-//    @LastModifiedDate
-//    private LocalDateTime modifyDate;
 }

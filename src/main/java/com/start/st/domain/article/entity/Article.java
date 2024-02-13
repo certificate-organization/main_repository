@@ -35,7 +35,7 @@ public class Article extends BaseEntity {
     private Long viewCount;
     @OneToMany(mappedBy = "article", cascade=CascadeType.REMOVE)
     private List<Comment> commentList;
-    @OneToMany(mappedBy = "article")
+    @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE)
     private List<ReportArticle> reportComments;
     private String reportType;
     @Column
