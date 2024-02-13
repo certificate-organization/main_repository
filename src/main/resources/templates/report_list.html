@@ -3,24 +3,24 @@
     <div class="container my-3">
         <br>
         <br>
-        <div class="row align-items-start">
+        <div id="repot_list" class="row align-items-start">
             <!-- 신고된 게시글 목록 -->
             <div class="col">
                 <h3>신고된 게시글 목록</h3>
                 <table class="table">
                     <thead class="table-dark">
                     <tr>
-                        <th style="text-align: center;">게시글번호</th>
-                        <th style="text-align: center;">게시글내용</th>
-                        <th style="text-align: center;">신고자</th>
-                        <th style="text-align: center;">신고 내용</th>
-                        <th style="text-align: center;">신고 유형</th>
-                        <th style="text-align: center;">바로가기</th>
+                        <th class="repot_number" style="text-align: center;">게시글번호</th>
+                        <th class="repot_article" style="text-align: center;">게시글내용</th>
+                        <th class="repot_author" style="text-align: center;">신고자</th>
+                        <th class="repot_content" style="text-align: center;">신고 내용</th>
+                        <th class="repot_list" style="text-align: center;">신고 유형</th>
+                        <th class="repot_link" style="text-align: center;">바로가기</th>
                     </tr>
                     </thead>
                     <tbody>
                     <!-- 게시글 신고 목록 추가 -->
-                    <tr th:each="reportArticle, loop : ${reportArticleList}">
+                    <tr  th:each="reportArticle, loop : ${reportArticleList}">
                         <td style="display: flex;justify-content: center;" th:text="${reportArticle.article.id}"></td>
                         <td th:text="${#strings.replace(reportArticle.article.content, '<p>', '')}"
                             th:utext="${#strings.replace(#strings.replace(reportArticle.article.content, '<p>', ''), '</p>', '')}"></td>
@@ -38,7 +38,7 @@
             </div>
 
             <!-- 신고된 댓글 목록 -->
-            <div class="col">
+            <div class="col" >
                 <h3>신고된 댓글 목록</h3>
                 <table class="table">
                     <thead class="table-dark">
