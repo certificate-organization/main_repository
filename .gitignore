@@ -144,7 +144,7 @@ replay_pid*
 
 # application secret #
 /src/main/resources/application-secret.yml
-
+/src/main/resources/application-secret.yml.default
 # .idea #
 .idea
 
