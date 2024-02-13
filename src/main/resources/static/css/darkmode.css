@@ -43,7 +43,13 @@ body[data-dark_mode=on] {
     background-color: #000;
     color: #fff !important;
 }
-
+body[data-dark_mode=on] .info_separator p,
+body[data-dark_mode=on] .separator p,
+body[data-dark_mode=on] .title__p p,
+body[data-dark_mode=on] .separator,
+body[data-dark_mode=on] .info_separator,
+body[data-dark_mode=on] .article-author,
+body[data-dark_mode=on] .m_links li a,
 body[data-dark_mode=on] .chat_my_bg,
 body[data-dark_mode=on] .chat_you_bg,
 body[data-dark_mode=on] .article-list-subject,
@@ -91,6 +97,12 @@ body[data-dark_mode=on] .a_comment,
 body[data-dark_mode=on] .a_re-comment {
     box-shadow: 0px 1px 0px #ffffff;
 }
+body[data-dark_mode=on] &::before,
+body[data-dark_mode=on] &::after {
+    background: #ffffff;
+}
+
+
 
 /*-------------- dark 모드 end--------------- */
 
