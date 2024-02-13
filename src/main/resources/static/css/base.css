@@ -95,5 +95,6 @@ footer {
 /*-------------navbar 부분 end -------------*/
 .wrap {
      position: absolute;
+     padding-top: 3%;
      right: 10%;
  }

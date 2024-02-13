@@ -231,21 +231,21 @@ A. 이슈 내역
 
 A. 이슈 내역
 
--특정 페이지에서 net::ERR_INCOMPLETE_CHUNKED_ENCODING 200 (OK)
+- 특정 페이지에서 net::ERR_INCOMPLETE_CHUNKED_ENCODING 200 (OK)
 오류가 발생, 페이지가 로딩이 덜되거나 아예 되지않음.
 
 <br>
 
 문제점 설명
 
--메인 홈페이지에서 로그인 페이지로 이동하거나 회원가입 페이지로 이동
+- 메인 홈페이지에서 로그인 페이지로 이동하거나 회원가입 페이지로 이동
 을 하면 해당 페이지가 CHUNKED_ENCODING 200 으로 로드 안됌.
 
--Thymeleaf 문법을 사용한 회원가입/로그인 페이지에서 th:action @{}를 사용하면 해당 템플릿이 pasing 오류로 자주 발생함
+- Thymeleaf 문법을 사용한 회원가입/로그인 페이지에서 th:action @{}를 사용하면 해당 템플릿이 pasing 오류로 자주 발생함
 -오류 메세지에 세션 생성 시점 이나 응답 후 커밋을 확인하라는 메세지가 자주 나오고 spring security 및 csrf 토큰에 대한 오류 메세지가 자주 출력 되었음
 
 ## 🛑 원인
--Thymeleaf가 콘텐츠를 생성하자마자 즉시 출력하기 때문. 프로세서가 갑자기 양식에 도달하면 Spring Security가 시작되고 양식에 CSRF 토큰을 삽입하기 위해 새 세션을 생성하려고 하기 때문에 발생
+- Thymeleaf가 콘텐츠를 생성하자마자 즉시 출력하기 때문. 프로세서가 갑자기 양식에 도달하면 Spring Security가 시작되고 양식에 CSRF 토큰을 삽입하기 위해 새 세션을 생성하려고 하기 때문에 발생
 
 ## 🚥 해결
 
@@ -329,7 +329,7 @@ AJAX(Asynchronous JavaScript and XML) 기술에서 사용되며 데이터 요청
 ## 👍 해결 방안 3. application.yml 파일 설정
 
 `application.yml` 에서
-  ```
+  ``` yml
   thymeleaf:
     servlet:
       produce-partial-output-while-processing: false
