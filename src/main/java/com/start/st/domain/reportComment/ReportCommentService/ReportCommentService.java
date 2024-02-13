@@ -1,7 +1,7 @@
 package com.start.st.domain.reportComment.ReportCommentService;
 
 import com.start.st.domain.reportComment.ReportCommentListRepository.ReportCommentListRepository;
-import com.start.st.domain.reportComment.entity.ReportComment;
+import com.start.st.domain.reportComment.ReportComment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
