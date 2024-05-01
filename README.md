@@ -31,7 +31,7 @@
 ## 🛠 개발환경
 | 분류 | 설명 |
 |:--------:|:--------:|
-| 운영체제  | Chrome   |
+| 운영체제  | Windows 10   |
 | 통항 개발 환경   | IntelliJ   |
 | 프로그래밍 언어   | Java   |
 | 버전 관리 시스템   | Git, Github   |
@@ -52,8 +52,7 @@
 
 ## 👀 시연영상
 
-
-[![Video Label]
+[![movie](https://img.youtube.com/vi/0YNsRvACCoM/0.jpg)](https://www.youtube.com/watch?v=0YNsRvACCoM)
 
 ## 🔥 트러블 슈팅
 
